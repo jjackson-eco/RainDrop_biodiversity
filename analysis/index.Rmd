@@ -8,4 +8,54 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+This research site is the accompaniment of analyses on the impact of drought on biodiversity in a temperate calcareous grassland. We report on findings of the RainDrop experiment in the Upper Seeds meadow of the Wytham site in Oxford, UK. In this introduction, we give a brief description of the site and the experimental design. Then, each additional page of the site walks through analyses on the following topics:
+
+1. Exploratory analysis and plots `#links with [text](file.html) where .html is in docs/`
+2. Drought and biomass
+3. Drought and coverage
+
+## Site description
+
+RainDrop is adjacent to the long term monitoring project at Wytham woods near Oxford, found at 51.771$^\circ$ North and -1.332$^\circ$ East.
+
+```{r site full,echo=FALSE}
+knitr::include_graphics("assets/site_location_full.png", error = FALSE)
+```
+
+The site was gifted to the University of Oxford in 1947, after which various experiments were run on the site. In the late 1970s, there was an attempt to cultivate cereals on the grassland, which was unsuccessful. In summer 1979 cultivation stopped and monitoring of the site began. The meadow is a calcareous grassland, and can be described as a recovering grassland after the cultivation. More specifically, the top of the hill has fossilised coral bedrock (RainDrop experiment), which then moves down in to a conventional grassland and then and floodplain meadow below. The site is home to 107 species, which are mostly grasses. Due to its recovery state it also has a lot of pioneer species. The site is managed through cutting twice a year in June/October, and biomass is removed after cutting.
+
+## The RainDrop experiment
+
+The RainDrop experiment began in Summer 2016 and the key experiment described here is part of the Drought-Net global network, for which information can be found [here](https://drought-net.colostate.edu/). The aim of this coordinated network of experiments is to predict ecological responses to climate change, and specifically how different ecosystems will respond to drought.
+
+The experimental design is a fully randomised block design. At RainDrop, there were 8 initial blocks, of which 5 were chosen for reduced topographical diversity. 
+
+```{r raindrop site,echo=FALSE}
+knitr::include_graphics("assets/site_1.png", error = FALSE)
+```
+
+Each block has 8 experimental plots of 5m x 5m, which have an automated irrigation control system (large rain shelters) for the purpose of this experiment. There are four rainfall treatments that are randomly located in each block:
+
+1. Irrigated (I) - Inreased rainfall (50%)
+2. Drought (D) - Decreased rainfall (50%)
+3. Procedural Control (PC) - Same rain shelter but no rainfall control (turned)
+4. Ambient Control (C) - Ambient
+
+```{r raindrop exp site,echo=FALSE}
+knitr::include_graphics("assets/site_2.png", error = FALSE)
+```
+
+The experiments are turned on in the early spring, and run until the end of the growing season in October, after which all key electrical equipment is removed. The shelters remain year round, but remain in the same orientation as the procedural control. 
+
+## Biodiversity measures
+
+Biodiversity is measured in two key ways at the peak of the growing season (June) and the end of the growing season (September):
+
+1. Species Diversity - percentage aerial cover for all species in a 1m x 1m quadrant in the center of the plot.
+2. Above-ground Biomass - cuttings in 1m x 0.25m strip are sorted by functional group and drymass weighed.
+
+
+
+
+
+
