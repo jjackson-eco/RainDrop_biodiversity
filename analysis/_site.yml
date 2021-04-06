@@ -1,7 +1,7 @@
-name: "RainDrop_biodiversity"
+name: RainDrop_biodiversity
 output_dir: ../docs
 navbar:
-  title: "RainDrop_biodiversity"
+  title: RainDrop_biodiversity
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/jjackson-eco/RainDrop_biodiversity
 output:
   workflowr::wflow_html:
     toc: yes
