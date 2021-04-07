@@ -1,0 +1,62 @@
+---
+title: "Exploratory analysis"
+output:
+  workflowr::wflow_html:
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+Here we present some exploratory analysis and plots investigating general patterns in the two biodiversity measures estimated at the RainDrop site as part of the Drought-Net experiment, above-ground biomass (`biomass`) and species diversity (`percent_cover`). 
+
+First some housekeeping. We'll start by loading the necessary packages for exploring the data
+
+```{r packages, warning=FALSE, error=FALSE, message=FALSE}
+library(tidyverse)
+library(patchwork)
+```
+
+and now the data itself
+
+```{r data load, echo = FALSE}
+load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
+     verbose = TRUE)
+```
+
+And finally here we will create our colour palette for the treatments
+
+```{r colour palette}
+raindrop_colours <- 
+  tibble(treatment = c("Ambient", "Control", "Drought", "Irrigated"),
+         num = rep(100,4),
+         colour = c("#61D94E", "#BFBFBF", "#EB8344", "#6ECCFF")) 
+
+ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
+  geom_col() +
+  scale_fill_manual(values = raindrop_colours$colour) +
+  theme_void()
+```
+
+
+# 1. Above-ground biomass
+<details>
+  <summary>Click here to expand</summary>
+
+Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and their drymass weighed. This occurs once per year (except for 2016, which had measures in June and September).
+
+
+
+</details>
+
+# 2. Species diversity
+<details>
+  <summary>Click here to expand</summary>
+
+Shannon-Weiner diversity index per block/treatment/year, we already have relative abundances
+
+```{r}
+#H.I <- -sum(pI*log(pI))
+```
+
+  
+</details>

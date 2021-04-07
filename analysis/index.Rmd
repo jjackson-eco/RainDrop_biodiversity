@@ -3,22 +3,24 @@ title: "Introduction"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
 editor_options:
   chunk_output_type: console
 ---
 
 This research site is the accompaniment of analyses on the impact of drought on biodiversity in a temperate calcareous grassland. We report on findings of the RainDrop experiment in the Upper Seeds meadow of the Wytham site in Oxford, UK. In this introduction, we give a brief description of the site and the experimental design. Then, each additional page of the site walks through analyses on the following topics:
 
-1. Exploratory analysis and plots `#links with [text](file.html) where .html is in docs/`
-2. Drought and biomass
-3. Drought and coverage
+* Exploratory analysis and plots `#links with [text](file.html) where .html is in docs/`
+* Drought and biomass
+* Drought and coverage
+
+Session information, including packages and versions, can be found at the bottom of each page.
 
 ## Site description
 
-RainDrop is adjacent to the long term monitoring project at Wytham woods near Oxford, found at 51.771$^\circ$ North and -1.332$^\circ$ East.
+RainDrop is adjacent to the long term monitoring project at Wytham woods near Oxford, found at 51.771$^\circ$ North and -1.332$^\circ$ East (images from Google Earth).
 
-```{r site full,echo=FALSE}
+```{r site full,echo=FALSE, out.extra= "sub = 'from Google Earth'"}
 knitr::include_graphics("assets/site_location_full.png", error = FALSE)
 ```
 
@@ -30,18 +32,24 @@ The RainDrop experiment began in Summer 2016 and the key experiment described he
 
 The experimental design is a fully randomised block design. At RainDrop, there were 8 initial blocks, of which 5 were chosen for reduced topographical diversity. 
 
-```{r raindrop site,echo=FALSE}
+```{r raindrop site,echo=FALSE, out.width=400}
 knitr::include_graphics("assets/site_1.png", error = FALSE)
 ```
 
-Each block has 8 experimental plots of 5m x 5m, which have an automated irrigation control system (large rain shelters) for the purpose of this experiment. There are four rainfall treatments that are randomly located in each block:
+Each block has 8 experimental plots of 5m x 5m, which have automated irrigation control systems (large rain shelters) for the purpose of this experiment. Below you can see the structure of the rainfall shelters. 
+
+```{r raindrop shelters,echo=FALSE, out.width=500}
+knitr::include_graphics("assets/rain_shelters.png", error = FALSE)
+```
+
+There are four rainfall treatments that are randomly located in each block:
 
 1. Irrigated (I) - Inreased rainfall (50%)
 2. Drought (D) - Decreased rainfall (50%)
 3. Procedural Control (PC) - Same rain shelter but no rainfall control (turned)
 4. Ambient Control (C) - Ambient
 
-```{r raindrop exp site,echo=FALSE}
+```{r raindrop exp site,echo=FALSE, out.width=500}
 knitr::include_graphics("assets/site_2.png", error = FALSE)
 ```
 
@@ -49,11 +57,10 @@ The experiments are turned on in the early spring, and run until the end of the 
 
 ## Biodiversity measures
 
-Biodiversity is measured in two key ways at the peak of the growing season (June) and the end of the growing season (September):
+Biodiversity is measured in two key ways at the peak of the growing season (June) and the end of the growing season (September), each occurring before the management cutting of the site:
 
-1. Species Diversity - percentage aerial cover for all species in a 1m x 1m quadrant in the center of the plot.
-2. Above-ground Biomass - cuttings in 1m x 0.25m strip are sorted by functional group and drymass weighed.
-
+1. Above-ground Biomass - cuttings in 1m x 0.25m strips (from ~1cm above the ground) are sorted by functional group and their drymass weighed.
+2. Species Diversity - percentage aerial cover for all species in a 1m x 1m quadrant in the center of the plot.
 
 
 

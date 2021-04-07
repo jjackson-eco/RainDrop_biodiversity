@@ -5,8 +5,8 @@ navbar:
   left:
   - text: Introduction
     href: index.html
-  - text: About
-    href: about.html
+  - text: Exploratory analysis
+    href: exploratory_analysis.html
   - text: License
     href: license.html
   right:
