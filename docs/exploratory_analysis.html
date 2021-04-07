@@ -11,7 +11,7 @@
 
 
 
-<title>Introduction</title>
+<title>Exploratory analysis</title>
 
 <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -356,7 +356,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Introduction</h1>
+<h1 class="title toc-ignore">Exploratory analysis</h1>
 
 </div>
 
@@ -508,7 +508,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/exploratory_analysis.Rmd</code>) and HTML (<code>docs/exploratory_analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -537,7 +537,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/9381cc926c6a55c3949a0aacc2c3b63a039b6c9b/analysis/index.Rmd" target="_blank">9381cc9</a>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/9381cc926c6a55c3949a0aacc2c3b63a039b6c9b/analysis/exploratory_analysis.Rmd" target="_blank">9381cc9</a>
 </td>
 <td>
 jjackson-eco
@@ -549,108 +549,6 @@ jjackson-eco
 wflow_publish(files = c(“README.md”, "analysis/_site.yml“,”analysis/exploratory_analysis.Rmd",
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/624d2cf9b5f23791a5a75e52cf620700f08ec9b2/docs/index.html" target="_blank">624d2cf</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/3330421033d0537a5547fc13b453e069c65a218c/analysis/index.Rmd" target="_blank">3330421</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-Adding introduction
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/163401ee9a46fdb8ac9fca57e469a9646e28133b/docs/index.html" target="_blank">163401e</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/37e569f2b87899f0348463c2a8261fd74b3b97dd/analysis/index.Rmd" target="_blank">37e569f</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-changing titles
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/21d739f2cb1eb4c1c9e932e85cd27482c9a355ee/docs/index.html" target="_blank">21d739f</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/c207d3037c425093c3e5b4950107ff4fa21c8f35/analysis/index.Rmd" target="_blank">c207d30</a>
-</td>
-<td>
-jjackson-eco
-</td>
-<td>
-2021-04-06
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -658,43 +556,43 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>This research site is the accompaniment of analyses on the impact of drought on biodiversity in a temperate calcareous grassland. We report on findings of the RainDrop experiment in the Upper Seeds meadow of the Wytham site in Oxford, UK. In this introduction, we give a brief description of the site and the experimental design. Then, each additional page of the site walks through analyses on the following topics:</p>
-<ul>
-<li>Exploratory analysis and plots <code>#links with [text](file.html) where .html is in docs/</code></li>
-<li>Drought and biomass</li>
-<li>Drought and coverage</li>
-</ul>
-<p>Session information, including packages and versions, can be found at the bottom of each page.</p>
-<div id="site-description" class="section level2">
-<h2>Site description</h2>
-<p>RainDrop is adjacent to the long term monitoring project at Wytham woods near Oxford, found at 51.771<span class="math inline">\(^\circ\)</span> North and -1.332<span class="math inline">\(^\circ\)</span> East (images from Google Earth).</p>
-<p><img src="assets/site_location_full.png" sub = 'from Google Earth' style="display: block; margin: auto;" /></p>
-<p>The site was gifted to the University of Oxford in 1947, after which various experiments were run on the site. In the late 1970s, there was an attempt to cultivate cereals on the grassland, which was unsuccessful. In summer 1979 cultivation stopped and monitoring of the site began. The meadow is a calcareous grassland, and can be described as a recovering grassland after the cultivation. More specifically, the top of the hill has fossilised coral bedrock (RainDrop experiment), which then moves down in to a conventional grassland and then and floodplain meadow below. The site is home to 107 species, which are mostly grasses. Due to its recovery state it also has a lot of pioneer species. The site is managed through cutting twice a year in June/October, and biomass is removed after cutting.</p>
+<p>Here we present some exploratory analysis and plots investigating general patterns in the two biodiversity measures estimated at the RainDrop site as part of the Drought-Net experiment, above-ground biomass (<code>biomass</code>) and species diversity (<code>percent_cover</code>).</p>
+<p>First some housekeeping. We’ll start by loading the necessary packages for exploring the data</p>
+<pre class="r"><code>library(tidyverse)
+library(patchwork)</code></pre>
+<p>and now the data itself</p>
+<pre><code>Loading objects:
+  biomass
+  percent_cover</code></pre>
+<p>And finally here we will create our colour palette for the treatments</p>
+<pre class="r"><code>raindrop_colours &lt;- 
+  tibble(treatment = c(&quot;Ambient&quot;, &quot;Control&quot;, &quot;Drought&quot;, &quot;Irrigated&quot;),
+         num = rep(100,4),
+         colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;)) 
+
+ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
+  geom_col() +
+  scale_fill_manual(values = raindrop_colours$colour) +
+  theme_void()</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/colour%20palette-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="above-ground-biomass" class="section level1">
+<h1>1. Above-ground biomass</h1>
+<details>
+<summary>
+Click here to expand
+</summary>
+<p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and their drymass weighed. This occurs once per year (except for 2016, which had measures in June and September).</p>
+</details>
 </div>
-<div id="the-raindrop-experiment" class="section level2">
-<h2>The RainDrop experiment</h2>
-<p>The RainDrop experiment began in Summer 2016 and the key experiment described here is part of the Drought-Net global network, for which information can be found <a href="https://drought-net.colostate.edu/">here</a>. The aim of this coordinated network of experiments is to predict ecological responses to climate change, and specifically how different ecosystems will respond to drought.</p>
-<p>The experimental design is a fully randomised block design. At RainDrop, there were 8 initial blocks, of which 5 were chosen for reduced topographical diversity.</p>
-<p><img src="assets/site_1.png" width="400" style="display: block; margin: auto;" /></p>
-<p>Each block has 8 experimental plots of 5m x 5m, which have automated irrigation control systems (large rain shelters) for the purpose of this experiment. Below you can see the structure of the rainfall shelters.</p>
-<p><img src="assets/rain_shelters.png" width="500" style="display: block; margin: auto;" /></p>
-<p>There are four rainfall treatments that are randomly located in each block:</p>
-<ol style="list-style-type: decimal">
-<li>Irrigated (I) - Inreased rainfall (50%)</li>
-<li>Drought (D) - Decreased rainfall (50%)</li>
-<li>Procedural Control (PC) - Same rain shelter but no rainfall control (turned)</li>
-<li>Ambient Control (C) - Ambient</li>
-</ol>
-<p><img src="assets/site_2.png" width="500" style="display: block; margin: auto;" /></p>
-<p>The experiments are turned on in the early spring, and run until the end of the growing season in October, after which all key electrical equipment is removed. The shelters remain year round, but remain in the same orientation as the procedural control.</p>
-</div>
-<div id="biodiversity-measures" class="section level2">
-<h2>Biodiversity measures</h2>
-<p>Biodiversity is measured in two key ways at the peak of the growing season (June) and the end of the growing season (September), each occurring before the management cutting of the site:</p>
-<ol style="list-style-type: decimal">
-<li>Above-ground Biomass - cuttings in 1m x 0.25m strips (from ~1cm above the ground) are sorted by functional group and their drymass weighed.</li>
-<li>Species Diversity - percentage aerial cover for all species in a 1m x 1m quadrant in the center of the plot.</li>
-</ol>
+<div id="species-diversity" class="section level1">
+<h1>2. Species diversity</h1>
+<details>
+<summary>
+Click here to expand
+</summary>
+<p>Shannon-Weiner diversity index per block/treatment/year, we already have relative abundances</p>
+<pre class="r"><code>#H.I &lt;- -sum(pI*log(pI))</code></pre>
+</details>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -720,19 +618,27 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.6.2
+ [1] patchwork_1.1.1 forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5    
+ [5] purrr_0.3.4     readr_1.4.0     tidyr_1.1.3     tibble_3.1.0   
+ [9] ggplot2_3.3.3   tidyverse_1.3.0 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6        whisker_0.4       knitr_1.31        magrittr_2.0.1   
- [5] R6_2.5.0          rlang_0.4.10      fansi_0.4.2       highr_0.8        
- [9] stringr_1.4.0     tools_4.0.5       xfun_0.22         utf8_1.2.1       
-[13] git2r_0.28.0      jquerylib_0.1.3   htmltools_0.5.1.1 ellipsis_0.3.1   
-[17] rprojroot_2.0.2   yaml_2.2.1        digest_0.6.27     tibble_3.1.0     
-[21] lifecycle_1.0.0   crayon_1.4.1      later_1.1.0.1     sass_0.3.1       
-[25] vctrs_0.3.7       promises_1.2.0.1  fs_1.5.0          glue_1.4.2       
-[29] evaluate_0.14     rmarkdown_2.7     stringi_1.5.3     bslib_0.2.4      
-[33] compiler_4.0.5    pillar_1.5.1      jsonlite_1.7.2    httpuv_1.5.5     
-[37] pkgconfig_2.0.3  </code></pre>
+ [1] Rcpp_1.0.6        lubridate_1.7.10  ps_1.6.0          assertthat_0.2.1 
+ [5] rprojroot_2.0.2   digest_0.6.27     utf8_1.2.1        R6_2.5.0         
+ [9] cellranger_1.1.0  backports_1.2.1   reprex_2.0.0      evaluate_0.14    
+[13] highr_0.8         httr_1.4.2        pillar_1.5.1      rlang_0.4.10     
+[17] readxl_1.3.1      rstudioapi_0.13   whisker_0.4       jquerylib_0.1.3  
+[21] rmarkdown_2.7     labeling_0.4.2    munsell_0.5.0     broom_0.7.5      
+[25] compiler_4.0.5    httpuv_1.5.5      modelr_0.1.8      xfun_0.22        
+[29] pkgconfig_2.0.3   htmltools_0.5.1.1 tidyselect_1.1.0  fansi_0.4.2      
+[33] crayon_1.4.1      dbplyr_2.1.0      withr_2.4.1       later_1.1.0.1    
+[37] grid_4.0.5        jsonlite_1.7.2    gtable_0.3.0      lifecycle_1.0.0  
+[41] DBI_1.1.1         git2r_0.28.0      magrittr_2.0.1    scales_1.1.1     
+[45] cli_2.3.1         stringi_1.5.3     farver_2.1.0      fs_1.5.0         
+[49] promises_1.2.0.1  xml2_1.3.2        bslib_0.2.4       ellipsis_0.3.1   
+[53] generics_0.1.0    vctrs_0.3.7       tools_4.0.5       glue_1.4.2       
+[57] hms_1.0.0         yaml_2.2.1        colorspace_2.0-0  rvest_1.0.0      
+[61] knitr_1.31        haven_2.3.1       sass_0.3.1       </code></pre>
 </div>
 </div>
 
