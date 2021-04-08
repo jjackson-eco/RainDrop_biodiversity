@@ -59,6 +59,8 @@ glimpse(biomass)
 * $**group**     - functional group of measurement (category "Bryophytes", "Dead", "Forbs", "Graminoids", "Legumes" and "Woody")
 * $**biomass_g** - above-ground dry mass in grams (continuous)
 
+***
+
 ## Biomass variable
 
 Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass. If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
@@ -89,11 +91,13 @@ ggplot(biomass, aes(x = biomass_log)) +
 
 Using the ln biomass variable, we can explore patterns relating to our drought treatments, functional groups, temporal patterns and any potential block effects.
 
+***
+
 ## Total biomass
 
 The first interesting question to explore is how biomass overall, which indicates primary productivity, is affected by the rainfall treatments. Here we need to sum up the biomass across functional groups. We again look at the $\ln$ total biomass too. We present here the density plots (violins) with median (total biomass) and mean ($\ln$ total biomass) points (large holes) as well as underlying raw data (small points).
 
-```{r total biomass, echo = T}
+```{r total biomass}
 totbiomass <- biomass %>% 
   group_by(year, harvest, block, treatment) %>% 
   summarise(tot_biomass = sum(biomass_g),
@@ -114,7 +118,7 @@ tb_1 <- totbiomass %>%
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
   labs(x = "Rainfall treatment", y = "Total above-ground biomass (g)") +
-  theme_bw(base_size = 14) +
+  theme_bw(base_size = 20) +
   theme(panel.grid = element_blank())
 
 tb_2 <- totbiomass %>% 
@@ -128,7 +132,7 @@ tb_2 <- totbiomass %>%
                     guide = F) +
   labs(x = "Rainfall treatment", 
        y = expression(paste(ln, " Total above-ground biomass"))) +
-  theme_bw(base_size = 14) +
+  theme_bw(base_size = 20) +
   theme(panel.grid = element_blank())
 
 tb_1 + tb_2
@@ -151,7 +155,7 @@ totbiomass <- totbiomass %>%
 totbiomass %>% 
   ggplot(aes(x = date, y = log_tot_biomass, colour = treatment, 
              group = treatment, shape = harvest)) +
-  stat_summary(geom = "line", fun = mean, size = 1) +
+  stat_summary(geom = "line", fun = mean, size = 0.9) +
   stat_summary(geom = "point", fun = mean, size = 3) +
   scale_colour_manual(values = raindrop_colours$colour) +
   labs(x = "Year", y = expression(paste("Mean ", ln, " total biomass")),
@@ -161,24 +165,88 @@ totbiomass %>%
 
 ```
 
-And also splitting out the harvests
+And also splitting out the harvests, as the end of the growing season has lower biomass
 
 ```{r tot biomass temporal 2, fig.width= 12, fig.height= 5}
 totbiomass %>% 
   ggplot(aes(x = year, y = log_tot_biomass, colour = treatment, 
              group = treatment)) +
-  stat_summary(geom = "line", fun = mean, size = 1) +
+  stat_summary(geom = "line", fun = mean, size = 0.9) +
   stat_summary(geom = "point", fun = mean, size = 3) +
   scale_colour_manual(values = raindrop_colours$colour) +
   labs(x = "Year", y = expression(paste("Mean ", ln, " total biomass")),
        colour = "Treatment") +
   facet_wrap(~harvest) +
-  theme_bw(base_size = 14) +
+  theme_bw(base_size = 20) +
   theme(panel.grid = element_blank(),
         strip.background = element_blank())
 ```
 
+It looks like there may have been declines in total biomass over the years (perhaps reflecting wider climatic patterns?), but this also seems to be more prominent in the drought treatment.
 
+Finally for total biomass, we want to look if we have any evidence for block effects at the experimental site. Here we will repeat the first treatment violin plot, but splitting by block. Here each violin is a different block (A-E from left to right) with the 50% quantile.
+
+```{r total biomass block, fig.width= 6, fig.height= 5}
+totbiomass %>% 
+  ggplot(aes(x = treatment, y = log_tot_biomass, 
+             fill = treatment, 
+             group = interaction(treatment, block))) +
+  geom_violin(draw_quantiles = 0.5) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", 
+       y = expression(paste(ln, " Total above-ground biomass"))) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+It seems that largely blocks are consistent across the RainDrop site.
+
+***
+
+## Group-level biomass
+
+Now we can go a little further and look at whether we observe any differences in biomass between different functional groups, which occur at different proportions. First, lets look at the overall differences in biomass, or relative biomass, between functional groups.
+
+```{r functional group biomass, fig.width= 6, fig.height= 5}
+biomass %>% 
+  ggplot(aes(x = group, y = biomass_log, 
+             fill = group)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 5, shape = 21, fill = "white") +
+  geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
+  scale_fill_brewer(palette = "Set2", guide = F) +
+  labs(x = "Functional group", 
+       y = expression(paste(ln, " Above-ground biomass"))) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+  
+```
+
+We can see that there is a large representation (as expected) of Graminoids, and lower representation of Woody species and Bryophytes.
+
+Now lets look at the rainfall treatments by functional group.
+
+```{r functional group treatment, fig.width= 12, fig.height= 12}
+biomass %>% 
+  ggplot(aes(x = treatment, y = biomass_log, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 5, shape = 21, fill = "white") +
+  geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", 
+       y = expression(paste(ln, " Above-ground biomass"))) +
+  facet_wrap(~ group, ncol = 2) +
+  theme_bw(base_size = 22) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+It isn't as clear hear as total biomass. However, for the group with the most representation, the Graminoids, this reduction in the drought treatment looks to be maintained.
 
 </details>
 
