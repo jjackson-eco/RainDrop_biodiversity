@@ -3,29 +3,29 @@ title: "Exploratory analysis"
 output:
   workflowr::wflow_html:
     toc: true
+    code_folding: hide 
 editor_options:
   chunk_output_type: console
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
 Here we present some exploratory analysis and plots investigating general patterns in the two biodiversity measures estimated at the RainDrop site as part of the Drought-Net experiment, above-ground biomass (`biomass`) and species diversity (`percent_cover`). 
 
-First some housekeeping. We'll start by loading the necessary packages for exploring the data
+First some housekeeping. We'll start by loading the necessary packages for exploring the data, the data itself and then specifying the colour palette for the treatments.
 
-```{r packages, warning=FALSE, error=FALSE, message=FALSE}
+```{r packages data load colours, fig.width = 5, fig.height = 2}
+# packages
 library(tidyverse)
 library(patchwork)
-```
 
-and now the data itself
-
-```{r data load, echo = FALSE}
+# load data
 load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
      verbose = TRUE)
-```
 
-And finally here we will create our colour palette for the treatments
-
-```{r colour palette}
+# colours
 raindrop_colours <- 
   tibble(treatment = c("Ambient", "Control", "Drought", "Irrigated"),
          num = rep(100,4),
@@ -33,16 +33,150 @@ raindrop_colours <-
 
 ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
   geom_col() +
+  geom_text(aes(label = colour, x = treatment, y = 50), size = 3) +
   scale_fill_manual(values = raindrop_colours$colour) +
   theme_void()
 ```
-
 
 # 1. Above-ground biomass
 <details>
   <summary>Click here to expand</summary>
 
-Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and their drymass weighed. This occurs once per year (except for 2016, which had measures in June and September).
+## Data summary
+
+Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70$^\circ$C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.
+
+Here a summary of the data:
+
+```{r biomass glimpse}
+glimpse(biomass)
+```
+
+* $**year**      - year of measurement (integer 2016-2020)
+* $**harvest**   - point of the growing season when harvest occur (category "Mid" and "End")
+* $**block**     - block of experiment (category A-E)
+* $**treatment** - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
+* $**group**     - functional group of measurement (category "Bryophytes", "Dead", "Forbs", "Graminoids", "Legumes" and "Woody")
+* $**biomass_g** - above-ground dry mass in grams (continuous)
+
+## Biomass variable
+
+Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass. If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
+
+```{r biomass raw hist, fig.width= 5, fig.height= 3}
+biomass <- biomass %>% 
+  filter(biomass_g > 0)
+
+ggplot(biomass, aes(x = biomass_g)) +
+  geom_histogram(bins = 20) +
+  labs(x = "Above-ground biomass (g)", y = "Frequency") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+So, instead, for statistical analysis and visualisation, we take the natural logarithm $\ln$ of the raw biomass value.
+
+```{r biomass log hist, fig.width= 5, fig.height= 3}
+biomass <- biomass %>% 
+  mutate(biomass_log = log(biomass_g))
+
+ggplot(biomass, aes(x = biomass_log)) +
+  geom_histogram(bins = 20) +
+  labs(x = expression(paste(ln," Above-ground biomass")), y = "Frequency") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+Using the ln biomass variable, we can explore patterns relating to our drought treatments, functional groups, temporal patterns and any potential block effects.
+
+## Total biomass
+
+The first interesting question to explore is how biomass overall, which indicates primary productivity, is affected by the rainfall treatments. Here we need to sum up the biomass across functional groups. We again look at the $\ln$ total biomass too. We present here the density plots (violins) with median (total biomass) and mean ($\ln$ total biomass) points (large holes) as well as underlying raw data (small points).
+
+```{r total biomass, echo = T}
+totbiomass <- biomass %>% 
+  group_by(year, harvest, block, treatment) %>% 
+  summarise(tot_biomass = sum(biomass_g),
+            log_tot_biomass = log(tot_biomass)) %>% 
+  ungroup()
+```
+
+And now we can look at how this is affected by the rainfall treatments.
+
+```{r total biomass treatment, fig.width= 12, fig.height= 5}
+tb_1 <- totbiomass %>% 
+  ggplot(aes(x = treatment, y = tot_biomass, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = median, geom = "point", 
+               size = 6, shape = 21, fill = "white") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", y = "Total above-ground biomass (g)") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+tb_2 <- totbiomass %>% 
+  ggplot(aes(x = treatment, y = log_tot_biomass, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 6, shape = 21, fill = "white") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", 
+       y = expression(paste(ln, " Total above-ground biomass"))) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+tb_1 + tb_2
+
+```
+
+Across all functional groups, years and blocks, it looks like there is a reduction in total biomass associated with the drought treatment. 
+
+Now we'll look at potential temporal effects i.e. whether there is a change in total biomass over time. We first have to add in temporal information to the year and harvest columns, and then we can plot out the total biomass.
+
+```{r tot biomass temporal, fig.width= 7, fig.height= 5}
+
+# adding temporal information
+totbiomass <- totbiomass %>% 
+  mutate(month = if_else(harvest == "End", 9, 6),
+         date = as.Date(paste0(year,"-",month,"-15")),
+         harvest = factor(harvest, levels = c("Mid", "End")))
+
+# plots
+totbiomass %>% 
+  ggplot(aes(x = date, y = log_tot_biomass, colour = treatment, 
+             group = treatment, shape = harvest)) +
+  stat_summary(geom = "line", fun = mean, size = 1) +
+  stat_summary(geom = "point", fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = "Year", y = expression(paste("Mean ", ln, " total biomass")),
+       colour = "Treatment", shape = "Harvest") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+```
+
+And also splitting out the harvests
+
+```{r tot biomass temporal 2, fig.width= 12, fig.height= 5}
+totbiomass %>% 
+  ggplot(aes(x = year, y = log_tot_biomass, colour = treatment, 
+             group = treatment)) +
+  stat_summary(geom = "line", fun = mean, size = 1) +
+  stat_summary(geom = "point", fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = "Year", y = expression(paste("Mean ", ln, " total biomass")),
+       colour = "Treatment") +
+  facet_wrap(~harvest) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
 
 
 
@@ -58,5 +192,4 @@ Shannon-Weiner diversity index per block/treatment/year, we already have relativ
 #H.I <- -sum(pI*log(pI))
 ```
 
-  
 </details>

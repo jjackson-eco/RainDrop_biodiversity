@@ -4,13 +4,14 @@ site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
     toc: true
+    code_folding: hide 
 editor_options:
   chunk_output_type: console
 ---
 
 This research site is the accompaniment of analyses on the impact of drought on biodiversity in a temperate calcareous grassland. We report on findings of the RainDrop experiment in the Upper Seeds meadow of the Wytham site in Oxford, UK. In this introduction, we give a brief description of the site and the experimental design. Then, each additional page of the site walks through analyses on the following topics:
 
-* Exploratory analysis and plots `#links with [text](file.html) where .html is in docs/`
+* [Exploratory analysis and plots](exploratory_analysis.html) 
 * Drought and biomass
 * Drought and coverage
 
