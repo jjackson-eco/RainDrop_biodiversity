@@ -39,8 +39,6 @@ ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
 ```
 
 # 1. Above-ground biomass
-<details>
-  <summary>Click here to expand</summary>
 
 ## Data summary
 
@@ -248,16 +246,12 @@ biomass %>%
 
 It isn't as clear hear as total biomass. However, for the group with the most representation, the Graminoids, this reduction in the drought treatment looks to be maintained.
 
-</details>
+***
 
 # 2. Species diversity
-<details>
-  <summary>Click here to expand</summary>
 
 Shannon-Weiner diversity index per block/treatment/year, we already have relative abundances
 
 ```{r}
 #H.I <- -sum(pI*log(pI))
 ```
-
-</details>
