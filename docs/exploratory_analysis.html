@@ -33,6 +33,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -230,6 +231,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -354,6 +358,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Exploratory analysis</h1>
@@ -381,7 +393,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-07
+<strong>Last updated:</strong> 2021-04-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -472,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree9381cc926c6a55c3949a0aacc2c3b63a039b6c9btargetblank9381cc9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/9381cc926c6a55c3949a0aacc2c3b63a039b6c9b" target="_blank">9381cc9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreef8308afec68486d61e55d5dc56f0a9070f50786etargetblankf8308afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/f8308afec68486d61e55d5dc56f0a9070f50786e" target="_blank">f8308af</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree9381cc926c6a55c3949a0aacc2c3b63a039b6c9btargetblank9381cc9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreef8308afec68486d61e55d5dc56f0a9070f50786etargetblankf8308afa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/9381cc926c6a55c3949a0aacc2c3b63a039b6c9b" target="_blank">9381cc9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/f8308afec68486d61e55d5dc56f0a9070f50786e" target="_blank">f8308af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -490,7 +502,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/site_libs/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -537,6 +548,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/f8308afec68486d61e55d5dc56f0a9070f50786e/analysis/exploratory_analysis.Rmd" target="_blank">f8308af</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-08
+</td>
+<td>
+exploration for biomass
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/7a899b49ff24c0bbb398411a242fdb1b6c32e058/docs/exploratory_analysis.html" target="_blank">7a899b4</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/9381cc926c6a55c3949a0aacc2c3b63a039b6c9b/analysis/exploratory_analysis.Rmd" target="_blank">9381cc9</a>
 </td>
 <td>
@@ -557,32 +602,155 @@ wflow_publish(files = c(“README.md”, "analysis/_site.yml“,”analysis/expl
 </div>
 </div>
 <p>Here we present some exploratory analysis and plots investigating general patterns in the two biodiversity measures estimated at the RainDrop site as part of the Drought-Net experiment, above-ground biomass (<code>biomass</code>) and species diversity (<code>percent_cover</code>).</p>
-<p>First some housekeeping. We’ll start by loading the necessary packages for exploring the data</p>
-<pre class="r"><code>library(tidyverse)
-library(patchwork)</code></pre>
-<p>and now the data itself</p>
+<p>First some housekeeping. We’ll start by loading the necessary packages for exploring the data, the data itself and then specifying the colour palette for the treatments.</p>
+<pre class="r"><code># packages
+library(tidyverse)
+library(patchwork)
+
+# load data
+load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData&quot;, 
+     verbose = TRUE)</code></pre>
 <pre><code>Loading objects:
   biomass
   percent_cover</code></pre>
-<p>And finally here we will create our colour palette for the treatments</p>
-<pre class="r"><code>raindrop_colours &lt;- 
+<pre class="r"><code># colours
+raindrop_colours &lt;- 
   tibble(treatment = c(&quot;Ambient&quot;, &quot;Control&quot;, &quot;Drought&quot;, &quot;Irrigated&quot;),
          num = rep(100,4),
          colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;)) 
 
 ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
   geom_col() +
+  geom_text(aes(label = colour, x = treatment, y = 50), size = 3) +
   scale_fill_manual(values = raindrop_colours$colour) +
   theme_void()</code></pre>
-<p><img src="figure/exploratory_analysis.Rmd/colour%20palette-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/exploratory_analysis.Rmd/packages%20data%20load%20colours-1.png" width="480" style="display: block; margin: auto;" /></p>
 <div id="above-ground-biomass" class="section level1">
 <h1>1. Above-ground biomass</h1>
 <details>
 <summary>
 Click here to expand
 </summary>
-<p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and their drymass weighed. This occurs once per year (except for 2016, which had measures in June and September).</p>
+<div id="data-summary" class="section level2">
+<h2>Data summary</h2>
+<p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70<span class="math inline">\(^\circ\)</span>C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.</p>
+<p>Here a summary of the data:</p>
+<pre class="r"><code>glimpse(biomass)</code></pre>
+<pre><code>Rows: 1,199
+Columns: 6
+$ year      &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, ~
+$ harvest   &lt;chr&gt; &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid~
+$ block     &lt;chr&gt; &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, ~
+$ treatment &lt;chr&gt; &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambi~
+$ group     &lt;chr&gt; &quot;Bryophytes&quot;, &quot;Dead&quot;, &quot;Forbs&quot;, &quot;Graminoids&quot;, &quot;Legumes&quot;, &quot;Woo~
+$ biomass_g &lt;dbl&gt; 0.7, 4.5, 16.5, 49.7, 7.7, 0.0, 0.3, 2.4, 20.0, 46.7, 3.6, 1~</code></pre>
+<ul>
+<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
+<li>$<strong>harvest</strong> - point of the growing season when harvest occur (category “Mid” and “End”)</li>
+<li>$<strong>block</strong> - block of experiment (category A-E)</li>
+<li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
+<li>$<strong>group</strong> - functional group of measurement (category “Bryophytes”, “Dead”, “Forbs”, “Graminoids”, “Legumes” and “Woody”)</li>
+<li>$<strong>biomass_g</strong> - above-ground dry mass in grams (continuous)</li>
+</ul>
+</div>
+<div id="biomass-variable" class="section level2">
+<h2>Biomass variable</h2>
+<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass. If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
+<pre class="r"><code>biomass &lt;- biomass %&gt;% 
+  filter(biomass_g &gt; 0)
+
+ggplot(biomass, aes(x = biomass_g)) +
+  geom_histogram(bins = 20) +
+  labs(x = &quot;Above-ground biomass (g)&quot;, y = &quot;Frequency&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/biomass%20raw%20hist-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>So, instead, for statistical analysis and visualisation, we take the natural logarithm <span class="math inline">\(\ln\)</span> of the raw biomass value.</p>
+<pre class="r"><code>biomass &lt;- biomass %&gt;% 
+  mutate(biomass_log = log(biomass_g))
+
+ggplot(biomass, aes(x = biomass_log)) +
+  geom_histogram(bins = 20) +
+  labs(x = expression(paste(ln,&quot; Above-ground biomass&quot;)), y = &quot;Frequency&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/biomass%20log%20hist-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Using the ln biomass variable, we can explore patterns relating to our drought treatments, functional groups, temporal patterns and any potential block effects.</p>
+</div>
+<div id="total-biomass" class="section level2">
+<h2>Total biomass</h2>
+<p>The first interesting question to explore is how biomass overall, which indicates primary productivity, is affected by the rainfall treatments. Here we need to sum up the biomass across functional groups. We again look at the <span class="math inline">\(\ln\)</span> total biomass too. We present here the density plots (violins) with median (total biomass) and mean (<span class="math inline">\(\ln\)</span> total biomass) points (large holes) as well as underlying raw data (small points).</p>
+<pre class="r"><code>totbiomass &lt;- biomass %&gt;% 
+  group_by(year, harvest, block, treatment) %&gt;% 
+  summarise(tot_biomass = sum(biomass_g),
+            log_tot_biomass = log(tot_biomass)) %&gt;% 
+  ungroup()</code></pre>
+<p>And now we can look at how this is affected by the rainfall treatments.</p>
+<pre class="r"><code>tb_1 &lt;- totbiomass %&gt;% 
+  ggplot(aes(x = treatment, y = tot_biomass, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = median, geom = &quot;point&quot;, 
+               size = 6, shape = 21, fill = &quot;white&quot;) +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Total above-ground biomass (g)&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+tb_2 &lt;- totbiomass %&gt;% 
+  ggplot(aes(x = treatment, y = log_tot_biomass, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
+               size = 6, shape = 21, fill = &quot;white&quot;) +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, 
+       y = expression(paste(ln, &quot; Total above-ground biomass&quot;))) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+tb_1 + tb_2</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/total%20biomass%20treatment-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Across all functional groups, years and blocks, it looks like there is a reduction in total biomass associated with the drought treatment.</p>
+<p>Now we’ll look at potential temporal effects i.e. whether there is a change in total biomass over time. We first have to add in temporal information to the year and harvest columns, and then we can plot out the total biomass.</p>
+<pre class="r"><code># adding temporal information
+totbiomass &lt;- totbiomass %&gt;% 
+  mutate(month = if_else(harvest == &quot;End&quot;, 9, 6),
+         date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;)),
+         harvest = factor(harvest, levels = c(&quot;Mid&quot;, &quot;End&quot;)))
+
+# plots
+totbiomass %&gt;% 
+  ggplot(aes(x = date, y = log_tot_biomass, colour = treatment, 
+             group = treatment, shape = harvest)) +
+  stat_summary(geom = &quot;line&quot;, fun = mean, size = 1) +
+  stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = &quot;Year&quot;, y = expression(paste(&quot;Mean &quot;, ln, &quot; total biomass&quot;)),
+       colour = &quot;Treatment&quot;, shape = &quot;Harvest&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/tot%20biomass%20temporal-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And also splitting out the harvests</p>
+<pre class="r"><code>totbiomass %&gt;% 
+  ggplot(aes(x = year, y = log_tot_biomass, colour = treatment, 
+             group = treatment)) +
+  stat_summary(geom = &quot;line&quot;, fun = mean, size = 1) +
+  stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = &quot;Year&quot;, y = expression(paste(&quot;Mean &quot;, ln, &quot; total biomass&quot;)),
+       colour = &quot;Treatment&quot;) +
+  facet_wrap(~harvest) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/tot%20biomass%20temporal%202-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </details>
+</div>
 </div>
 <div id="species-diversity" class="section level1">
 <h1>2. Species diversity</h1>
@@ -691,6 +859,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
