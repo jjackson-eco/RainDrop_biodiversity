@@ -20,6 +20,7 @@ First some housekeeping. We'll start by loading the necessary packages for explo
 # packages
 library(tidyverse)
 library(patchwork)
+library(vegan)
 
 # load data
 load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
@@ -112,7 +113,7 @@ tb_1 <- totbiomass %>%
   geom_violin() +
   stat_summary(fun = median, geom = "point", 
                size = 6, shape = 21, fill = "white") +
-  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
   labs(x = "Rainfall treatment", y = "Total above-ground biomass (g)") +
@@ -246,12 +247,264 @@ biomass %>%
 
 It isn't as clear hear as total biomass. However, for the group with the most representation, the Graminoids, this reduction in the drought treatment looks to be maintained.
 
+Finally we can look at whether there are differences in the temporal patterns between the functional groups.
+
+```{r functional group treatment tenmporal, fig.width= 12, fig.height= 9}
+
+# adding temporal information
+biomass <- biomass %>% 
+  mutate(month = if_else(harvest == "End", 9, 6),
+         date = as.Date(paste0(year,"-",month,"-15")),
+         harvest = factor(harvest, levels = c("Mid", "End")))
+
+# plot
+biomass %>% 
+  ggplot(aes(x = date, y = biomass_log, colour = treatment, 
+             group = treatment, shape = harvest)) +
+  stat_summary(geom = "line", fun = mean, size = 0.9) +
+  stat_summary(geom = "point", fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  facet_wrap(~group) +
+  labs(x = "Year", y = expression(paste(ln, " Above-ground biomass")),
+       colour = "Treatment", shape = "Harvest") +
+  theme_bw(base_size = 22) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+```
+
+Again, specific patterns are hard to discern here, but it looks like biomass is decreasing slightly again in general.
+
 ***
 
 # 2. Species diversity
 
-Shannon-Weiner diversity index per block/treatment/year, we already have relative abundances
+## Data summary
 
-```{r}
-#H.I <- -sum(pI*log(pI))
+The species diversity data is in in the form of percentage cover of individually id' species in a 1m x 1m quadrant in the center of each experimental plot. These percentage cover measurements were generally made at the peak of the growing season (June), but in 2016 there were recordings in both June and September.
+
+Here a summary of the data:
+
+```{r precent_cover glimpse}
+glimpse(percent_cover)
 ```
+
+* $**year**          - year of measurement (integer 2016-2020)
+* $**month**         - month of measurement (category "June" and "Sept")
+* $**block**         - block of experiment (category A-E)
+* $**treatment**     - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
+* $**species_level** - Was the measurement made at the level of species? (category "Yes", "No")
+* $**species**       - Binomial name of species recorded in the measurement (category, 138 unique records)
+* $**plant_type**    - Functional group/plant type of the species recorded (category "Forb", "Grass", "Woody", "Legume")
+* $**percent_cover** - percentage cover of the species in a 1m x 1m quadrat
+
+For the purpose of analysis here, we are interested in species diversity, and so we only want to include observations for which we have species-level data. Also, we want to clean any NA observations.
+
+```{r clean percent cover}
+percent_cover <- percent_cover %>% 
+  drop_na(percent_cover) %>% 
+  filter(species_level == "Yes")
+```
+
+## Diversity Indices
+
+Our first key question regarding the percentage cover is how the rainfall treatments are influencing the community diversity of the plots. For this we will calculate some key biodiversity indices:
+
+#### Species richness $R = \text{number of types (i.e. species)}$
+
+#### Simpsons index $\lambda = \sum_{i = 1}^{R} p_i^2$
+
+#### Shannon-Wiener index $H' = - \sum_{i = 1}^{R}p_i\ln p_i$
+
+where $p_i$ is the relative proportion of type (here species) $i$.
+
+Here we calculate these diversity indices for each plot (i.e. each year, month, block, treatment combination)
+
+```{r diversity indices}
+diversity <- percent_cover %>% 
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %>% 
+  group_by(year, month, block, treatment) %>% 
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %>% 
+  ungroup() %>% 
+  pivot_longer(cols = c(richness, simpsons, shannon),
+               names_to = "index") %>% 
+  mutate(index_lab = case_when(
+    index == "richness" ~ "Species richness",
+    index == "simpsons" ~ "Simpson's index",
+    index == "shannon" ~ "Shannon-Wiener index"
+  ))
+```
+
+## Diversity indices exploratory plots
+
+Now we can explore how the diversity indices for each plot are related to the experimental treatments, temporal patterns, and any block effects. 
+
+First the treatment effects
+
+```{r diversity treatment, fig.width= 8, fig.height= 14}
+diversity %>% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 6, shape = 21, fill = "white") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", y = "Species diverity index") +
+  facet_wrap(~index_lab, ncol = 1, scales = "free") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+There isn't a clear pattern here. But interestingly, it actually looks like for Shannon-Wiener, diversity is greatest in the drought treatment.
+
+And now for potential temporal patterns
+
+```{r diversity temporal, fig.width= 8, fig.height= 14}
+diversity %>% 
+  mutate(month = if_else(month == "June", 6, 9),
+         date = as.Date(paste0(year,"-",month,"-15"))) %>% 
+  ggplot(aes(x = date, y = value, colour = treatment)) +
+  stat_summary(geom = "line", fun = mean, size = 0.9) +
+  stat_summary(geom = "point", fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = "Year", y = "Mean diversity index", colour = "Treatment") +
+  facet_wrap(~ index_lab, scales = "free", ncol = 1) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+Again clear patterns are not sticking out with general indices. And finally we explore any potential block effects
+
+```{r diversity block, fig.width= 8, fig.height= 14}
+diversity %>% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment, 
+             group = interaction(treatment, block))) +
+  geom_violin(draw_quantiles = 0.5) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", 
+       y = "Species diversity index") +
+  facet_wrap(~ index_lab, scales = "free", ncol = 1) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+## Community structure
+
+While there may not be overall patterns in species diversity, what is interesting whether there are shifts to community structure. So, here we can perform a simple **non-metric multidimensional scaling** (NMDS) analysis, to look at changes to community structure with our treatments, general plant types, and also whether there are key species.
+
+Here we perform the NMDS analysis using the `vegan` package, with two dimensions for 122 species in total and using the default bray distances. Firstly some cleaning though, to convert the percent cover data to a species by sample (our plots) matrix.
+
+```{r NMDS}
+# data frame of the community matrix
+species_community_df <- percent_cover %>% 
+  mutate(sample = paste(month, year, block, treatment, sep = "_")) %>% 
+  filter(species_level == "Yes") %>% 
+  dplyr::select(sample, species, percent_cover) %>% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+# convert to a matrix
+species_community_mat <- as.matrix(species_community_df[,2:123])
+rownames(species_community_mat) <- species_community_df$sample
+
+# have a look
+glimpse(species_community_mat)
+
+# the NMDS
+raindrop_NMDS <- metaMDS(species_community_mat, k = 2, trymax = 500)
+```
+
+And now we can pull out the NMDS scores (2 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure.
+
+```{r NMDS data abd treatment plot}
+
+# scores and species points
+rd_scores <- as.data.frame(raindrop_NMDS$points) 
+rd_species <- as.data.frame(raindrop_NMDS$species) 
+
+# converting to a nice data frame
+rd_scores <- rd_scores %>%
+  mutate(plot = rownames(.)) %>% 
+  mutate(month = as.character(map(strsplit(plot, "_"), 1)),
+         year = as.numeric(map(strsplit(plot, "_"), 2)),
+         block = as.character(map(strsplit(plot, "_"), 3)),
+         treatment = as.character(map(strsplit(plot, "_"), 4)))
+
+# and for species
+species_types <- percent_cover %>% 
+  group_by(species) %>% 
+  summarise(plant_type = plant_type[1])
+
+rd_species <- rd_species %>%
+  mutate(species = rownames(.)) %>% 
+  left_join(x = ., y = species_types, by = "species")
+
+# treatment plot
+rd_scores %>% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = treatment)) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = "NMDS1", y = "NMDS2", colour = "Rainfall\ntreatment") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+```
+
+And now whether there are any interesting temporal effects
+
+```{r temporal effects}
+rd_scores %>% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = as.factor(year))) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_viridis_d() +
+  labs(x = "NMDS1", y = "NMDS2", colour = "Year") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+It does look like there are interesting temporal patterns in community structure here.
+
+And we can now see whether there are important groups of species or groups of species that may be driving community structure differences. This is essentially the 'loading' of each species to the two NMDS axes.
+
+```{r species nmds}
+
+# pulling the 95% quantiles to identify most extreme data
+q1 <- quantile(rd_species$MDS1, c(0.025, 0.975))
+q2 <- quantile(rd_species$MDS2, c(0.025, 0.975))
+
+rd_species_extreme <- rd_species %>% 
+  mutate(species_lab = gsub("_", " ", species),
+         extreme_species = if_else(MDS1 > q1[2] | MDS1 < q1[1] |
+                                     MDS2 > q2[2] | MDS2 < q2[1],
+                                   "yes", "no"))
+
+ggplot(rd_species_extreme,
+       aes(x = MDS1, y = MDS2, colour = plant_type)) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  geom_text(data = filter(rd_species_extreme, 
+                          extreme_species == "yes"),
+            aes(label = species_lab), nudge_y = -0.1, show.legend = F) +
+  labs(x = "NMDS1", y = "NMDS2", colour = "Plant\ntype") +
+  lims(x = c(-1.2,1.7)) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+
+```
+
+***
+
+
