@@ -393,7 +393,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-08
+<strong>Last updated:</strong> 2021-04-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -484,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreeb427f16c7c4833c5d3bebf066e866e75f9167514targetblankb427f16a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/b427f16c7c4833c5d3bebf066e866e75f9167514" target="_blank">b427f16</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree1e1c1141c20feb236be057770eb58ae6e4b9a783targetblank1e1c114a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/1e1c1141c20feb236be057770eb58ae6e4b9a783" target="_blank">1e1c114</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreeb427f16c7c4833c5d3bebf066e866e75f9167514targetblankb427f16a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree1e1c1141c20feb236be057770eb58ae6e4b9a783targetblank1e1c114a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/b427f16c7c4833c5d3bebf066e866e75f9167514" target="_blank">b427f16</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/1e1c1141c20feb236be057770eb58ae6e4b9a783" target="_blank">1e1c114</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -544,6 +544,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/1e1c1141c20feb236be057770eb58ae6e4b9a783/analysis/exploratory_analysis.Rmd" target="_blank">1e1c114</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-09
+</td>
+<td>
+Adding species diversity
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/cc963a5d4cc14751da491f7af0d878ca50355e41/docs/exploratory_analysis.html" target="_blank">cc963a5</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -675,6 +709,7 @@ wflow_publish(files = c(“README.md”, "analysis/_site.yml“,”analysis/expl
 <pre class="r"><code># packages
 library(tidyverse)
 library(patchwork)
+library(vegan)
 
 # load data
 load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData&quot;, 
@@ -759,7 +794,7 @@ ggplot(biomass, aes(x = biomass_log)) +
   geom_violin() +
   stat_summary(fun = median, geom = &quot;point&quot;, 
                size = 6, shape = 21, fill = &quot;white&quot;) +
-  geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
   labs(x = &quot;Rainfall treatment&quot;, y = &quot;Total above-ground biomass (g)&quot;) +
@@ -868,13 +903,649 @@ totbiomass %&gt;%
         strip.background = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/functional%20group%20treatment-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>It isn’t as clear hear as total biomass. However, for the group with the most representation, the Graminoids, this reduction in the drought treatment looks to be maintained.</p>
+<p>Finally we can look at whether there are differences in the temporal patterns between the functional groups.</p>
+<pre class="r"><code># adding temporal information
+biomass &lt;- biomass %&gt;% 
+  mutate(month = if_else(harvest == &quot;End&quot;, 9, 6),
+         date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;)),
+         harvest = factor(harvest, levels = c(&quot;Mid&quot;, &quot;End&quot;)))
+
+# plot
+biomass %&gt;% 
+  ggplot(aes(x = date, y = biomass_log, colour = treatment, 
+             group = treatment, shape = harvest)) +
+  stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
+  stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  facet_wrap(~group) +
+  labs(x = &quot;Year&quot;, y = expression(paste(ln, &quot; Above-ground biomass&quot;)),
+       colour = &quot;Treatment&quot;, shape = &quot;Harvest&quot;) +
+  theme_bw(base_size = 22) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/functional%20group%20treatment%20tenmporal-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Again, specific patterns are hard to discern here, but it looks like biomass is decreasing slightly again in general.</p>
 <hr />
 </div>
 </div>
 <div id="species-diversity" class="section level1">
 <h1>2. Species diversity</h1>
-<p>Shannon-Weiner diversity index per block/treatment/year, we already have relative abundances</p>
-<pre class="r"><code>#H.I &lt;- -sum(pI*log(pI))</code></pre>
+<div id="data-summary-1" class="section level2">
+<h2>Data summary</h2>
+<p>The species diversity data is in in the form of percentage cover of individually id’ species in a 1m x 1m quadrant in the center of each experimental plot. These percentage cover measurements were generally made at the peak of the growing season (June), but in 2016 there were recordings in both June and September.</p>
+<p>Here a summary of the data:</p>
+<pre class="r"><code>glimpse(percent_cover)</code></pre>
+<pre><code>Rows: 2,956
+Columns: 8
+$ year          &lt;dbl&gt; 2018, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 20~
+$ month         &lt;chr&gt; &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, ~
+$ block         &lt;chr&gt; &quot;C&quot;, &quot;B&quot;, &quot;B&quot;, &quot;C&quot;, &quot;E&quot;, &quot;A&quot;, &quot;E&quot;, &quot;C&quot;, &quot;D&quot;, &quot;B&quot;, &quot;D&quot;, &quot;~
+$ treatment     &lt;chr&gt; &quot;Control&quot;, &quot;Ambient&quot;, &quot;Control&quot;, &quot;Irrigated&quot;, &quot;Control&quot;,~
+$ species_level &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;~
+$ species       &lt;chr&gt; &quot;Acer_sp&quot;, &quot;Agrimonia_eupatoria&quot;, &quot;Agrimonia_eupatoria&quot;,~
+$ plant_type    &lt;chr&gt; NA, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;For~
+$ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 15.0,~</code></pre>
+<ul>
+<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
+<li>$<strong>month</strong> - month of measurement (category “June” and “Sept”)</li>
+<li>$<strong>block</strong> - block of experiment (category A-E)</li>
+<li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
+<li>$<strong>species_level</strong> - Was the measurement made at the level of species? (category “Yes”, “No”)</li>
+<li>$<strong>species</strong> - Binomial name of species recorded in the measurement (category, 138 unique records)</li>
+<li>$<strong>plant_type</strong> - Functional group/plant type of the species recorded (category “Forb”, “Grass”, “Woody”, “Legume”)</li>
+<li>$<strong>percent_cover</strong> - percentage cover of the species in a 1m x 1m quadrat</li>
+</ul>
+<p>For the purpose of analysis here, we are interested in species diversity, and so we only want to include observations for which we have species-level data. Also, we want to clean any NA observations.</p>
+<pre class="r"><code>percent_cover &lt;- percent_cover %&gt;% 
+  drop_na(percent_cover) %&gt;% 
+  filter(species_level == &quot;Yes&quot;)</code></pre>
+</div>
+<div id="diversity-indices" class="section level2">
+<h2>Diversity Indices</h2>
+<p>Our first key question regarding the percentage cover is how the rainfall treatments are influencing the community diversity of the plots. For this we will calculate some key biodiversity indices:</p>
+<div id="species-richness-r-textnumber-of-types-i.e.-species" class="section level4">
+<h4>Species richness <span class="math inline">\(R = \text{number of types (i.e. species)}\)</span></h4>
+</div>
+<div id="simpsons-index-lambda-sum_i-1r-p_i2" class="section level4">
+<h4>Simpsons index <span class="math inline">\(\lambda = \sum_{i = 1}^{R} p_i^2\)</span></h4>
+</div>
+<div id="shannon-wiener-index-h---sum_i-1rp_iln-p_i" class="section level4">
+<h4>Shannon-Wiener index <span class="math inline">\(H&#39; = - \sum_{i = 1}^{R}p_i\ln p_i\)</span></h4>
+<p>where <span class="math inline">\(p_i\)</span> is the relative proportion of type (here species) <span class="math inline">\(i\)</span>.</p>
+<p>Here we calculate these diversity indices for each plot (i.e. each year, month, block, treatment combination)</p>
+<pre class="r"><code>diversity &lt;- percent_cover %&gt;% 
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %&gt;% 
+  group_by(year, month, block, treatment) %&gt;% 
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %&gt;% 
+  ungroup() %&gt;% 
+  pivot_longer(cols = c(richness, simpsons, shannon),
+               names_to = &quot;index&quot;) %&gt;% 
+  mutate(index_lab = case_when(
+    index == &quot;richness&quot; ~ &quot;Species richness&quot;,
+    index == &quot;simpsons&quot; ~ &quot;Simpson&#39;s index&quot;,
+    index == &quot;shannon&quot; ~ &quot;Shannon-Wiener index&quot;
+  ))</code></pre>
+</div>
+</div>
+<div id="diversity-indices-exploratory-plots" class="section level2">
+<h2>Diversity indices exploratory plots</h2>
+<p>Now we can explore how the diversity indices for each plot are related to the experimental treatments, temporal patterns, and any block effects.</p>
+<p>First the treatment effects</p>
+<pre class="r"><code>diversity %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
+               size = 6, shape = 21, fill = &quot;white&quot;) +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Species diverity index&quot;) +
+  facet_wrap(~index_lab, ncol = 1, scales = &quot;free&quot;) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/diversity%20treatment-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>There isn’t a clear pattern here. But interestingly, it actually looks like for Shannon-Wiener, diversity is greatest in the drought treatment.</p>
+<p>And now for potential temporal patterns</p>
+<pre class="r"><code>diversity %&gt;% 
+  mutate(month = if_else(month == &quot;June&quot;, 6, 9),
+         date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;))) %&gt;% 
+  ggplot(aes(x = date, y = value, colour = treatment)) +
+  stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
+  stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = &quot;Year&quot;, y = &quot;Mean diversity index&quot;, colour = &quot;Treatment&quot;) +
+  facet_wrap(~ index_lab, scales = &quot;free&quot;, ncol = 1) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/diversity%20temporal-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Again clear patterns are not sticking out with general indices. And finally we explore any potential block effects</p>
+<pre class="r"><code>diversity %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment, 
+             group = interaction(treatment, block))) +
+  geom_violin(draw_quantiles = 0.5) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, 
+       y = &quot;Species diversity index&quot;) +
+  facet_wrap(~ index_lab, scales = &quot;free&quot;, ncol = 1) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/diversity%20block-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="community-structure" class="section level2">
+<h2>Community structure</h2>
+<p>While there may not be overall patterns in species diversity, what is interesting whether there are shifts to community structure. So, here we can perform a simple <strong>non-metric multidimensional scaling</strong> (NMDS) analysis, to look at changes to community structure with our treatments, general plant types, and also whether there are key species.</p>
+<p>Here we perform the NMDS analysis using the <code>vegan</code> package, with two dimensions for 122 species in total and using the default bray distances. Firstly some cleaning though, to convert the percent cover data to a species by sample (our plots) matrix.</p>
+<pre class="r"><code># data frame of the community matrix
+species_community_df &lt;- percent_cover %&gt;% 
+  mutate(sample = paste(month, year, block, treatment, sep = &quot;_&quot;)) %&gt;% 
+  filter(species_level == &quot;Yes&quot;) %&gt;% 
+  dplyr::select(sample, species, percent_cover) %&gt;% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+# convert to a matrix
+species_community_mat &lt;- as.matrix(species_community_df[,2:123])
+rownames(species_community_mat) &lt;- species_community_df$sample
+
+# have a look
+glimpse(species_community_mat)</code></pre>
+<pre><code> num [1:120, 1:122] 1 2 4 4 5 5 7 8 10 15 ...
+ - attr(*, &quot;dimnames&quot;)=List of 2
+  ..$ : chr [1:120] &quot;June_2016_B_Ambient&quot; &quot;June_2016_B_Control&quot; &quot;June_2016_C_Irrigated&quot; &quot;June_2016_E_Control&quot; ...
+  ..$ : chr [1:122] &quot;Agrimonia_eupatoria&quot; &quot;Agrimonia_eupatorium&quot; &quot;Agrostis_capillaris&quot; &quot;Agrostis_stolonifera&quot; ...</code></pre>
+<pre class="r"><code># the NMDS
+raindrop_NMDS &lt;- metaMDS(species_community_mat, k = 2, trymax = 500)</code></pre>
+<pre><code>Square root transformation
+Wisconsin double standardization
+Run 0 stress 0.2767962 
+Run 1 stress 0.277602 
+Run 2 stress 0.2932021 
+Run 3 stress 0.2853559 
+Run 4 stress 0.2978406 
+Run 5 stress 0.2955674 
+Run 6 stress 0.2770975 
+... Procrustes: rmse 0.02702161  max resid 0.2110902 
+Run 7 stress 0.2961353 
+Run 8 stress 0.2805795 
+Run 9 stress 0.3132602 
+Run 10 stress 0.2992073 
+Run 11 stress 0.2816689 
+Run 12 stress 0.286314 
+Run 13 stress 0.2841294 
+Run 14 stress 0.2867314 
+Run 15 stress 0.3167791 
+Run 16 stress 0.2846884 
+Run 17 stress 0.3013173 
+Run 18 stress 0.2769089 
+... Procrustes: rmse 0.03336828  max resid 0.283892 
+Run 19 stress 0.2839498 
+Run 20 stress 0.2758683 
+... New best solution
+... Procrustes: rmse 0.01609963  max resid 0.1033264 
+Run 21 stress 0.2825197 
+Run 22 stress 0.2849962 
+Run 23 stress 0.2825475 
+Run 24 stress 0.2769696 
+Run 25 stress 0.2826515 
+Run 26 stress 0.2870934 
+Run 27 stress 0.2861942 
+Run 28 stress 0.2787106 
+Run 29 stress 0.2806181 
+Run 30 stress 0.2970536 
+Run 31 stress 0.2853741 
+Run 32 stress 0.2870647 
+Run 33 stress 0.2827175 
+Run 34 stress 0.3162331 
+Run 35 stress 0.2939082 
+Run 36 stress 0.2814939 
+Run 37 stress 0.281456 
+Run 38 stress 0.2863874 
+Run 39 stress 0.2824177 
+Run 40 stress 0.2767683 
+Run 41 stress 0.2769162 
+Run 42 stress 0.2947656 
+Run 43 stress 0.4135299 
+Run 44 stress 0.2831778 
+Run 45 stress 0.2824217 
+Run 46 stress 0.3100015 
+Run 47 stress 0.2837495 
+Run 48 stress 0.2803849 
+Run 49 stress 0.2761917 
+... Procrustes: rmse 0.01950759  max resid 0.1959354 
+Run 50 stress 0.2844196 
+Run 51 stress 0.276545 
+Run 52 stress 0.2768445 
+Run 53 stress 0.280588 
+Run 54 stress 0.2766072 
+Run 55 stress 0.2850416 
+Run 56 stress 0.2898506 
+Run 57 stress 0.2939252 
+Run 58 stress 0.2813066 
+Run 59 stress 0.2776316 
+Run 60 stress 0.2854541 
+Run 61 stress 0.286179 
+Run 62 stress 0.2788558 
+Run 63 stress 0.2760823 
+... Procrustes: rmse 0.02841787  max resid 0.2148264 
+Run 64 stress 0.2951946 
+Run 65 stress 0.291162 
+Run 66 stress 0.2769294 
+Run 67 stress 0.2759591 
+... Procrustes: rmse 0.02819276  max resid 0.2160721 
+Run 68 stress 0.2816072 
+Run 69 stress 0.2817325 
+Run 70 stress 0.2993286 
+Run 71 stress 0.2823217 
+Run 72 stress 0.3138409 
+Run 73 stress 0.2756409 
+... New best solution
+... Procrustes: rmse 0.006688926  max resid 0.05479494 
+Run 74 stress 0.2857355 
+Run 75 stress 0.2834664 
+Run 76 stress 0.2834251 
+Run 77 stress 0.2954893 
+Run 78 stress 0.286071 
+Run 79 stress 0.2884071 
+Run 80 stress 0.3051241 
+Run 81 stress 0.2816083 
+Run 82 stress 0.2829201 
+Run 83 stress 0.3141665 
+Run 84 stress 0.2783938 
+Run 85 stress 0.2818005 
+Run 86 stress 0.2831755 
+Run 87 stress 0.2763259 
+Run 88 stress 0.2888579 
+Run 89 stress 0.3062602 
+Run 90 stress 0.2856563 
+Run 91 stress 0.2895439 
+Run 92 stress 0.275793 
+... Procrustes: rmse 0.02787599  max resid 0.2133164 
+Run 93 stress 0.2856758 
+Run 94 stress 0.292898 
+Run 95 stress 0.2863794 
+Run 96 stress 0.2764144 
+Run 97 stress 0.2774566 
+Run 98 stress 0.2990053 
+Run 99 stress 0.286001 
+Run 100 stress 0.2800643 
+Run 101 stress 0.2995309 
+Run 102 stress 0.2854035 
+Run 103 stress 0.313981 
+Run 104 stress 0.2802067 
+Run 105 stress 0.2769166 
+Run 106 stress 0.2871338 
+Run 107 stress 0.301517 
+Run 108 stress 0.2813973 
+Run 109 stress 0.2803757 
+Run 110 stress 0.2825412 
+Run 111 stress 0.2819544 
+Run 112 stress 0.3106356 
+Run 113 stress 0.2857158 
+Run 114 stress 0.28054 
+Run 115 stress 0.2847235 
+Run 116 stress 0.2963966 
+Run 117 stress 0.2764471 
+Run 118 stress 0.2916034 
+Run 119 stress 0.2862926 
+Run 120 stress 0.2822926 
+Run 121 stress 0.2854575 
+Run 122 stress 0.2837994 
+Run 123 stress 0.2888163 
+Run 124 stress 0.2937464 
+Run 125 stress 0.2752022 
+... New best solution
+... Procrustes: rmse 0.01839457  max resid 0.1949325 
+Run 126 stress 0.2782642 
+Run 127 stress 0.2903909 
+Run 128 stress 0.2849397 
+Run 129 stress 0.277819 
+Run 130 stress 0.2917427 
+Run 131 stress 0.2928313 
+Run 132 stress 0.3075153 
+Run 133 stress 0.2837128 
+Run 134 stress 0.2818714 
+Run 135 stress 0.3225496 
+Run 136 stress 0.2945228 
+Run 137 stress 0.3009094 
+Run 138 stress 0.2869416 
+Run 139 stress 0.2864973 
+Run 140 stress 0.2871134 
+Run 141 stress 0.2756778 
+... Procrustes: rmse 0.01598282  max resid 0.1684395 
+Run 142 stress 0.2896974 
+Run 143 stress 0.2817277 
+Run 144 stress 0.2763396 
+Run 145 stress 0.2856764 
+Run 146 stress 0.285556 
+Run 147 stress 0.3037158 
+Run 148 stress 0.2832145 
+Run 149 stress 0.3136607 
+Run 150 stress 0.2773844 
+Run 151 stress 0.2832705 
+Run 152 stress 0.2757909 
+Run 153 stress 0.276911 
+Run 154 stress 0.2761916 
+Run 155 stress 0.2753927 
+... Procrustes: rmse 0.004412328  max resid 0.0278875 
+Run 156 stress 0.2815538 
+Run 157 stress 0.2839197 
+Run 158 stress 0.2776063 
+Run 159 stress 0.2856053 
+Run 160 stress 0.2909764 
+Run 161 stress 0.2824001 
+Run 162 stress 0.2945936 
+Run 163 stress 0.2851243 
+Run 164 stress 0.2952075 
+Run 165 stress 0.2937954 
+Run 166 stress 0.2821778 
+Run 167 stress 0.289577 
+Run 168 stress 0.3101815 
+Run 169 stress 0.2899911 
+Run 170 stress 0.2851066 
+Run 171 stress 0.2920318 
+Run 172 stress 0.2955044 
+Run 173 stress 0.2873532 
+Run 174 stress 0.2826145 
+Run 175 stress 0.2831905 
+Run 176 stress 0.2825163 
+Run 177 stress 0.2819337 
+Run 178 stress 0.2761917 
+Run 179 stress 0.293661 
+Run 180 stress 0.2909376 
+Run 181 stress 0.2966224 
+Run 182 stress 0.2948812 
+Run 183 stress 0.2902538 
+Run 184 stress 0.2759996 
+Run 185 stress 0.2883574 
+Run 186 stress 0.2843423 
+Run 187 stress 0.3000871 
+Run 188 stress 0.2964049 
+Run 189 stress 0.2876698 
+Run 190 stress 0.2807912 
+Run 191 stress 0.2866172 
+Run 192 stress 0.2850386 
+Run 193 stress 0.2768287 
+Run 194 stress 0.2769162 
+Run 195 stress 0.2914567 
+Run 196 stress 0.2833897 
+Run 197 stress 0.2853156 
+Run 198 stress 0.2802875 
+Run 199 stress 0.2820744 
+Run 200 stress 0.2761915 
+Run 201 stress 0.2831963 
+Run 202 stress 0.2831736 
+Run 203 stress 0.2767927 
+Run 204 stress 0.2774054 
+Run 205 stress 0.2756942 
+... Procrustes: rmse 0.01598043  max resid 0.1670758 
+Run 206 stress 0.2777929 
+Run 207 stress 0.2931061 
+Run 208 stress 0.2844497 
+Run 209 stress 0.2852446 
+Run 210 stress 0.2783617 
+Run 211 stress 0.2999261 
+Run 212 stress 0.2956568 
+Run 213 stress 0.2821161 
+Run 214 stress 0.2754694 
+... Procrustes: rmse 0.006474131  max resid 0.05279246 
+Run 215 stress 0.2921575 
+Run 216 stress 0.2831807 
+Run 217 stress 0.2918956 
+Run 218 stress 0.2851382 
+Run 219 stress 0.2858284 
+Run 220 stress 0.2933459 
+Run 221 stress 0.2855018 
+Run 222 stress 0.2816954 
+Run 223 stress 0.2812924 
+Run 224 stress 0.2817054 
+Run 225 stress 0.2923533 
+Run 226 stress 0.2841288 
+Run 227 stress 0.2904194 
+Run 228 stress 0.2813527 
+Run 229 stress 0.2839412 
+Run 230 stress 0.2815432 
+Run 231 stress 0.2769522 
+Run 232 stress 0.2797161 
+Run 233 stress 0.2868148 
+Run 234 stress 0.2788169 
+Run 235 stress 0.2758682 
+Run 236 stress 0.2878844 
+Run 237 stress 0.2818175 
+Run 238 stress 0.2802102 
+Run 239 stress 0.2903001 
+Run 240 stress 0.2852655 
+Run 241 stress 0.2829224 
+Run 242 stress 0.2883752 
+Run 243 stress 0.4131698 
+Run 244 stress 0.3148125 
+Run 245 stress 0.2878972 
+Run 246 stress 0.2809798 
+Run 247 stress 0.280497 
+Run 248 stress 0.2768593 
+Run 249 stress 0.2912055 
+Run 250 stress 0.2758684 
+Run 251 stress 0.2999398 
+Run 252 stress 0.282178 
+Run 253 stress 0.2870254 
+Run 254 stress 0.275199 
+... New best solution
+... Procrustes: rmse 0.001180725  max resid 0.01078959 
+Run 255 stress 0.3084651 
+Run 256 stress 0.2827973 
+Run 257 stress 0.3013574 
+Run 258 stress 0.2756295 
+... Procrustes: rmse 0.007690206  max resid 0.05152554 
+Run 259 stress 0.2852168 
+Run 260 stress 0.2819611 
+Run 261 stress 0.30995 
+Run 262 stress 0.2902704 
+Run 263 stress 0.2819535 
+Run 264 stress 0.2825163 
+Run 265 stress 0.2803926 
+Run 266 stress 0.285498 
+Run 267 stress 0.2874139 
+Run 268 stress 0.2760015 
+Run 269 stress 0.294528 
+Run 270 stress 0.2892038 
+Run 271 stress 0.2757909 
+Run 272 stress 0.2897887 
+Run 273 stress 0.3042521 
+Run 274 stress 0.2841449 
+Run 275 stress 0.308743 
+Run 276 stress 0.2853573 
+Run 277 stress 0.2823228 
+Run 278 stress 0.2824113 
+Run 279 stress 0.2939282 
+Run 280 stress 0.2811827 
+Run 281 stress 0.2754026 
+... Procrustes: rmse 0.005491697  max resid 0.03938792 
+Run 282 stress 0.280312 
+Run 283 stress 0.2853019 
+Run 284 stress 0.2993653 
+Run 285 stress 0.2848496 
+Run 286 stress 0.2835985 
+Run 287 stress 0.2759896 
+Run 288 stress 0.2756956 
+... Procrustes: rmse 0.01607401  max resid 0.1673164 
+Run 289 stress 0.2836377 
+Run 290 stress 0.2783561 
+Run 291 stress 0.2965925 
+Run 292 stress 0.2842897 
+Run 293 stress 0.2753913 
+... Procrustes: rmse 0.005077171  max resid 0.03917087 
+Run 294 stress 0.2769208 
+Run 295 stress 0.2826611 
+Run 296 stress 0.2836992 
+Run 297 stress 0.288379 
+Run 298 stress 0.2783109 
+Run 299 stress 0.2906245 
+Run 300 stress 0.2925783 
+Run 301 stress 0.2833795 
+Run 302 stress 0.2788488 
+Run 303 stress 0.2804165 
+Run 304 stress 0.2768885 
+Run 305 stress 0.2921951 
+Run 306 stress 0.2817128 
+Run 307 stress 0.2842166 
+Run 308 stress 0.2816443 
+Run 309 stress 0.2799539 
+Run 310 stress 0.2761916 
+Run 311 stress 0.2905186 
+Run 312 stress 0.2792492 
+Run 313 stress 0.2764148 
+Run 314 stress 0.2768102 
+Run 315 stress 0.2767552 
+Run 316 stress 0.2757909 
+Run 317 stress 0.2825181 
+Run 318 stress 0.2827509 
+Run 319 stress 0.2937944 
+Run 320 stress 0.2756779 
+... Procrustes: rmse 0.01601981  max resid 0.1691432 
+Run 321 stress 0.280515 
+Run 322 stress 0.2812731 
+Run 323 stress 0.2796134 
+Run 324 stress 0.2822521 
+Run 325 stress 0.288614 
+Run 326 stress 0.287689 
+Run 327 stress 0.2815311 
+Run 328 stress 0.2893268 
+Run 329 stress 0.307549 
+Run 330 stress 0.2817905 
+Run 331 stress 0.2925788 
+Run 332 stress 0.276416 
+Run 333 stress 0.2923969 
+Run 334 stress 0.277821 
+Run 335 stress 0.2820126 
+Run 336 stress 0.2899776 
+Run 337 stress 0.2756919 
+... Procrustes: rmse 0.01878761  max resid 0.1966573 
+Run 338 stress 0.310885 
+Run 339 stress 0.2819317 
+Run 340 stress 0.2830859 
+Run 341 stress 0.2771782 
+Run 342 stress 0.276415 
+Run 343 stress 0.2810702 
+Run 344 stress 0.2817051 
+Run 345 stress 0.2976131 
+Run 346 stress 0.3000953 
+Run 347 stress 0.2854301 
+Run 348 stress 0.2873747 
+Run 349 stress 0.2840335 
+Run 350 stress 0.2847668 
+Run 351 stress 0.2877928 
+Run 352 stress 0.2761237 
+Run 353 stress 0.2816047 
+Run 354 stress 0.2857891 
+Run 355 stress 0.2967727 
+Run 356 stress 0.2868496 
+Run 357 stress 0.2760473 
+Run 358 stress 0.321193 
+Run 359 stress 0.2826918 
+Run 360 stress 0.2876268 
+Run 361 stress 0.2752018 
+... Procrustes: rmse 0.001113995  max resid 0.01032134 
+Run 362 stress 0.2824346 
+Run 363 stress 0.281036 
+Run 364 stress 0.2819728 
+Run 365 stress 0.2825744 
+Run 366 stress 0.2957984 
+Run 367 stress 0.2989419 
+Run 368 stress 0.2768681 
+Run 369 stress 0.2871297 
+Run 370 stress 0.3062691 
+Run 371 stress 0.287284 
+Run 372 stress 0.4136489 
+Run 373 stress 0.280988 
+Run 374 stress 0.2934075 
+Run 375 stress 0.285402 
+Run 376 stress 0.275641 
+... Procrustes: rmse 0.01855291  max resid 0.1969236 
+Run 377 stress 0.2907737 
+Run 378 stress 0.3015324 
+Run 379 stress 0.2897734 
+Run 380 stress 0.2819079 
+Run 381 stress 0.275199 
+... New best solution
+... Procrustes: rmse 0.0001407104  max resid 0.0008498833 
+... Similar to previous best
+*** Solution reached</code></pre>
+<p>And now we can pull out the NMDS scores (2 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure.</p>
+<pre class="r"><code># scores and species points
+rd_scores &lt;- as.data.frame(raindrop_NMDS$points) 
+rd_species &lt;- as.data.frame(raindrop_NMDS$species) 
+
+# converting to a nice data frame
+rd_scores &lt;- rd_scores %&gt;%
+  mutate(plot = rownames(.)) %&gt;% 
+  mutate(month = as.character(map(strsplit(plot, &quot;_&quot;), 1)),
+         year = as.numeric(map(strsplit(plot, &quot;_&quot;), 2)),
+         block = as.character(map(strsplit(plot, &quot;_&quot;), 3)),
+         treatment = as.character(map(strsplit(plot, &quot;_&quot;), 4)))
+
+# and for species
+species_types &lt;- percent_cover %&gt;% 
+  group_by(species) %&gt;% 
+  summarise(plant_type = plant_type[1])
+
+rd_species &lt;- rd_species %&gt;%
+  mutate(species = rownames(.)) %&gt;% 
+  left_join(x = ., y = species_types, by = &quot;species&quot;)
+
+# treatment plot
+rd_scores %&gt;% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = treatment)) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Rainfall\ntreatment&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/NMDS%20data%20abd%20treatment%20plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And now whether there are any interesting temporal effects</p>
+<pre class="r"><code>rd_scores %&gt;% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = as.factor(year))) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_viridis_d() +
+  labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Year&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/temporal%20effects-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It does look like there are interesting temporal patterns in community structure here.</p>
+<p>And we can now see whether there are important groups of species or groups of species that may be driving community structure differences. This is essentially the ‘loading’ of each species to the two NMDS axes.</p>
+<pre class="r"><code># pulling the 95% quantiles to identify most extreme data
+q1 &lt;- quantile(rd_species$MDS1, c(0.025, 0.975))
+q2 &lt;- quantile(rd_species$MDS2, c(0.025, 0.975))
+
+rd_species_extreme &lt;- rd_species %&gt;% 
+  mutate(species_lab = gsub(&quot;_&quot;, &quot; &quot;, species),
+         extreme_species = if_else(MDS1 &gt; q1[2] | MDS1 &lt; q1[1] |
+                                     MDS2 &gt; q2[2] | MDS2 &lt; q2[1],
+                                   &quot;yes&quot;, &quot;no&quot;))
+
+ggplot(rd_species_extreme,
+       aes(x = MDS1, y = MDS2, colour = plant_type)) +
+  geom_point(alpha = 0.8, size = 4) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  geom_text(data = filter(rd_species_extreme, 
+                          extreme_species == &quot;yes&quot;),
+            aes(label = species_lab), nudge_y = -0.1, show.legend = F) +
+  labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Plant\ntype&quot;) +
+  lims(x = c(-1.2,1.7)) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/species%20nmds-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -900,27 +1571,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] patchwork_1.1.1 forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5    
- [5] purrr_0.3.4     readr_1.4.0     tidyr_1.1.3     tibble_3.1.0   
- [9] ggplot2_3.3.3   tidyverse_1.3.0 workflowr_1.6.2
+ [1] vegan_2.5-7     lattice_0.20-41 permute_0.9-5   patchwork_1.1.1
+ [5] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4    
+ [9] readr_1.4.0     tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3  
+[13] tidyverse_1.3.0 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6         lubridate_1.7.10   ps_1.6.0           assertthat_0.2.1  
- [5] rprojroot_2.0.2    digest_0.6.27      utf8_1.2.1         R6_2.5.0          
- [9] cellranger_1.1.0   backports_1.2.1    reprex_2.0.0       evaluate_0.14     
-[13] highr_0.8          httr_1.4.2         pillar_1.5.1       rlang_0.4.10      
-[17] readxl_1.3.1       rstudioapi_0.13    whisker_0.4        jquerylib_0.1.3   
-[21] rmarkdown_2.7      labeling_0.4.2     munsell_0.5.0      broom_0.7.5       
-[25] compiler_4.0.5     httpuv_1.5.5       modelr_0.1.8       xfun_0.22         
-[29] pkgconfig_2.0.3    htmltools_0.5.1.1  tidyselect_1.1.0   fansi_0.4.2       
-[33] crayon_1.4.1       dbplyr_2.1.0       withr_2.4.1        later_1.1.0.1     
-[37] grid_4.0.5         jsonlite_1.7.2     gtable_0.3.0       lifecycle_1.0.0   
-[41] DBI_1.1.1          git2r_0.28.0       magrittr_2.0.1     scales_1.1.1      
-[45] cli_2.3.1          stringi_1.5.3      farver_2.1.0       fs_1.5.0          
-[49] promises_1.2.0.1   xml2_1.3.2         bslib_0.2.4        ellipsis_0.3.1    
-[53] generics_0.1.0     vctrs_0.3.7        RColorBrewer_1.1-2 tools_4.0.5       
-[57] glue_1.4.2         hms_1.0.0          yaml_2.2.1         colorspace_2.0-0  
-[61] rvest_1.0.0        knitr_1.31         haven_2.3.1        sass_0.3.1        </code></pre>
+ [1] httr_1.4.2         sass_0.3.1         viridisLite_0.3.0  jsonlite_1.7.2    
+ [5] splines_4.0.5      modelr_0.1.8       bslib_0.2.4        assertthat_0.2.1  
+ [9] highr_0.8          cellranger_1.1.0   yaml_2.2.1         pillar_1.5.1      
+[13] backports_1.2.1    glue_1.4.2         digest_0.6.27      RColorBrewer_1.1-2
+[17] promises_1.2.0.1   rvest_1.0.0        colorspace_2.0-0   htmltools_0.5.1.1 
+[21] httpuv_1.5.5       Matrix_1.3-2       pkgconfig_2.0.3    broom_0.7.5       
+[25] haven_2.3.1        scales_1.1.1       whisker_0.4        later_1.1.0.1     
+[29] git2r_0.28.0       mgcv_1.8-34        generics_0.1.0     farver_2.1.0      
+[33] ellipsis_0.3.1     withr_2.4.1        cli_2.3.1          magrittr_2.0.1    
+[37] crayon_1.4.1       readxl_1.3.1       evaluate_0.14      ps_1.6.0          
+[41] fs_1.5.0           fansi_0.4.2        nlme_3.1-152       MASS_7.3-53.1     
+[45] xml2_1.3.2         tools_4.0.5        hms_1.0.0          lifecycle_1.0.0   
+[49] munsell_0.5.0      reprex_2.0.0       cluster_2.1.1      compiler_4.0.5    
+[53] jquerylib_0.1.3    rlang_0.4.10       grid_4.0.5         rstudioapi_0.13   
+[57] labeling_0.4.2     rmarkdown_2.7      gtable_0.3.0       DBI_1.1.1         
+[61] R6_2.5.0           lubridate_1.7.10   knitr_1.31         utf8_1.2.1        
+[65] rprojroot_2.0.2    stringi_1.5.3      parallel_4.0.5     Rcpp_1.0.6        
+[69] vctrs_0.3.7        dbplyr_2.1.0       tidyselect_1.1.0   xfun_0.22         </code></pre>
+</div>
 </div>
 </div>
 
