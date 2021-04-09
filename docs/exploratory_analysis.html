@@ -484,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree1e1c1141c20feb236be057770eb58ae6e4b9a783targetblank1e1c114a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/1e1c1141c20feb236be057770eb58ae6e4b9a783" target="_blank">1e1c114</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree6e78a6855931170725d6e38b949828cd4190e318targetblank6e78a68a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/6e78a6855931170725d6e38b949828cd4190e318" target="_blank">6e78a68</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree1e1c1141c20feb236be057770eb58ae6e4b9a783targetblank1e1c114a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree6e78a6855931170725d6e38b949828cd4190e318targetblank6e78a68a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/1e1c1141c20feb236be057770eb58ae6e4b9a783" target="_blank">1e1c114</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/6e78a6855931170725d6e38b949828cd4190e318" target="_blank">6e78a68</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,6 +502,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
     Ignored:    analysis/site_libs/
 
 Unstaged changes:
@@ -544,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/6e78a6855931170725d6e38b949828cd4190e318/analysis/exploratory_analysis.Rmd" target="_blank">6e78a68</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-09
+</td>
+<td>
+results update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/ec6a27c38db53bfd62645932cea72057157f4c80/docs/exploratory_analysis.html" target="_blank">ec6a27c</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1058,427 +1093,10 @@ species_community_mat &lt;- as.matrix(species_community_df[,2:123])
 rownames(species_community_mat) &lt;- species_community_df$sample
 
 # have a look
-glimpse(species_community_mat)</code></pre>
-<pre><code> num [1:120, 1:122] 1 2 4 4 5 5 7 8 10 15 ...
- - attr(*, &quot;dimnames&quot;)=List of 2
-  ..$ : chr [1:120] &quot;June_2016_B_Ambient&quot; &quot;June_2016_B_Control&quot; &quot;June_2016_C_Irrigated&quot; &quot;June_2016_E_Control&quot; ...
-  ..$ : chr [1:122] &quot;Agrimonia_eupatoria&quot; &quot;Agrimonia_eupatorium&quot; &quot;Agrostis_capillaris&quot; &quot;Agrostis_stolonifera&quot; ...</code></pre>
-<pre class="r"><code># the NMDS
+glimpse(species_community_mat)
+
+# the NMDS
 raindrop_NMDS &lt;- metaMDS(species_community_mat, k = 2, trymax = 500)</code></pre>
-<pre><code>Square root transformation
-Wisconsin double standardization
-Run 0 stress 0.2767962 
-Run 1 stress 0.277602 
-Run 2 stress 0.2932021 
-Run 3 stress 0.2853559 
-Run 4 stress 0.2978406 
-Run 5 stress 0.2955674 
-Run 6 stress 0.2770975 
-... Procrustes: rmse 0.02702161  max resid 0.2110902 
-Run 7 stress 0.2961353 
-Run 8 stress 0.2805795 
-Run 9 stress 0.3132602 
-Run 10 stress 0.2992073 
-Run 11 stress 0.2816689 
-Run 12 stress 0.286314 
-Run 13 stress 0.2841294 
-Run 14 stress 0.2867314 
-Run 15 stress 0.3167791 
-Run 16 stress 0.2846884 
-Run 17 stress 0.3013173 
-Run 18 stress 0.2769089 
-... Procrustes: rmse 0.03336828  max resid 0.283892 
-Run 19 stress 0.2839498 
-Run 20 stress 0.2758683 
-... New best solution
-... Procrustes: rmse 0.01609963  max resid 0.1033264 
-Run 21 stress 0.2825197 
-Run 22 stress 0.2849962 
-Run 23 stress 0.2825475 
-Run 24 stress 0.2769696 
-Run 25 stress 0.2826515 
-Run 26 stress 0.2870934 
-Run 27 stress 0.2861942 
-Run 28 stress 0.2787106 
-Run 29 stress 0.2806181 
-Run 30 stress 0.2970536 
-Run 31 stress 0.2853741 
-Run 32 stress 0.2870647 
-Run 33 stress 0.2827175 
-Run 34 stress 0.3162331 
-Run 35 stress 0.2939082 
-Run 36 stress 0.2814939 
-Run 37 stress 0.281456 
-Run 38 stress 0.2863874 
-Run 39 stress 0.2824177 
-Run 40 stress 0.2767683 
-Run 41 stress 0.2769162 
-Run 42 stress 0.2947656 
-Run 43 stress 0.4135299 
-Run 44 stress 0.2831778 
-Run 45 stress 0.2824217 
-Run 46 stress 0.3100015 
-Run 47 stress 0.2837495 
-Run 48 stress 0.2803849 
-Run 49 stress 0.2761917 
-... Procrustes: rmse 0.01950759  max resid 0.1959354 
-Run 50 stress 0.2844196 
-Run 51 stress 0.276545 
-Run 52 stress 0.2768445 
-Run 53 stress 0.280588 
-Run 54 stress 0.2766072 
-Run 55 stress 0.2850416 
-Run 56 stress 0.2898506 
-Run 57 stress 0.2939252 
-Run 58 stress 0.2813066 
-Run 59 stress 0.2776316 
-Run 60 stress 0.2854541 
-Run 61 stress 0.286179 
-Run 62 stress 0.2788558 
-Run 63 stress 0.2760823 
-... Procrustes: rmse 0.02841787  max resid 0.2148264 
-Run 64 stress 0.2951946 
-Run 65 stress 0.291162 
-Run 66 stress 0.2769294 
-Run 67 stress 0.2759591 
-... Procrustes: rmse 0.02819276  max resid 0.2160721 
-Run 68 stress 0.2816072 
-Run 69 stress 0.2817325 
-Run 70 stress 0.2993286 
-Run 71 stress 0.2823217 
-Run 72 stress 0.3138409 
-Run 73 stress 0.2756409 
-... New best solution
-... Procrustes: rmse 0.006688926  max resid 0.05479494 
-Run 74 stress 0.2857355 
-Run 75 stress 0.2834664 
-Run 76 stress 0.2834251 
-Run 77 stress 0.2954893 
-Run 78 stress 0.286071 
-Run 79 stress 0.2884071 
-Run 80 stress 0.3051241 
-Run 81 stress 0.2816083 
-Run 82 stress 0.2829201 
-Run 83 stress 0.3141665 
-Run 84 stress 0.2783938 
-Run 85 stress 0.2818005 
-Run 86 stress 0.2831755 
-Run 87 stress 0.2763259 
-Run 88 stress 0.2888579 
-Run 89 stress 0.3062602 
-Run 90 stress 0.2856563 
-Run 91 stress 0.2895439 
-Run 92 stress 0.275793 
-... Procrustes: rmse 0.02787599  max resid 0.2133164 
-Run 93 stress 0.2856758 
-Run 94 stress 0.292898 
-Run 95 stress 0.2863794 
-Run 96 stress 0.2764144 
-Run 97 stress 0.2774566 
-Run 98 stress 0.2990053 
-Run 99 stress 0.286001 
-Run 100 stress 0.2800643 
-Run 101 stress 0.2995309 
-Run 102 stress 0.2854035 
-Run 103 stress 0.313981 
-Run 104 stress 0.2802067 
-Run 105 stress 0.2769166 
-Run 106 stress 0.2871338 
-Run 107 stress 0.301517 
-Run 108 stress 0.2813973 
-Run 109 stress 0.2803757 
-Run 110 stress 0.2825412 
-Run 111 stress 0.2819544 
-Run 112 stress 0.3106356 
-Run 113 stress 0.2857158 
-Run 114 stress 0.28054 
-Run 115 stress 0.2847235 
-Run 116 stress 0.2963966 
-Run 117 stress 0.2764471 
-Run 118 stress 0.2916034 
-Run 119 stress 0.2862926 
-Run 120 stress 0.2822926 
-Run 121 stress 0.2854575 
-Run 122 stress 0.2837994 
-Run 123 stress 0.2888163 
-Run 124 stress 0.2937464 
-Run 125 stress 0.2752022 
-... New best solution
-... Procrustes: rmse 0.01839457  max resid 0.1949325 
-Run 126 stress 0.2782642 
-Run 127 stress 0.2903909 
-Run 128 stress 0.2849397 
-Run 129 stress 0.277819 
-Run 130 stress 0.2917427 
-Run 131 stress 0.2928313 
-Run 132 stress 0.3075153 
-Run 133 stress 0.2837128 
-Run 134 stress 0.2818714 
-Run 135 stress 0.3225496 
-Run 136 stress 0.2945228 
-Run 137 stress 0.3009094 
-Run 138 stress 0.2869416 
-Run 139 stress 0.2864973 
-Run 140 stress 0.2871134 
-Run 141 stress 0.2756778 
-... Procrustes: rmse 0.01598282  max resid 0.1684395 
-Run 142 stress 0.2896974 
-Run 143 stress 0.2817277 
-Run 144 stress 0.2763396 
-Run 145 stress 0.2856764 
-Run 146 stress 0.285556 
-Run 147 stress 0.3037158 
-Run 148 stress 0.2832145 
-Run 149 stress 0.3136607 
-Run 150 stress 0.2773844 
-Run 151 stress 0.2832705 
-Run 152 stress 0.2757909 
-Run 153 stress 0.276911 
-Run 154 stress 0.2761916 
-Run 155 stress 0.2753927 
-... Procrustes: rmse 0.004412328  max resid 0.0278875 
-Run 156 stress 0.2815538 
-Run 157 stress 0.2839197 
-Run 158 stress 0.2776063 
-Run 159 stress 0.2856053 
-Run 160 stress 0.2909764 
-Run 161 stress 0.2824001 
-Run 162 stress 0.2945936 
-Run 163 stress 0.2851243 
-Run 164 stress 0.2952075 
-Run 165 stress 0.2937954 
-Run 166 stress 0.2821778 
-Run 167 stress 0.289577 
-Run 168 stress 0.3101815 
-Run 169 stress 0.2899911 
-Run 170 stress 0.2851066 
-Run 171 stress 0.2920318 
-Run 172 stress 0.2955044 
-Run 173 stress 0.2873532 
-Run 174 stress 0.2826145 
-Run 175 stress 0.2831905 
-Run 176 stress 0.2825163 
-Run 177 stress 0.2819337 
-Run 178 stress 0.2761917 
-Run 179 stress 0.293661 
-Run 180 stress 0.2909376 
-Run 181 stress 0.2966224 
-Run 182 stress 0.2948812 
-Run 183 stress 0.2902538 
-Run 184 stress 0.2759996 
-Run 185 stress 0.2883574 
-Run 186 stress 0.2843423 
-Run 187 stress 0.3000871 
-Run 188 stress 0.2964049 
-Run 189 stress 0.2876698 
-Run 190 stress 0.2807912 
-Run 191 stress 0.2866172 
-Run 192 stress 0.2850386 
-Run 193 stress 0.2768287 
-Run 194 stress 0.2769162 
-Run 195 stress 0.2914567 
-Run 196 stress 0.2833897 
-Run 197 stress 0.2853156 
-Run 198 stress 0.2802875 
-Run 199 stress 0.2820744 
-Run 200 stress 0.2761915 
-Run 201 stress 0.2831963 
-Run 202 stress 0.2831736 
-Run 203 stress 0.2767927 
-Run 204 stress 0.2774054 
-Run 205 stress 0.2756942 
-... Procrustes: rmse 0.01598043  max resid 0.1670758 
-Run 206 stress 0.2777929 
-Run 207 stress 0.2931061 
-Run 208 stress 0.2844497 
-Run 209 stress 0.2852446 
-Run 210 stress 0.2783617 
-Run 211 stress 0.2999261 
-Run 212 stress 0.2956568 
-Run 213 stress 0.2821161 
-Run 214 stress 0.2754694 
-... Procrustes: rmse 0.006474131  max resid 0.05279246 
-Run 215 stress 0.2921575 
-Run 216 stress 0.2831807 
-Run 217 stress 0.2918956 
-Run 218 stress 0.2851382 
-Run 219 stress 0.2858284 
-Run 220 stress 0.2933459 
-Run 221 stress 0.2855018 
-Run 222 stress 0.2816954 
-Run 223 stress 0.2812924 
-Run 224 stress 0.2817054 
-Run 225 stress 0.2923533 
-Run 226 stress 0.2841288 
-Run 227 stress 0.2904194 
-Run 228 stress 0.2813527 
-Run 229 stress 0.2839412 
-Run 230 stress 0.2815432 
-Run 231 stress 0.2769522 
-Run 232 stress 0.2797161 
-Run 233 stress 0.2868148 
-Run 234 stress 0.2788169 
-Run 235 stress 0.2758682 
-Run 236 stress 0.2878844 
-Run 237 stress 0.2818175 
-Run 238 stress 0.2802102 
-Run 239 stress 0.2903001 
-Run 240 stress 0.2852655 
-Run 241 stress 0.2829224 
-Run 242 stress 0.2883752 
-Run 243 stress 0.4131698 
-Run 244 stress 0.3148125 
-Run 245 stress 0.2878972 
-Run 246 stress 0.2809798 
-Run 247 stress 0.280497 
-Run 248 stress 0.2768593 
-Run 249 stress 0.2912055 
-Run 250 stress 0.2758684 
-Run 251 stress 0.2999398 
-Run 252 stress 0.282178 
-Run 253 stress 0.2870254 
-Run 254 stress 0.275199 
-... New best solution
-... Procrustes: rmse 0.001180725  max resid 0.01078959 
-Run 255 stress 0.3084651 
-Run 256 stress 0.2827973 
-Run 257 stress 0.3013574 
-Run 258 stress 0.2756295 
-... Procrustes: rmse 0.007690206  max resid 0.05152554 
-Run 259 stress 0.2852168 
-Run 260 stress 0.2819611 
-Run 261 stress 0.30995 
-Run 262 stress 0.2902704 
-Run 263 stress 0.2819535 
-Run 264 stress 0.2825163 
-Run 265 stress 0.2803926 
-Run 266 stress 0.285498 
-Run 267 stress 0.2874139 
-Run 268 stress 0.2760015 
-Run 269 stress 0.294528 
-Run 270 stress 0.2892038 
-Run 271 stress 0.2757909 
-Run 272 stress 0.2897887 
-Run 273 stress 0.3042521 
-Run 274 stress 0.2841449 
-Run 275 stress 0.308743 
-Run 276 stress 0.2853573 
-Run 277 stress 0.2823228 
-Run 278 stress 0.2824113 
-Run 279 stress 0.2939282 
-Run 280 stress 0.2811827 
-Run 281 stress 0.2754026 
-... Procrustes: rmse 0.005491697  max resid 0.03938792 
-Run 282 stress 0.280312 
-Run 283 stress 0.2853019 
-Run 284 stress 0.2993653 
-Run 285 stress 0.2848496 
-Run 286 stress 0.2835985 
-Run 287 stress 0.2759896 
-Run 288 stress 0.2756956 
-... Procrustes: rmse 0.01607401  max resid 0.1673164 
-Run 289 stress 0.2836377 
-Run 290 stress 0.2783561 
-Run 291 stress 0.2965925 
-Run 292 stress 0.2842897 
-Run 293 stress 0.2753913 
-... Procrustes: rmse 0.005077171  max resid 0.03917087 
-Run 294 stress 0.2769208 
-Run 295 stress 0.2826611 
-Run 296 stress 0.2836992 
-Run 297 stress 0.288379 
-Run 298 stress 0.2783109 
-Run 299 stress 0.2906245 
-Run 300 stress 0.2925783 
-Run 301 stress 0.2833795 
-Run 302 stress 0.2788488 
-Run 303 stress 0.2804165 
-Run 304 stress 0.2768885 
-Run 305 stress 0.2921951 
-Run 306 stress 0.2817128 
-Run 307 stress 0.2842166 
-Run 308 stress 0.2816443 
-Run 309 stress 0.2799539 
-Run 310 stress 0.2761916 
-Run 311 stress 0.2905186 
-Run 312 stress 0.2792492 
-Run 313 stress 0.2764148 
-Run 314 stress 0.2768102 
-Run 315 stress 0.2767552 
-Run 316 stress 0.2757909 
-Run 317 stress 0.2825181 
-Run 318 stress 0.2827509 
-Run 319 stress 0.2937944 
-Run 320 stress 0.2756779 
-... Procrustes: rmse 0.01601981  max resid 0.1691432 
-Run 321 stress 0.280515 
-Run 322 stress 0.2812731 
-Run 323 stress 0.2796134 
-Run 324 stress 0.2822521 
-Run 325 stress 0.288614 
-Run 326 stress 0.287689 
-Run 327 stress 0.2815311 
-Run 328 stress 0.2893268 
-Run 329 stress 0.307549 
-Run 330 stress 0.2817905 
-Run 331 stress 0.2925788 
-Run 332 stress 0.276416 
-Run 333 stress 0.2923969 
-Run 334 stress 0.277821 
-Run 335 stress 0.2820126 
-Run 336 stress 0.2899776 
-Run 337 stress 0.2756919 
-... Procrustes: rmse 0.01878761  max resid 0.1966573 
-Run 338 stress 0.310885 
-Run 339 stress 0.2819317 
-Run 340 stress 0.2830859 
-Run 341 stress 0.2771782 
-Run 342 stress 0.276415 
-Run 343 stress 0.2810702 
-Run 344 stress 0.2817051 
-Run 345 stress 0.2976131 
-Run 346 stress 0.3000953 
-Run 347 stress 0.2854301 
-Run 348 stress 0.2873747 
-Run 349 stress 0.2840335 
-Run 350 stress 0.2847668 
-Run 351 stress 0.2877928 
-Run 352 stress 0.2761237 
-Run 353 stress 0.2816047 
-Run 354 stress 0.2857891 
-Run 355 stress 0.2967727 
-Run 356 stress 0.2868496 
-Run 357 stress 0.2760473 
-Run 358 stress 0.321193 
-Run 359 stress 0.2826918 
-Run 360 stress 0.2876268 
-Run 361 stress 0.2752018 
-... Procrustes: rmse 0.001113995  max resid 0.01032134 
-Run 362 stress 0.2824346 
-Run 363 stress 0.281036 
-Run 364 stress 0.2819728 
-Run 365 stress 0.2825744 
-Run 366 stress 0.2957984 
-Run 367 stress 0.2989419 
-Run 368 stress 0.2768681 
-Run 369 stress 0.2871297 
-Run 370 stress 0.3062691 
-Run 371 stress 0.287284 
-Run 372 stress 0.4136489 
-Run 373 stress 0.280988 
-Run 374 stress 0.2934075 
-Run 375 stress 0.285402 
-Run 376 stress 0.275641 
-... Procrustes: rmse 0.01855291  max resid 0.1969236 
-Run 377 stress 0.2907737 
-Run 378 stress 0.3015324 
-Run 379 stress 0.2897734 
-Run 380 stress 0.2819079 
-Run 381 stress 0.275199 
-... New best solution
-... Procrustes: rmse 0.0001407104  max resid 0.0008498833 
-... Similar to previous best
-*** Solution reached</code></pre>
 <p>And now we can pull out the NMDS scores (2 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure.</p>
 <pre class="r"><code># scores and species points
 rd_scores &lt;- as.data.frame(raindrop_NMDS$points) 
