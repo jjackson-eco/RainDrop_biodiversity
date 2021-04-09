@@ -405,7 +405,7 @@ While there may not be overall patterns in species diversity, what is interestin
 
 Here we perform the NMDS analysis using the `vegan` package, with two dimensions for 122 species in total and using the default bray distances. Firstly some cleaning though, to convert the percent cover data to a species by sample (our plots) matrix.
 
-```{r NMDS}
+```{r NMDS, message= FALSE, warning= FALSE, results = FALSE, error = FALSE}
 # data frame of the community matrix
 species_community_df <- percent_cover %>% 
   mutate(sample = paste(month, year, block, treatment, sep = "_")) %>% 
