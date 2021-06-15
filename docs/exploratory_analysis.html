@@ -393,7 +393,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-09
+<strong>Last updated:</strong> 2021-06-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -484,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree6e78a6855931170725d6e38b949828cd4190e318targetblank6e78a68a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/6e78a6855931170725d6e38b949828cd4190e318" target="_blank">6e78a68</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree6e78a6855931170725d6e38b949828cd4190e318targetblank6e78a68a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/6e78a6855931170725d6e38b949828cd4190e318" target="_blank">6e78a68</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,7 +502,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
     Ignored:    analysis/site_libs/
 
 Unstaged changes:
@@ -545,6 +544,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482/analysis/exploratory_analysis.Rmd" target="_blank">cbc95ff</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+wflow_publish(c(“.Rprofile”, “analysis/exploratory_analysis.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/0129bef7bc4f95b7c78632a9c90f796bfe30d32f/docs/exploratory_analysis.html" target="_blank">0129bef</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-04-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -791,7 +824,7 @@ $ biomass_g &lt;dbl&gt; 0.7, 4.5, 16.5, 49.7, 7.7, 0.0, 0.3, 2.4, 20.0, 46.7, 3.
 </div>
 <div id="biomass-variable" class="section level2">
 <h2>Biomass variable</h2>
-<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass. If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
+<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass (<strong>Need to know if 0 observations are true zeros or procedural</strong>). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
 <pre class="r"><code>biomass &lt;- biomass %&gt;% 
   filter(biomass_g &gt; 0)
 
@@ -820,7 +853,7 @@ ggplot(biomass, aes(x = biomass_log)) +
 <pre class="r"><code>totbiomass &lt;- biomass %&gt;% 
   group_by(year, harvest, block, treatment) %&gt;% 
   summarise(tot_biomass = sum(biomass_g),
-            log_tot_biomass = log(tot_biomass)) %&gt;% 
+            log_tot_biomass = log(tot_biomass + 1)) %&gt;%  # avoiding 0 biomasses
   ungroup()</code></pre>
 <p>And now we can look at how this is affected by the rainfall treatments.</p>
 <pre class="r"><code>tb_1 &lt;- totbiomass %&gt;% 
@@ -1192,7 +1225,7 @@ other attached packages:
  [1] vegan_2.5-7     lattice_0.20-41 permute_0.9-5   patchwork_1.1.1
  [5] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4    
  [9] readr_1.4.0     tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3  
-[13] tidyverse_1.3.0 workflowr_1.6.2
+[13] tidyverse_1.3.0
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2         sass_0.3.1         viridisLite_0.3.0  jsonlite_1.7.2    
@@ -1211,8 +1244,9 @@ loaded via a namespace (and not attached):
 [53] jquerylib_0.1.3    rlang_0.4.10       grid_4.0.5         rstudioapi_0.13   
 [57] labeling_0.4.2     rmarkdown_2.7      gtable_0.3.0       DBI_1.1.1         
 [61] R6_2.5.0           lubridate_1.7.10   knitr_1.31         utf8_1.2.1        
-[65] rprojroot_2.0.2    stringi_1.5.3      parallel_4.0.5     Rcpp_1.0.6        
-[69] vctrs_0.3.7        dbplyr_2.1.0       tidyselect_1.1.0   xfun_0.22         </code></pre>
+[65] workflowr_1.6.2    rprojroot_2.0.2    stringi_1.5.3      parallel_4.0.5    
+[69] Rcpp_1.0.6         vctrs_0.3.7        dbplyr_2.1.0       tidyselect_1.1.0  
+[73] xfun_0.22         </code></pre>
 </div>
 </div>
 </div>

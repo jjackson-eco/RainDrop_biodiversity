@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Mixed effects models</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RainDrop biodiversity</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Introduction</a>
+</li>
+<li>
+  <a href="exploratory_analysis.html">Exploratory analysis</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jjackson-eco/RainDrop_biodiversity">
+    <span class="fas fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Mixed effects models</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-06-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>RainDrop_biodiversity/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210406code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210406)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210406code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210406)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Deleted:    analysis/about.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/mixed_model_summaries.Rmd</code>) and HTML (<code>docs/mixed_model_summaries.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482/analysis/mixed_model_summaries.Rmd" target="_blank">cbc95ff</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+wflow_publish(c(“.Rprofile”, “analysis/exploratory_analysis.Rmd”,
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>Here we present the results of Bayesian hierarchical mixed-effects models to explore how the rainfall treatments have influenced biodiversity, namely, the above-ground biomass (both total at the group level) and species diversity (Shannon-Wiener index and species richness) at the RainDrop site. Please refer to the file <code>code/mixed_effects_models.R</code> for the full details of the model selection. We’ll only be presenting the best predictive models here.</p>
+<p>First some housekeeping. We’ll start by loading the necessary packages for exploring the data and the modelling, the raw data itself and then specifying the colour palette for the treatments.</p>
+<pre class="r"><code># packages
+library(tidyverse)
+library(patchwork)
+library(vegan)
+library(brms)
+library(tidybayes)
+
+# load data
+load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData&quot;, 
+     verbose = TRUE)</code></pre>
+<pre><code>Loading objects:
+  biomass
+  percent_cover</code></pre>
+<pre class="r"><code># wrangling the data
+# Converting to total biomass - Here we are considering TRUE 0 observations - need to chat to Andy about this
+totbiomass &lt;- biomass %&gt;%
+  group_by(year, harvest, block, treatment) %&gt;%
+  summarise(tot_biomass = sum(biomass_g),
+            log_tot_biomass = log(tot_biomass + 1)) %&gt;%
+  ungroup() %&gt;%
+  mutate(year_f = as.factor(year),
+         year_s = as.numeric(scale(year)))
+
+## group biomass - Focussing on only graminoids, forbs and legumes
+biomass_gr &lt;- biomass %&gt;%
+  filter(group %in% c(&quot;Forbs&quot;, &quot;Graminoids&quot;, &quot;Legumes&quot;)) %&gt;%
+  mutate(biomass_log = log(biomass_g + 1),
+         year_f = as.factor(year),
+         year_s = as.numeric(scale(year)))
+
+
+# Percent cover - total biodiversity indices
+percent_cover &lt;- percent_cover %&gt;%
+  drop_na(percent_cover) %&gt;%
+  filter(species_level == &quot;Yes&quot;)
+
+diversity &lt;- percent_cover %&gt;%
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %&gt;%
+  group_by(year, month, block, treatment) %&gt;%
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %&gt;%
+  ungroup() %&gt;%
+  mutate(year_f = as.factor(year),
+         year_s = as.numeric(scale(year)),
+         shannon = as.numeric(scale(shannon)))
+
+# colours
+raindrop_colours &lt;- 
+  tibble(treatment = c(&quot;Ambient&quot;, &quot;Control&quot;, &quot;Drought&quot;, &quot;Irrigated&quot;),
+         num = rep(100,4),
+         colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;)) </code></pre>
+<div id="modelling-specifications" class="section level1">
+<h1>Modelling specifications</h1>
+<p>As seen in the <a href="https://jjackson-eco.github.io/RainDrop_biodiversity/index.html">introduction</a> and <a href="https://jjackson-eco.github.io/RainDrop_biodiversity/exploratory_analysis.html">exploratory analyses</a>, the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).</p>
+<p>The biodiversity response variables used here are:</p>
+<ol style="list-style-type: decimal">
+<li>Total biomass - <span class="math inline">\(total\,biomass\)</span> - <span class="math inline">\(\ln\)</span>-transformed - Gaussian model</li>
+<li>Group-level biomass - <span class="math inline">\(biomass\)</span> - <span class="math inline">\(\ln\)</span>-transformed - Gaussian model</li>
+<li>Shannon-Wiener index - <span class="math inline">\(shannon\)</span> - z-transformed - Gaussian model</li>
+<li>Species richness - <span class="math inline">\(richness\)</span> - Poisson model with a <span class="math inline">\(\log\)</span> link</li>
+</ol>
+<p>The full base models and priors are given at the beginning of each subsequent section</p>
+</div>
+<div id="total-biomass" class="section level1">
+<h1>1. Total biomass</h1>
+<p>The full base model for total biomass is as follows, where for a biomass observation in block <span class="math inline">\(i\)</span> (<span class="math inline">\(i = 1..5\)</span>), treatment <span class="math inline">\(j\)</span> (<span class="math inline">\(j = 1..4\)</span>) and year <span class="math inline">\(t\)</span> (<span class="math inline">\(t = 1..5\)</span>)</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Full model} \\
+total\,biomass_{ijt} &amp;\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
+\mu_{ijt} &amp;= \alpha_{i} + \beta_{harvest[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{harvest[ijt]} &amp;\sim \operatorname{Normal}(0, 1) \\
+\alpha_i &amp;\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &amp;\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &amp;\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &amp;\sim\operatorname{Normal}(3.5, 0.5)\\
+\sigma_{\alpha} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &amp;\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+\]</span></p>
+<p>Where <span class="math inline">\(\epsilon_{ij}\)</span> and <span class="math inline">\(\gamma_t\)</span> are intercept-only random effects for the cluster of treatment within block and year, respectively.</p>
+</div>
+<div id="group-level-biomass" class="section level1">
+<h1>2. Group-level biomass</h1>
+<div id="data-summary" class="section level2">
+<h2>Data summary</h2>
+<p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70<span class="math inline">\(^\circ\)</span>C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.</p>
+<p>Here a summary of the data:</p>
+<pre class="r"><code>glimpse(biomass)</code></pre>
+<pre><code>Rows: 1,199
+Columns: 6
+$ year      &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, ~
+$ harvest   &lt;chr&gt; &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid~
+$ block     &lt;chr&gt; &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, ~
+$ treatment &lt;chr&gt; &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambi~
+$ group     &lt;chr&gt; &quot;Bryophytes&quot;, &quot;Dead&quot;, &quot;Forbs&quot;, &quot;Graminoids&quot;, &quot;Legumes&quot;, &quot;Woo~
+$ biomass_g &lt;dbl&gt; 0.7, 4.5, 16.5, 49.7, 7.7, 0.0, 0.3, 2.4, 20.0, 46.7, 3.6, 1~</code></pre>
+<ul>
+<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
+<li>$<strong>harvest</strong> - point of the growing season when harvest occur (category “Mid” and “End”)</li>
+<li>$<strong>block</strong> - block of experiment (category A-E)</li>
+<li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
+<li>$<strong>group</strong> - functional group of measurement (category “Bryophytes”, “Dead”, “Forbs”, “Graminoids”, “Legumes” and “Woody”)</li>
+<li>$<strong>biomass_g</strong> - above-ground dry mass in grams (continuous)</li>
+</ul>
+<hr />
+</div>
+<div id="biomass-variable" class="section level2">
+<h2>Biomass variable</h2>
+<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass (<strong>Need to know if 0 observations are true zeros or procedural</strong>). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
+<pre class="r"><code>biomass &lt;- biomass %&gt;% 
+  filter(biomass_g &gt; 0)
+
+ggplot(biomass, aes(x = biomass_g)) +
+  geom_histogram(bins = 20) +
+  labs(x = &quot;Above-ground biomass (g)&quot;, y = &quot;Frequency&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/mixed_model_summaries.Rmd/biomass%20raw%20hist-1.png" width="480" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United Kingdom.1252 
+[2] LC_CTYPE=English_United Kingdom.1252   
+[3] LC_MONETARY=English_United Kingdom.1252
+[4] LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] tidybayes_2.3.1 brms_2.15.0     Rcpp_1.0.6      vegan_2.5-7    
+ [5] lattice_0.20-41 permute_0.9-5   patchwork_1.1.1 forcats_0.5.1  
+ [9] stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4     readr_1.4.0    
+[13] tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3   tidyverse_1.3.0
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1         backports_1.2.1      workflowr_1.6.2     
+  [4] plyr_1.8.6           igraph_1.2.6         splines_4.0.5       
+  [7] svUnit_1.0.3         crosstalk_1.1.1      rstantools_2.1.1    
+ [10] inline_0.3.17        digest_0.6.27        htmltools_0.5.1.1   
+ [13] rsconnect_0.8.16     fansi_0.4.2          magrittr_2.0.1      
+ [16] cluster_2.1.1        modelr_0.1.8         RcppParallel_5.0.3  
+ [19] matrixStats_0.58.0   xts_0.12.1           prettyunits_1.1.1   
+ [22] colorspace_2.0-0     rvest_1.0.0          ggdist_2.4.0        
+ [25] haven_2.3.1          xfun_0.22            callr_3.6.0         
+ [28] crayon_1.4.1         jsonlite_1.7.2       lme4_1.1-26         
+ [31] zoo_1.8-9            glue_1.4.2           gtable_0.3.0        
+ [34] emmeans_1.6.0        V8_3.4.0             distributional_0.2.2
+ [37] pkgbuild_1.2.0       rstan_2.21.2         abind_1.4-5         
+ [40] scales_1.1.1         mvtnorm_1.1-1        DBI_1.1.1           
+ [43] miniUI_0.1.1.1       xtable_1.8-4         stats4_4.0.5        
+ [46] StanHeaders_2.21.0-7 DT_0.17              htmlwidgets_1.5.3   
+ [49] httr_1.4.2           threejs_0.3.3        arrayhelpers_1.1-0  
+ [52] ellipsis_0.3.1       farver_2.1.0         pkgconfig_2.0.3     
+ [55] loo_2.4.1            sass_0.3.1           dbplyr_2.1.0        
+ [58] utf8_1.2.1           labeling_0.4.2       tidyselect_1.1.0    
+ [61] rlang_0.4.10         reshape2_1.4.4       later_1.1.0.1       
+ [64] munsell_0.5.0        cellranger_1.1.0     tools_4.0.5         
+ [67] cli_2.3.1            generics_0.1.0       broom_0.7.5         
+ [70] ggridges_0.5.3       evaluate_0.14        fastmap_1.1.0       
+ [73] yaml_2.2.1           processx_3.5.0       knitr_1.31          
+ [76] fs_1.5.0             nlme_3.1-152         whisker_0.4         
+ [79] mime_0.10            projpred_2.0.2       xml2_1.3.2          
+ [82] compiler_4.0.5       bayesplot_1.8.0      shinythemes_1.2.0   
+ [85] rstudioapi_0.13      gamm4_0.2-6          curl_4.3            
+ [88] reprex_2.0.0         statmod_1.4.35       bslib_0.2.4         
+ [91] stringi_1.5.3        highr_0.8            ps_1.6.0            
+ [94] Brobdingnag_1.2-6    Matrix_1.3-2         nloptr_1.2.2.2      
+ [97] markdown_1.1         shinyjs_2.0.0        vctrs_0.3.7         
+[100] pillar_1.5.1         lifecycle_1.0.0      jquerylib_0.1.3     
+[103] bridgesampling_1.0-0 estimability_1.3     httpuv_1.5.5        
+[106] R6_2.5.0             promises_1.2.0.1     gridExtra_2.3       
+[109] codetools_0.2-18     boot_1.3-27          colourpicker_1.1.0  
+[112] MASS_7.3-53.1        gtools_3.8.2         assertthat_0.2.1    
+[115] rprojroot_2.0.2      withr_2.4.1          shinystan_2.5.0     
+[118] mgcv_1.8-34          parallel_4.0.5       hms_1.0.0           
+[121] grid_4.0.5           coda_0.19-4          minqa_1.2.4         
+[124] rmarkdown_2.7        git2r_0.28.0         shiny_1.6.0         
+[127] lubridate_1.7.10     base64enc_0.1-3      dygraphs_1.1.1.6    </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
