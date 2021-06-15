@@ -340,7 +340,7 @@ div.tocify {
   <a href="exploratory_analysis.html">Exploratory analysis</a>
 </li>
 <li>
-  <a href="license.html">License</a>
+  <a href="mixed_model_summaries.html">Mixed models</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -484,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree4c2bd596b15386159ac24b04766c3484f9133eb3targetblank4c2bd59a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/4c2bd596b15386159ac24b04766c3484f9133eb3" target="_blank">4c2bd59</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree4c2bd596b15386159ac24b04766c3484f9133eb3targetblank4c2bd59a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/4c2bd596b15386159ac24b04766c3484f9133eb3" target="_blank">4c2bd59</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,6 +502,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/site_libs/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -543,6 +544,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/4c2bd596b15386159ac24b04766c3484f9133eb3/analysis/mixed_model_summaries.Rmd" target="_blank">4c2bd59</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+mixed model addition + yaml change
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/5b44884e9553338e4f61ac7651b37240a9ed7cce/docs/mixed_model_summaries.html" target="_blank">5b44884</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -625,7 +660,7 @@ raindrop_colours &lt;-
          colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;)) </code></pre>
 <div id="modelling-specifications" class="section level1">
 <h1>Modelling specifications</h1>
-<p>As seen in the <a href="https://jjackson-eco.github.io/RainDrop_biodiversity/index.html">introduction</a> and <a href="https://jjackson-eco.github.io/RainDrop_biodiversity/exploratory_analysis.html">exploratory analyses</a>, the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).</p>
+<p>As seen in the <a href="index.html">introduction</a> and <a href="exploratory_analysis.html">exploratory analyses</a>, the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).</p>
 <p>The biodiversity response variables used here are:</p>
 <ol style="list-style-type: decimal">
 <li>Total biomass - <span class="math inline">\(total\,biomass\)</span> - <span class="math inline">\(\ln\)</span>-transformed - Gaussian model</li>
