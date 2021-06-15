@@ -74,7 +74,7 @@ raindrop_colours <-
 
 # Modelling specifications
 
-As seen in the [introduction](https://jjackson-eco.github.io/RainDrop_biodiversity/index.html) and [exploratory analyses](https://jjackson-eco.github.io/RainDrop_biodiversity/exploratory_analysis.html), the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).
+As seen in the [introduction](index.html) and [exploratory analyses](exploratory_analysis.html), the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).
 
 The biodiversity response variables used here are:
 

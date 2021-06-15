@@ -7,8 +7,8 @@ navbar:
     href: index.html
   - text: Exploratory analysis
     href: exploratory_analysis.html
-  - text: License
-    href: license.html
+  - text: Mixed models
+    href: mixed_model_summaries.html
   right:
   - icon: fa-github
     text: Source code
