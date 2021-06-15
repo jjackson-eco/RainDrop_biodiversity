@@ -62,7 +62,7 @@ glimpse(biomass)
 
 ## Biomass variable
 
-Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass. If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
+Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass (**Need to know if 0 observations are true zeros or procedural**). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
 
 ```{r biomass raw hist, fig.width= 5, fig.height= 3}
 biomass <- biomass %>% 
@@ -100,7 +100,7 @@ The first interesting question to explore is how biomass overall, which indicate
 totbiomass <- biomass %>% 
   group_by(year, harvest, block, treatment) %>% 
   summarise(tot_biomass = sum(biomass_g),
-            log_tot_biomass = log(tot_biomass)) %>% 
+            log_tot_biomass = log(tot_biomass + 1)) %>%  # avoiding 0 biomasses
   ungroup()
 ```
 

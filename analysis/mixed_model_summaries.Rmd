@@ -1,0 +1,150 @@
+---
+title: "Mixed effects models"
+output:
+  workflowr::wflow_html:
+    toc: true
+    code_folding: hide 
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+Here we present the results of Bayesian hierarchical mixed-effects models to explore how the rainfall treatments have influenced biodiversity, namely, the above-ground biomass (both total at the group level) and species diversity (Shannon-Wiener index and species richness) at the RainDrop site. Please refer to the file `code/mixed_effects_models.R` for the full details of the model selection. We'll only be presenting the best predictive models here.
+
+First some housekeeping. We'll start by loading the necessary packages for exploring the data and the modelling, the raw data itself and then specifying the colour palette for the treatments.
+
+```{r packages data load colours, fig.width = 5, fig.height = 2}
+# packages
+library(tidyverse)
+library(patchwork)
+library(vegan)
+library(brms)
+library(tidybayes)
+
+# load data
+load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
+     verbose = TRUE)
+
+# wrangling the data
+# Converting to total biomass - Here we are considering TRUE 0 observations - need to chat to Andy about this
+totbiomass <- biomass %>%
+  group_by(year, harvest, block, treatment) %>%
+  summarise(tot_biomass = sum(biomass_g),
+            log_tot_biomass = log(tot_biomass + 1)) %>%
+  ungroup() %>%
+  mutate(year_f = as.factor(year),
+         year_s = as.numeric(scale(year)))
+
+## group biomass - Focussing on only graminoids, forbs and legumes
+biomass_gr <- biomass %>%
+  filter(group %in% c("Forbs", "Graminoids", "Legumes")) %>%
+  mutate(biomass_log = log(biomass_g + 1),
+         year_f = as.factor(year),
+         year_s = as.numeric(scale(year)))
+
+
+# Percent cover - total biodiversity indices
+percent_cover <- percent_cover %>%
+  drop_na(percent_cover) %>%
+  filter(species_level == "Yes")
+
+diversity <- percent_cover %>%
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %>%
+  group_by(year, month, block, treatment) %>%
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %>%
+  ungroup() %>%
+  mutate(year_f = as.factor(year),
+         year_s = as.numeric(scale(year)),
+         shannon = as.numeric(scale(shannon)))
+
+# colours
+raindrop_colours <- 
+  tibble(treatment = c("Ambient", "Control", "Drought", "Irrigated"),
+         num = rep(100,4),
+         colour = c("#61D94E", "#BFBFBF", "#EB8344", "#6ECCFF")) 
+
+```
+
+# Modelling specifications
+
+As seen in the [introduction](https://jjackson-eco.github.io/RainDrop_biodiversity/index.html) and [exploratory analyses](https://jjackson-eco.github.io/RainDrop_biodiversity/exploratory_analysis.html), the RainDrop study follows a randomised block design with a nested structure and annual sampling. Each treatment plot occurs within one of 5 spatial blocks, and there is temporal replication across years, and so we used hierarchical models with treatment clustered within spatial block and an intercept only random effect of year (as a factor).
+
+The biodiversity response variables used here are:
+
+1. Total biomass - $total\,biomass$ - $\ln$-transformed - Gaussian model
+2. Group-level biomass - $biomass$ - $\ln$-transformed - Gaussian model
+3. Shannon-Wiener index - $shannon$ - z-transformed - Gaussian model
+4. Species richness - $richness$ - Poisson model with a $\log$ link
+
+The full base models and priors are given at the beginning of each subsequent section
+
+
+
+# 1. Total biomass
+
+The full base model for total biomass is as follows, where for a biomass observation in block $i$ ($i = 1..5$), treatment $j$ ($j = 1..4$) and year $t$ ($t = 1..5$)
+
+$$
+\begin{aligned}
+\operatorname{Full model} \\
+total\,biomass_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
+\mu_{ijt} &= \alpha_{i} + \beta_{harvest[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{harvest[ijt]} &\sim \operatorname{Normal}(0, 1) \\
+\alpha_i &\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &\sim\operatorname{Normal}(3.5, 0.5)\\
+\sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+$$
+
+Where $\epsilon_{ij}$ and $\gamma_t$ are intercept-only random effects for the cluster of treatment within block and year, respectively.
+
+# 2. Group-level biomass
+
+## Data summary
+
+Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70$^\circ$C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.
+
+Here a summary of the data:
+
+```{r biomass glimpse}
+glimpse(biomass)
+```
+
+* $**year**      - year of measurement (integer 2016-2020)
+* $**harvest**   - point of the growing season when harvest occur (category "Mid" and "End")
+* $**block**     - block of experiment (category A-E)
+* $**treatment** - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
+* $**group**     - functional group of measurement (category "Bryophytes", "Dead", "Forbs", "Graminoids", "Legumes" and "Woody")
+* $**biomass_g** - above-ground dry mass in grams (continuous)
+
+***
+
+## Biomass variable
+
+Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass (**Need to know if 0 observations are true zeros or procedural**). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
+
+```{r biomass raw hist, fig.width= 5, fig.height= 3}
+biomass <- biomass %>% 
+  filter(biomass_g > 0)
+
+ggplot(biomass, aes(x = biomass_g)) +
+  geom_histogram(bins = 20) +
+  labs(x = "Above-ground biomass (g)", y = "Frequency") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+
+
