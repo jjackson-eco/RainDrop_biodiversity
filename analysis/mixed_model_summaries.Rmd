@@ -19,10 +19,12 @@ First some housekeeping. We'll start by loading the necessary packages for explo
 ```{r packages data load colours, fig.width = 5, fig.height = 2}
 # packages
 library(tidyverse)
-library(patchwork)
-library(vegan)
 library(brms)
 library(tidybayes)
+library(patchwork)
+library(gghalves)
+library(flextable)
+library(vegan)
 
 # load data
 load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
@@ -83,9 +85,27 @@ The biodiversity response variables used here are:
 3. Shannon-Wiener index - $shannon$ - z-transformed - Gaussian model
 4. Species richness - $richness$ - Poisson model with a $\log$ link
 
-The full base models and priors are given at the beginning of each subsequent section
+The full base models and priors are given at the beginning of each subsequent section, with the general priors specified for each. Priors were adjusted for each model to prevent divergent transitions, see `code/mixed_effects_models.R`.
 
+Final models were run over 4 chains, with 4000 iterations of which 2000 were warmup iterations (2000 sampling iterations). We increased the target proposal acceptance probability (i.e. how conservative the acceptance of samples was) of the NUTS sampler by increasing `adapt_delta` (default = 0.8 from `rstan`) >= 0.95 (maximum 0.98) in each model to prevent divergent transitions. Model convergence was assessed with $\hat{R}$.
 
+## Model selection
+
+We wanted to assess how the rainfall treatments influenced each of our biodiversity variable, and also how these patterns may have changed through time. We therefore used leave-one-out cross validation implemented in the `loo` package for a set of candidate models, and assessed differences in estimated out-of-sample predictive performance using model selection. Here, we compared models directly using their expected log pointwise predictive density (elpd). For the full set of models explored for each biodiversity variable, please refer to their specific section.
+
+Generally however, we explored the following additions to the base model:
+
+* The rainfall treatment (`treatment`)
+* A Linear year effect (`year_s`)
+* A functional group effect (`group`)
+* An interaction between treatment and year
+* An interaction between functional group and treatment/year
+* An interaction between year and harvest point
+* A year term with temporal autocorrelation (lag 1) (`ar(year_s, p = 1)`)
+
+## Autocorrelated year effects
+
+Modelling the temporal component to this dataset alone may not effectively account for temporal autocorrelation in biodiversity, and therefore we implemented autocorrelated year effects with a lag of 1. These autocorrelated terms were implemented using the `ar()` function of the `brms` package, in which we specified a lag of 1.
 
 # 1. Total biomass
 
@@ -110,41 +130,78 @@ $$
 
 Where $\epsilon_{ij}$ and $\gamma_t$ are intercept-only random effects for the cluster of treatment within block and year, respectively.
 
-# 2. Group-level biomass
+## Model selection results
 
-## Data summary
+Now we load the results from the model selection and the model with the highest predictive performance and have a look at the results of the model selection. Model terms are additional to those in the base model.
 
-Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70$^\circ$C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.
+```{r tot biomass results}
+load("data/totbiomass_models.RData", verbose = TRUE)
 
-Here a summary of the data:
+## model selection table
+round(x = mod_comp_totbiomass, 2) %>% 
+  rownames_to_column("R object") %>% 
+  mutate(`Model terms` = c("treatment", "treatment + year_s",
+                           "treatment + year_s + harvest:year_s",
+                           "treatment + year_s + treatment:year_s",
+                           "base model",
+                           "treatment + ar(year_s, p = 1)")) %>% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %>% 
+  flextable(cwidth = 1.5)
 
-```{r biomass glimpse}
-glimpse(biomass)
 ```
 
-* $**year**      - year of measurement (integer 2016-2020)
-* $**harvest**   - point of the growing season when harvest occur (category "Mid" and "End")
-* $**block**     - block of experiment (category A-E)
-* $**treatment** - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
-* $**group**     - functional group of measurement (category "Bryophytes", "Dead", "Forbs", "Graminoids", "Legumes" and "Woody")
-* $**biomass_g** - above-ground dry mass in grams (continuous)
+We can see that the model with the highest predictive performance for total biomass is that with just the treatment effect. There is evidence for a linear year effect and interactions between year and treatment/harvest relative to the base model, but these are not more predictive than just the treatment effect. We have poor support for temporal autocorrelation in the total biomass.
 
-***
+## Posterior plots and predictions
 
-## Biomass variable
+First lets have a look at the terms within the base model. Here we present distributions from 2000 draws from the posterior of the best model.
 
-Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass (**Need to know if 0 observations are true zeros or procedural**). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
+```{r posterior tot biomass}
+totbiomass_treatment %>%
+  gather_draws(`b_harvestMid|sd.*|sigma`, regex = TRUE) %>% #tidybayes
+  ungroup() %>% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = "lightsteelblue") +
+  scale_y_discrete(labels = c(expression(paste("Early harvest effect ", beta[harvest])),
+                              expression(paste("Block within treatment variance ", sigma[epsilon])),
+                              expression(paste("Block variance ", sigma[alpha])),
+                              expression(paste("Year variance ", sigma[gamma])),
+                              expression(paste("Population-level variance ", sigma)))) +
+  labs(x = "Posterior estimate", y = NULL) +
+  theme_bw(base_size = 15)
+```
 
-```{r biomass raw hist, fig.width= 5, fig.height= 3}
-biomass <- biomass %>% 
-  filter(biomass_g > 0)
+We can see that first of all we have a strong positive effect of the Harvest on total biomass, where biomass is higher by over 50% compared to the later growing season. Then, for the variance terms, we can see that relative to the population-level i.e. total variance, block-level and treatment within block variances were low. In contrast, there was high inter-annual variance.
 
-ggplot(biomass, aes(x = biomass_g)) +
-  geom_histogram(bins = 20) +
-  labs(x = "Above-ground biomass (g)", y = "Frequency") +
-  theme_bw(base_size = 14) +
+Now, for the treatment effect. Here we present the mean distribution of posterior predictions for each of the treatment groups and the raw data.
+
+```{r post pred tot biomass}
+as.data.frame(brms::posterior_predict(totbiomass_treatment)) %>% 
+  mutate(sim = 1:8000) %>% 
+  pivot_longer(-sim) %>% 
+  bind_cols(., slice(totbiomass, rep(1:200, 8000))) %>% 
+  group_by(treatment, sim) %>% 
+  summarise(mn_pred = mean(value)) %>% 
+  ggplot(aes(x = treatment, y = mn_pred, fill = treatment)) +
+  stat_halfeye(width = 0.4) +
+  geom_half_point(data = totbiomass, 
+                  aes(y = log_tot_biomass, colour = treatment),
+                  side = "l", ## draw jitter on the left
+                  range_scale = 0.4, ## control range of jitter
+                  alpha = 0.7) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F, aesthetics = c("fill", "colour")) +
+  labs(x = "Rainfall treatment", y = expression(paste(ln, " Total biomass"))) +
+  theme_bw(base_size = 15) +
   theme(panel.grid = element_blank())
+  
 ```
 
+
+
+
+# 2. Group-level biomass
 
 
