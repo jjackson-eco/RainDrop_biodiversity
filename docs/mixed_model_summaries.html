@@ -36,6 +36,7 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -393,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-15
+<strong>Last updated:</strong> 2021-06-16
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -484,16 +485,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree4c2bd596b15386159ac24b04766c3484f9133eb3targetblank4c2bd59a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/4c2bd596b15386159ac24b04766c3484f9133eb3" target="_blank">4c2bd59</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree0f76031a63d96d296a7c44bb35eb9190b85205c4targetblank0f76031a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/0f76031a63d96d296a7c44bb35eb9190b85205c4" target="_blank">0f76031</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree4c2bd596b15386159ac24b04766c3484f9133eb3targetblank4c2bd59a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree0f76031a63d96d296a7c44bb35eb9190b85205c4targetblank0f76031a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/4c2bd596b15386159ac24b04766c3484f9133eb3" target="_blank">4c2bd59</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/0f76031a63d96d296a7c44bb35eb9190b85205c4" target="_blank">0f76031</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -544,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/0f76031a63d96d296a7c44bb35eb9190b85205c4/analysis/mixed_model_summaries.Rmd" target="_blank">0f76031</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-16
+</td>
+<td>
+Adding to model outputs
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/30cf892d42a9b773f627b1319d37319abcfc4166/docs/mixed_model_summaries.html" target="_blank">30cf892</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -606,10 +641,12 @@ wflow_publish(c(“.Rprofile”, “analysis/exploratory_analysis.Rmd”,
 <p>First some housekeeping. We’ll start by loading the necessary packages for exploring the data and the modelling, the raw data itself and then specifying the colour palette for the treatments.</p>
 <pre class="r"><code># packages
 library(tidyverse)
-library(patchwork)
-library(vegan)
 library(brms)
 library(tidybayes)
+library(patchwork)
+library(gghalves)
+library(flextable)
+library(vegan)
 
 # load data
 load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData&quot;, 
@@ -668,7 +705,26 @@ raindrop_colours &lt;-
 <li>Shannon-Wiener index - <span class="math inline">\(shannon\)</span> - z-transformed - Gaussian model</li>
 <li>Species richness - <span class="math inline">\(richness\)</span> - Poisson model with a <span class="math inline">\(\log\)</span> link</li>
 </ol>
-<p>The full base models and priors are given at the beginning of each subsequent section</p>
+<p>The full base models and priors are given at the beginning of each subsequent section, with the general priors specified for each. Priors were adjusted for each model to prevent divergent transitions, see <code>code/mixed_effects_models.R</code>.</p>
+<p>Final models were run over 4 chains, with 4000 iterations of which 2000 were warmup iterations (2000 sampling iterations). We increased the target proposal acceptance probability (i.e. how conservative the acceptance of samples was) of the NUTS sampler by increasing <code>adapt_delta</code> (default = 0.8 from <code>rstan</code>) &gt;= 0.95 (maximum 0.98) in each model to prevent divergent transitions. Model convergence was assessed with <span class="math inline">\(\hat{R}\)</span>.</p>
+<div id="model-selection" class="section level2">
+<h2>Model selection</h2>
+<p>We wanted to assess how the rainfall treatments influenced each of our biodiversity variable, and also how these patterns may have changed through time. We therefore used leave-one-out cross validation implemented in the <code>loo</code> package for a set of candidate models, and assessed differences in estimated out-of-sample predictive performance using model selection. Here, we compared models directly using their expected log pointwise predictive density (elpd). For the full set of models explored for each biodiversity variable, please refer to their specific section.</p>
+<p>Generally however, we explored the following additions to the base model:</p>
+<ul>
+<li>The rainfall treatment (<code>treatment</code>)</li>
+<li>A Linear year effect (<code>year_s</code>)</li>
+<li>A functional group effect (<code>group</code>)</li>
+<li>An interaction between treatment and year</li>
+<li>An interaction between functional group and treatment/year</li>
+<li>An interaction between year and harvest point</li>
+<li>A year term with temporal autocorrelation (lag 1) (<code>ar(year_s, p = 1)</code>)</li>
+</ul>
+</div>
+<div id="autocorrelated-year-effects" class="section level2">
+<h2>Autocorrelated year effects</h2>
+<p>Modelling the temporal component to this dataset alone may not effectively account for temporal autocorrelation in biodiversity, and therefore we implemented autocorrelated year effects with a lag of 1. These autocorrelated terms were implemented using the <code>ar()</code> function of the <code>brms</code> package, in which we specified a lag of 1.</p>
+</div>
 </div>
 <div id="total-biomass" class="section level1">
 <h1>1. Total biomass</h1>
@@ -690,44 +746,119 @@ total\,biomass_{ijt} &amp;\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \end{aligned}
 \]</span></p>
 <p>Where <span class="math inline">\(\epsilon_{ij}\)</span> and <span class="math inline">\(\gamma_t\)</span> are intercept-only random effects for the cluster of treatment within block and year, respectively.</p>
+<div id="model-selection-results" class="section level2">
+<h2>Model selection results</h2>
+<p>Now we load the results from the model selection and the model with the highest predictive performance and have a look at the results of the model selection. Model terms are additional to those in the base model.</p>
+<pre class="r"><code>load(&quot;data/totbiomass_models.RData&quot;, verbose = TRUE)</code></pre>
+<pre><code>Loading objects:
+  totbiomass_treatment
+  mod_comp_totbiomass</code></pre>
+<pre class="r"><code>## model selection table
+round(x = mod_comp_totbiomass, 2) %&gt;% 
+  rownames_to_column(&quot;R object&quot;) %&gt;% 
+  mutate(`Model terms` = c(&quot;treatment&quot;, &quot;treatment + year_s&quot;,
+                           &quot;treatment + year_s + harvest:year_s&quot;,
+                           &quot;treatment + year_s + treatment:year_s&quot;,
+                           &quot;base model&quot;,
+                           &quot;treatment + ar(year_s, p = 1)&quot;)) %&gt;% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %&gt;% 
+  flextable(cwidth = 1.5)</code></pre>
+<template id="a817e147-0fdd-4b5b-8c41-067e364da183"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-cc8dd982{border-collapse:collapse;}.cl-cc859a42{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cc859a43{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cc859a44{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cc85e876{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc85e877{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc85e878{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc85e879{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc85e87a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc85e87b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-cc8dd982'><thead><tr style="overflow-wrap:break-word;"><td class="cl-cc85e87b"><p class="cl-cc859a43"><span class="cl-cc859a42">R object</span></p></td><td class="cl-cc85e87b"><p class="cl-cc859a43"><span class="cl-cc859a42">Model terms</span></p></td><td class="cl-cc85e87a"><p class="cl-cc859a44"><span class="cl-cc859a42">LOO elpd</span></p></td><td class="cl-cc85e87a"><p class="cl-cc859a44"><span class="cl-cc859a42">LOO elpd error</span></p></td><td class="cl-cc85e87a"><p class="cl-cc859a44"><span class="cl-cc859a42">elpd difference</span></p></td><td class="cl-cc85e87a"><p class="cl-cc859a44"><span class="cl-cc859a42">elpd error difference</span></p></td><td class="cl-cc85e87a"><p class="cl-cc859a44"><span class="cl-cc859a42">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_treatment</span></p></td><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">treatment</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-182.75</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">12.90</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">0.00</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">0.00</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">365.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_year_linear</span></p></td><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">treatment + year_s</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-182.93</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">12.89</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-0.18</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">0.33</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">365.86</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_year_harvest</span></p></td><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">treatment + year_s + harvest:year_s</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-183.21</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">12.80</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-0.46</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">0.81</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">366.42</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_year_treat</span></p></td><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">treatment + year_s + treatment:year_s</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-183.33</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">12.61</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-0.58</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">1.96</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">366.66</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_base</span></p></td><td class="cl-cc85e876"><p class="cl-cc859a43"><span class="cl-cc859a42">base model</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-187.21</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">14.37</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">-4.46</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">3.91</span></p></td><td class="cl-cc85e877"><p class="cl-cc859a44"><span class="cl-cc859a42">374.41</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc85e879"><p class="cl-cc859a43"><span class="cl-cc859a42">totbiomass_year_auto</span></p></td><td class="cl-cc85e879"><p class="cl-cc859a43"><span class="cl-cc859a42">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-cc85e878"><p class="cl-cc859a44"><span class="cl-cc859a42">-188.17</span></p></td><td class="cl-cc85e878"><p class="cl-cc859a44"><span class="cl-cc859a42">11.97</span></p></td><td class="cl-cc85e878"><p class="cl-cc859a44"><span class="cl-cc859a42">-5.42</span></p></td><td class="cl-cc85e878"><p class="cl-cc859a44"><span class="cl-cc859a42">5.85</span></p></td><td class="cl-cc85e878"><p class="cl-cc859a44"><span class="cl-cc859a42">376.34</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="703687de-d57f-46f8-8304-be472b3fb01f"></div>
+<script>
+var dest = document.getElementById("703687de-d57f-46f8-8304-be472b3fb01f");
+var template = document.getElementById("a817e147-0fdd-4b5b-8c41-067e364da183");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+<p>We can see that the model with the highest predictive performance for total biomass is that with just the treatment effect. There is evidence for a linear year effect and interactions between year and treatment/harvest relative to the base model, but these are not more predictive than just the treatment effect. We have poor support for temporal autocorrelation in the total biomass.</p>
+</div>
+<div id="posterior-plots-and-predictions" class="section level2">
+<h2>Posterior plots and predictions</h2>
+<p>First lets have a look at the terms within the base model. Here we present distributions from 2000 draws from the posterior of the best model.</p>
+<pre class="r"><code>totbiomass_treatment %&gt;%
+  gather_draws(`b_harvestMid|sd.*|sigma`, regex = TRUE) %&gt;% #tidybayes
+  ungroup() %&gt;% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = &quot;lightsteelblue&quot;) +
+  scale_y_discrete(labels = c(expression(paste(&quot;Early harvest effect &quot;, beta[harvest])),
+                              expression(paste(&quot;Block within treatment variance &quot;, sigma[epsilon])),
+                              expression(paste(&quot;Block variance &quot;, sigma[alpha])),
+                              expression(paste(&quot;Year variance &quot;, sigma[gamma])),
+                              expression(paste(&quot;Population-level variance &quot;, sigma)))) +
+  labs(x = &quot;Posterior estimate&quot;, y = NULL) +
+  theme_bw(base_size = 15)</code></pre>
+<p><img src="figure/mixed_model_summaries.Rmd/posterior%20tot%20biomass-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can see that first of all we have a strong positive effect of the Harvest on total biomass, where biomass is higher by over 50% compared to the later growing season. Then, for the variance terms, we can see that relative to the population-level i.e. total variance, block-level and treatment within block variances were low. In contrast, there was high inter-annual variance.</p>
+<p>Now, for the treatment effect. Here we present the mean distribution of posterior predictions for each of the treatment groups and the raw data.</p>
+<pre class="r"><code>as.data.frame(brms::posterior_predict(totbiomass_treatment)) %&gt;% 
+  mutate(sim = 1:8000) %&gt;% 
+  pivot_longer(-sim) %&gt;% 
+  bind_cols(., slice(totbiomass, rep(1:200, 8000))) %&gt;% 
+  group_by(treatment, sim) %&gt;% 
+  summarise(mn_pred = mean(value)) %&gt;% 
+  ggplot(aes(x = treatment, y = mn_pred, fill = treatment)) +
+  stat_halfeye(width = 0.4) +
+  geom_half_point(data = totbiomass, 
+                  aes(y = log_tot_biomass, colour = treatment),
+                  side = &quot;l&quot;, ## draw jitter on the left
+                  range_scale = 0.4, ## control range of jitter
+                  alpha = 0.7) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F, aesthetics = c(&quot;fill&quot;, &quot;colour&quot;)) +
+  labs(x = &quot;Rainfall treatment&quot;, y = expression(paste(ln, &quot; Total biomass&quot;))) +
+  theme_bw(base_size = 15) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/mixed_model_summaries.Rmd/post%20pred%20tot%20biomass-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="group-level-biomass" class="section level1">
 <h1>2. Group-level biomass</h1>
-<div id="data-summary" class="section level2">
-<h2>Data summary</h2>
-<p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70<span class="math inline">\(^\circ\)</span>C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.</p>
-<p>Here a summary of the data:</p>
-<pre class="r"><code>glimpse(biomass)</code></pre>
-<pre><code>Rows: 1,199
-Columns: 6
-$ year      &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, ~
-$ harvest   &lt;chr&gt; &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid~
-$ block     &lt;chr&gt; &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, ~
-$ treatment &lt;chr&gt; &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambi~
-$ group     &lt;chr&gt; &quot;Bryophytes&quot;, &quot;Dead&quot;, &quot;Forbs&quot;, &quot;Graminoids&quot;, &quot;Legumes&quot;, &quot;Woo~
-$ biomass_g &lt;dbl&gt; 0.7, 4.5, 16.5, 49.7, 7.7, 0.0, 0.3, 2.4, 20.0, 46.7, 3.6, 1~</code></pre>
-<ul>
-<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
-<li>$<strong>harvest</strong> - point of the growing season when harvest occur (category “Mid” and “End”)</li>
-<li>$<strong>block</strong> - block of experiment (category A-E)</li>
-<li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
-<li>$<strong>group</strong> - functional group of measurement (category “Bryophytes”, “Dead”, “Forbs”, “Graminoids”, “Legumes” and “Woody”)</li>
-<li>$<strong>biomass_g</strong> - above-ground dry mass in grams (continuous)</li>
-</ul>
-<hr />
-</div>
-<div id="biomass-variable" class="section level2">
-<h2>Biomass variable</h2>
-<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass (<strong>Need to know if 0 observations are true zeros or procedural</strong>). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
-<pre class="r"><code>biomass &lt;- biomass %&gt;% 
-  filter(biomass_g &gt; 0)
-
-ggplot(biomass, aes(x = biomass_g)) +
-  geom_histogram(bins = 20) +
-  labs(x = &quot;Above-ground biomass (g)&quot;, y = &quot;Frequency&quot;) +
-  theme_bw(base_size = 14) +
-  theme(panel.grid = element_blank())</code></pre>
-<p><img src="figure/mixed_model_summaries.Rmd/biomass%20raw%20hist-1.png" width="480" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -753,56 +884,58 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] tidybayes_2.3.1 brms_2.15.0     Rcpp_1.0.6      vegan_2.5-7    
- [5] lattice_0.20-41 permute_0.9-5   patchwork_1.1.1 forcats_0.5.1  
- [9] stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4     readr_1.4.0    
-[13] tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3   tidyverse_1.3.0
+ [1] vegan_2.5-7     lattice_0.20-41 permute_0.9-5   flextable_0.6.5
+ [5] gghalves_0.1.1  patchwork_1.1.1 tidybayes_2.3.1 brms_2.15.0    
+ [9] Rcpp_1.0.6      forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5    
+[13] purrr_0.3.4     readr_1.4.0     tidyr_1.1.3     tibble_3.1.0   
+[17] ggplot2_3.3.3   tidyverse_1.3.0 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1         backports_1.2.1      workflowr_1.6.2     
-  [4] plyr_1.8.6           igraph_1.2.6         splines_4.0.5       
-  [7] svUnit_1.0.3         crosstalk_1.1.1      rstantools_2.1.1    
- [10] inline_0.3.17        digest_0.6.27        htmltools_0.5.1.1   
- [13] rsconnect_0.8.16     fansi_0.4.2          magrittr_2.0.1      
- [16] cluster_2.1.1        modelr_0.1.8         RcppParallel_5.0.3  
- [19] matrixStats_0.58.0   xts_0.12.1           prettyunits_1.1.1   
- [22] colorspace_2.0-0     rvest_1.0.0          ggdist_2.4.0        
- [25] haven_2.3.1          xfun_0.22            callr_3.6.0         
- [28] crayon_1.4.1         jsonlite_1.7.2       lme4_1.1-26         
- [31] zoo_1.8-9            glue_1.4.2           gtable_0.3.0        
- [34] emmeans_1.6.0        V8_3.4.0             distributional_0.2.2
- [37] pkgbuild_1.2.0       rstan_2.21.2         abind_1.4-5         
- [40] scales_1.1.1         mvtnorm_1.1-1        DBI_1.1.1           
- [43] miniUI_0.1.1.1       xtable_1.8-4         stats4_4.0.5        
- [46] StanHeaders_2.21.0-7 DT_0.17              htmlwidgets_1.5.3   
- [49] httr_1.4.2           threejs_0.3.3        arrayhelpers_1.1-0  
- [52] ellipsis_0.3.1       farver_2.1.0         pkgconfig_2.0.3     
- [55] loo_2.4.1            sass_0.3.1           dbplyr_2.1.0        
- [58] utf8_1.2.1           labeling_0.4.2       tidyselect_1.1.0    
- [61] rlang_0.4.10         reshape2_1.4.4       later_1.1.0.1       
- [64] munsell_0.5.0        cellranger_1.1.0     tools_4.0.5         
- [67] cli_2.3.1            generics_0.1.0       broom_0.7.5         
- [70] ggridges_0.5.3       evaluate_0.14        fastmap_1.1.0       
- [73] yaml_2.2.1           processx_3.5.0       knitr_1.31          
- [76] fs_1.5.0             nlme_3.1-152         whisker_0.4         
- [79] mime_0.10            projpred_2.0.2       xml2_1.3.2          
- [82] compiler_4.0.5       bayesplot_1.8.0      shinythemes_1.2.0   
- [85] rstudioapi_0.13      gamm4_0.2-6          curl_4.3            
- [88] reprex_2.0.0         statmod_1.4.35       bslib_0.2.4         
- [91] stringi_1.5.3        highr_0.8            ps_1.6.0            
- [94] Brobdingnag_1.2-6    Matrix_1.3-2         nloptr_1.2.2.2      
- [97] markdown_1.1         shinyjs_2.0.0        vctrs_0.3.7         
-[100] pillar_1.5.1         lifecycle_1.0.0      jquerylib_0.1.3     
-[103] bridgesampling_1.0-0 estimability_1.3     httpuv_1.5.5        
-[106] R6_2.5.0             promises_1.2.0.1     gridExtra_2.3       
-[109] codetools_0.2-18     boot_1.3-27          colourpicker_1.1.0  
-[112] MASS_7.3-53.1        gtools_3.8.2         assertthat_0.2.1    
-[115] rprojroot_2.0.2      withr_2.4.1          shinystan_2.5.0     
-[118] mgcv_1.8-34          parallel_4.0.5       hms_1.0.0           
-[121] grid_4.0.5           coda_0.19-4          minqa_1.2.4         
-[124] rmarkdown_2.7        git2r_0.28.0         shiny_1.6.0         
-[127] lubridate_1.7.10     base64enc_0.1-3      dygraphs_1.1.1.6    </code></pre>
-</div>
+  [1] uuid_0.1-4           readxl_1.3.1         backports_1.2.1     
+  [4] systemfonts_1.0.1    plyr_1.8.6           igraph_1.2.6        
+  [7] splines_4.0.5        svUnit_1.0.3         crosstalk_1.1.1     
+ [10] rstantools_2.1.1     inline_0.3.17        digest_0.6.27       
+ [13] htmltools_0.5.1.1    rsconnect_0.8.16     fansi_0.4.2         
+ [16] magrittr_2.0.1       cluster_2.1.1        modelr_0.1.8        
+ [19] RcppParallel_5.0.3   matrixStats_0.58.0   officer_0.3.18      
+ [22] xts_0.12.1           prettyunits_1.1.1    colorspace_2.0-0    
+ [25] rvest_1.0.0          ggdist_2.4.0         haven_2.3.1         
+ [28] xfun_0.22            callr_3.6.0          crayon_1.4.1        
+ [31] jsonlite_1.7.2       lme4_1.1-26          zoo_1.8-9           
+ [34] glue_1.4.2           gtable_0.3.0         emmeans_1.6.0       
+ [37] V8_3.4.0             distributional_0.2.2 pkgbuild_1.2.0      
+ [40] rstan_2.21.2         abind_1.4-5          scales_1.1.1        
+ [43] mvtnorm_1.1-1        DBI_1.1.1            miniUI_0.1.1.1      
+ [46] xtable_1.8-4         stats4_4.0.5         StanHeaders_2.21.0-7
+ [49] DT_0.17              htmlwidgets_1.5.3    httr_1.4.2          
+ [52] threejs_0.3.3        arrayhelpers_1.1-0   ellipsis_0.3.1      
+ [55] farver_2.1.0         pkgconfig_2.0.3      loo_2.4.1           
+ [58] sass_0.3.1           dbplyr_2.1.0         utf8_1.2.1          
+ [61] labeling_0.4.2       tidyselect_1.1.0     rlang_0.4.10        
+ [64] reshape2_1.4.4       later_1.1.0.1        munsell_0.5.0       
+ [67] cellranger_1.1.0     tools_4.0.5          cli_2.3.1           
+ [70] generics_0.1.0       broom_0.7.5          ggridges_0.5.3      
+ [73] evaluate_0.14        fastmap_1.1.0        yaml_2.2.1          
+ [76] processx_3.5.0       knitr_1.31           fs_1.5.0            
+ [79] zip_2.1.1            nlme_3.1-152         whisker_0.4         
+ [82] mime_0.10            projpred_2.0.2       xml2_1.3.2          
+ [85] compiler_4.0.5       bayesplot_1.8.0      shinythemes_1.2.0   
+ [88] rstudioapi_0.13      gamm4_0.2-6          curl_4.3            
+ [91] reprex_2.0.0         statmod_1.4.35       bslib_0.2.4         
+ [94] stringi_1.5.3        highr_0.8            ps_1.6.0            
+ [97] Brobdingnag_1.2-6    gdtools_0.2.3        Matrix_1.3-2        
+[100] nloptr_1.2.2.2       markdown_1.1         shinyjs_2.0.0       
+[103] vctrs_0.3.7          pillar_1.5.1         lifecycle_1.0.0     
+[106] jquerylib_0.1.3      bridgesampling_1.0-0 estimability_1.3    
+[109] data.table_1.14.0    httpuv_1.5.5         R6_2.5.0            
+[112] promises_1.2.0.1     gridExtra_2.3        codetools_0.2-18    
+[115] boot_1.3-27          colourpicker_1.1.0   MASS_7.3-53.1       
+[118] gtools_3.8.2         assertthat_0.2.1     rprojroot_2.0.2     
+[121] withr_2.4.1          shinystan_2.5.0      mgcv_1.8-34         
+[124] parallel_4.0.5       hms_1.0.0            grid_4.0.5          
+[127] coda_0.19-4          minqa_1.2.4          rmarkdown_2.7       
+[130] git2r_0.28.0         shiny_1.6.0          lubridate_1.7.10    
+[133] base64enc_0.1-3      dygraphs_1.1.1.6    </code></pre>
 </div>
 </div>
 
