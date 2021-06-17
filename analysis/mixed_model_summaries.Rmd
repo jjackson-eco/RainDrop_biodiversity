@@ -100,12 +100,14 @@ Generally however, we explored the following additions to the base model:
 * A functional group effect (`group`)
 * An interaction between treatment and year
 * An interaction between functional group and treatment/year
-* An interaction between year and harvest point
+* An interaction between year and harvest point (or collection month)
 * A year term with temporal autocorrelation (lag 1) (`ar(year_s, p = 1)`)
 
 ## Autocorrelated year effects
 
 Modelling the temporal component to this dataset alone may not effectively account for temporal autocorrelation in biodiversity, and therefore we implemented autocorrelated year effects with a lag of 1. These autocorrelated terms were implemented using the `ar()` function of the `brms` package, in which we specified a lag of 1.
+
+---
 
 # 1. Total biomass
 
@@ -156,52 +158,405 @@ We can see that the model with the highest predictive performance for total biom
 
 ## Posterior plots and predictions
 
-First lets have a look at the terms within the base model. Here we present distributions from 2000 draws from the posterior of the best model.
+First lets have a look at the terms not added after model selection. Here we present distributions from 2000 draws from the posterior of the best model.
 
-```{r posterior tot biomass}
+```{r posterior tot biomass, fig.width= 8, fig.height = 9}
 totbiomass_treatment %>%
   gather_draws(`b_harvestMid|sd.*|sigma`, regex = TRUE) %>% #tidybayes
   ungroup() %>% 
   ggplot(aes(y = .variable, x = .value)) + 
   stat_halfeye(show.legend = FALSE, fill = "lightsteelblue") +
   scale_y_discrete(labels = c(expression(paste("Early harvest effect ", beta[harvest])),
-                              expression(paste("Block within treatment variance ", sigma[epsilon])),
+                              expression(paste("Treatment within block variance ", sigma[epsilon])),
                               expression(paste("Block variance ", sigma[alpha])),
                               expression(paste("Year variance ", sigma[gamma])),
                               expression(paste("Population-level variance ", sigma)))) +
   labs(x = "Posterior estimate", y = NULL) +
-  theme_bw(base_size = 15)
+  theme_bw(base_size = 20)
 ```
 
 We can see that first of all we have a strong positive effect of the Harvest on total biomass, where biomass is higher by over 50% compared to the later growing season. Then, for the variance terms, we can see that relative to the population-level i.e. total variance, block-level and treatment within block variances were low. In contrast, there was high inter-annual variance.
 
 Now, for the treatment effect. Here we present the mean distribution of posterior predictions for each of the treatment groups and the raw data.
 
-```{r post pred tot biomass}
+```{r post pred tot biomass, fig.width= 9, fig.height = 6}
+# Harvest labels
+harvest.labels <- c("End of season harvest", "Mid season Harvest")
+names(harvest.labels) <- c("End", "Mid")
+
 as.data.frame(brms::posterior_predict(totbiomass_treatment)) %>% 
   mutate(sim = 1:8000) %>% 
   pivot_longer(-sim) %>% 
   bind_cols(., slice(totbiomass, rep(1:200, 8000))) %>% 
-  group_by(treatment, sim) %>% 
-  summarise(mn_pred = mean(value)) %>% 
-  ggplot(aes(x = treatment, y = mn_pred, fill = treatment)) +
-  stat_halfeye(width = 0.4) +
+  mutate(harvest = factor(harvest, levels = c("Mid", "End"))) %>% 
+  ggplot(aes(x = treatment, y = value, fill = treatment, group = harvest)) +
+  stat_halfeye(width = 0.4, alpha = 0.7) +
   geom_half_point(data = totbiomass, 
-                  aes(y = log_tot_biomass, colour = treatment),
+                  aes(y = log_tot_biomass, x = treatment, 
+                      colour = treatment, group = NULL),
                   side = "l", ## draw jitter on the left
                   range_scale = 0.4, ## control range of jitter
-                  alpha = 0.7) +
+                  alpha = 0.7, size = 2) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F, aesthetics = c("fill", "colour")) +
   labs(x = "Rainfall treatment", y = expression(paste(ln, " Total biomass"))) +
-  theme_bw(base_size = 15) +
-  theme(panel.grid = element_blank())
+  facet_wrap(~ harvest, ncol = 2,
+             labeller = labeller(harvest = harvest.labels),) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
   
 ```
 
+From this it is clear that there is a **reduction in total biomass associated with the drought treatment**. There doesn't seem to be any clear differences between ambient, control or irrigated plots however. These differences need to be tested further as well patterns in the variance.
 
+## Hypothesis testing
 
+We wanted to test a few key hypotheses
+
+### 1. What are the ICCs for both the clustered and year random effects
+
+How does the variance in our random effect terms compare to the total variance? An example of this calculation for the block within treatment variance is below
+
+$$ICC_{\sigma_{\epsilon}} = \frac {\sigma^{2}_{\epsilon}}{\sigma^{2}_{\epsilon} + \sigma^{2}_{\alpha} + \sigma^{2}_{\gamma} + \sigma}$$
+We test the hypothesis of whether this ICC value is equal to zero. First for the treatment within block variance $\sigma_{\epsilon}$
+
+```{r sigma epsilon ICC}
+h <- paste("sd_block:treatment__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(totbiomass_treatment, h, class = NULL)
+```
+
+Now the block variance
+
+```{r sigma alpha ICC}
+h <- paste("sd_block__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(totbiomass_treatment, h, class = NULL)
+```
+
+Finally our inter-annual variance
+
+```{r sigma gamma ICC}
+h <- paste("sd_year_f__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(totbiomass_treatment, h, class = NULL)
+```
+
+You can see we have much higher intraclass correlation with the interannual variance, a repeatable year-level biomass, but no clear ICC in our block/treatment effects.
+
+### 2. Is the difference in biomass between the control treatments is > 0?
+
+Now, we want to test whether the different control plots have a substantially different biomass. Here we are simply testing whether their difference is equal to 0.
+
+```{r hyp controls}
+hypothesis(totbiomass_treatment, "Intercept - treatmentControl = 0")
+```
+
+### 3. Evidence for an effect of irrigation on biomass relative to ambient?
+ 
+And finally for any evidence of an irrigation effect
+
+```{r hyp irrigation}
+hypothesis(totbiomass_treatment, "Intercept - treatmentIrrigated = 0")
+```
+
+---
 
 # 2. Group-level biomass
+
+Next we explored the biomass differences between treatments for the three key functional groups: Graminoids, Legumes and Forbs. The full base model here is the same as for total biomass:
+
+$$
+\begin{aligned}
+\operatorname{Full model} \\
+biomass_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
+\mu_{ijt} &= \alpha_{i} + \beta_{harvest[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{harvest[ijt]} &\sim \operatorname{Normal}(0, 0.5) \\
+\alpha_i &\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &\sim\operatorname{Normal}(1, 1)\\
+\sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+$$
+
+## Model selection results
+
+Now we load the results from the model selection and the model with the highest predictive performance and have a look at the results of the model selection. Model terms are additional to those in the base model. For this group-level biomass, we also included terms relating to the functional group (`group`) of the biomass measure, and appropriate interactions.
+
+```{r biomass gr mod comp}
+load("data/biomass_models.RData", verbose = TRUE)
+
+## model selection table
+round(x = mod_comp_biomass, 2) %>% 
+  rownames_to_column("R object") %>% 
+  mutate(`Model terms` = c("treatment + group + treatment:group",
+                           "treatment + group + year_s + treatment:group + treatment:year_s + group:year_s + treatment:group:year_s",
+                           "treatment + group",
+                           "group",
+                           "treatment",
+                           "base model")) %>% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %>% 
+  flextable(cwidth = 1.5)
+```
+
+Here the model with the highest predictive performance is the one with a two way interaction between rainfall treatment and functional group. This model has more clear statistical support, with an elpd difference of greater than 3 compared to the second most competitive model.
+
+## Posterior plots and predictions
+
+First lets have a look at the terms not added after model selection. Here we present distributions from 2000 draws from the posterior of the best model.
+
+```{r posterior biomass gr, fig.width= 8, fig.height = 9}
+biomass_treatment_group_int %>%
+  gather_draws(`b_harvestMid|sd.*|sigma`, regex = TRUE) %>% #tidybayes
+  ungroup() %>% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = "lightsteelblue2") +
+  scale_y_discrete(labels = c(expression(paste("Early harvest effect ", beta[harvest])),
+                              expression(paste("Treatment within block variance ", sigma[epsilon])),
+                              expression(paste("Block variance ", sigma[alpha])),
+                              expression(paste("Year variance ", sigma[gamma])),
+                              expression(paste("Population-level variance ", sigma)))) +
+  labs(x = "Posterior estimate", y = NULL) +
+  theme_bw(base_size = 20)
+```
+
+Again we have a strong positive effect of the Harvest on biomass, regardless of functional group, with a similar coefficient. Then, for the variance terms, we see that block/treatment variance terms remain low, but with treatment within block variance slightly higher. Year variance remained high.
+
+Now, for the treatment and group effects. Here we present the mean distribution of posterior predictions for each of the treatment groups and the raw data.
+
+```{r biomass group predictions, fig.width= 13, fig.height = 6}
+as.data.frame(brms::posterior_predict(biomass_treatment_group_int, nsamples = 2000)) %>% # reducing to make data more manageable 
+  mutate(sim = 1:2000) %>% 
+  pivot_longer(-sim) %>% 
+  bind_cols(., slice(biomass_gr, rep(1:600, 2000))) %>% 
+  filter(harvest == "Mid") %>% 
+  ggplot(aes(x = treatment, y = value, fill = treatment, group = group)) +
+  stat_halfeye(width = 0.4, alpha = 0.7) +
+  geom_half_point(data = biomass_gr, 
+                  aes(y = biomass_log, x = treatment, 
+                      colour = treatment, group = NULL),
+                  side = "l", ## draw jitter on the left
+                  range_scale = 0.4, ## control range of jitter
+                  alpha = 0.7, size = 2) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F, aesthetics = c("fill", "colour")) +
+  labs(x = "Rainfall treatment", y = expression(paste(ln, " Total biomass"))) +
+  facet_wrap(~ group, ncol = 3) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+Here we have some very interesting differences in biomass between the functional groups in response to the rainfall treatments. First of all, it is clear that Graminoids are more prevalent than other groups, with $\beta_{group, graminoid} = 1.39 [1.15,1.64]$. However, we see the negative impact of the drought treatment on biomass is only present in the Graminoids and Legumes, but not the Forbs, which showed little response to the treatments. There is also a slight indication that the Irrigated treatment had reduced Legume biomass $$\beta_{legume:irrigated} = -0.18 [-0.52,0.16]$$, but this had weaker statistical support.
+
+## Hypothesis testing
+
+### 1. What are the ICCs for both the clustered and year random effects
+
+Treatment within block variance - slightly higher but still little support
+
+```{r sigma epsilon ICC gr}
+h <- paste("sd_block:treatment__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(biomass_treatment_group_int, h, class = NULL)
+```
+
+Block variance
+
+```{r sigma alpha ICC gr}
+h <- paste("sd_block__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(biomass_treatment_group_int, h, class = NULL)
+```
+
+Inter-annual variance - stronger annual variance effect
+
+```{r sigma gamma ICC gr}
+h <- paste("sd_year_f__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(biomass_treatment_group_int, h, class = NULL)
+```
+
+### 2. Is the difference in biomass between the control treatments is > 0?
+
+```{r hyp controls gr}
+hypothesis(biomass_treatment_group_int, "Intercept - treatmentControl = 0")
+```
+
+---
+
+# 3. Shannon-Weiner diversity index
+
+Now we wanted to get handle on species diversity, starting first with the Shannon-Weiner index. Here we have month instead of harvest (June or September) as it wasn't a harvest.
+
+$$
+\begin{aligned}
+\operatorname{Full model} \\
+shannon_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
+\mu_{ijt} &= \alpha_{i} + \beta_{month[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{month[ijt]} &\sim \operatorname{Normal}(0, 1) \\
+\alpha_i &\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &\sim\operatorname{Normal}(3.5, 0.5)\\
+\sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+$$
+
+## Model selection results
+
+The model selection took a similar form to previous model selections.
+
+```{r shannon mod comp}
+load("data/shannon_models.RData", verbose = TRUE)
+
+## model selection table
+round(x = mod_comp_shannon, 2) %>% 
+  rownames_to_column("R object") %>% 
+  mutate(`Model terms` = c("treatment + year_s + treatment:year_s",
+                           "base model",
+                           "treatment + year_s",
+                           "treatment",
+                           "treatment + ar(year_s, p = 1)")) %>% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %>% 
+  flextable(cwidth = 1.5)
+```
+
+The best model here was the one with an interaction between a linear year effect and the treatment group, the only candidate model better than the base model. This model had strong statistical support however, with an elpd difference greater than 5. Again we found little evidence for an auto-correlated year term.
+
+## Posterior plots and predictions
+
+First we present the terms in the base model again. 
+
+```{r posterior shannon, fig.width= 8, fig.height = 9}
+shannon_treatment_year_int %>%
+  gather_draws(`b_monthSept|sd.*|sigma`, regex = TRUE) %>% #tidybayes
+  ungroup() %>% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = "lightsteelblue4") +
+  scale_y_discrete(labels = c(expression(paste("September effect ", beta[harvest])),
+                              expression(paste("Treatment within block variance ", sigma[epsilon])),
+                              expression(paste("Block variance ", sigma[alpha])),
+                              expression(paste("Year variance ", sigma[gamma])),
+                              expression(paste("Population-level variance ", sigma)))) +
+  labs(x = "Posterior estimate", y = NULL) +
+  theme_bw(base_size = 20)
+```
+
+In terms of species diversity, we see some large differences compared to biomass. First, the treatment within block variance was much larger in this measure, suggesting that communities on the site are more localised. There also seems to be less of a variance component for year. Further, There isn't a clear change in species diversity depending on the observation month.
+
+
+```{r shannon predictions, fig.width= 8, fig.height = 6}
+preddat_shannon <- expand_grid(year_s = seq(-1.15,1.6, length.out = 40),
+                               treatment = unique(diversity$treatment),
+                               month = "June",
+                               block = unique(diversity$block),
+                               year_f = unique(diversity$year_f),
+                               value = NA) 
+
+shannon_pred <-  brms::posterior_predict(shannon_treatment_year_int,
+                                         newdata = preddat_shannon) 
+
+# summary data for each year value
+predatsum <- preddat_shannon %>% 
+  group_by(year_s, treatment) %>% 
+  summarise(value = NA, upr = NA, lwr = NA) %>% 
+  ungroup() %>% as.data.frame()
+  
+for(i in 1:nrow(predatsum)){
+  cpos = which(preddat_shannon$year_s == predatsum[i,]$year_s & 
+                 preddat_shannon$treatment == predatsum[i,]$treatment)
+  
+  post_mean = mean(shannon_pred[,cpos])
+  cQuant = quantile(shannon_pred[,cpos], c(0.1, 0.90)) # 80% levels
+  
+  predatsum[i,]$value <- post_mean
+  predatsum[i,]$upr <- cQuant[2]
+  predatsum[i,]$lwr <- cQuant[1]
+  
+}
+
+ggplot(predatsum, aes(x = year_s, y = value, group = treatment, 
+                      fill = treatment, colour = treatment)) +
+  geom_jitter(data = diversity, aes(y = shannon), width = 0.06, size = 2, alpha = 0.85) +
+  geom_smooth(stat = "identity", aes(ymax = upr, ymin = lwr), alpha = 0.1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    aesthetics = c("fill", "colour"), name = "Rainfall\ntreatment") +
+  labs(x = "Observation year (scaled)", y = "Shannon-Weiner index") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank())
+
+```
+
+Here, we have a very interesting observation that suggests that as the study has progressed, the Shannon-Weiner diversity in the Irrigated treatments has decreased, but not in other treatment groups. Could this suggest a movement towards an increased monoculture with excessive rainfall?
+
+## Hypothesis testing
+
+Here we just want to test the ICC values.
+
+### 1. What are the ICCs for both the clustered and year random effects
+
+Treatment within block variance - Here this value is the greatest, highlighting the results from before.
+
+```{r sigma epsilon ICC sh}
+h <- paste("sd_block:treatment__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(shannon_treatment_year_int, h, class = NULL)
+```
+
+Block variance
+
+```{r sigma alpha ICC sh}
+h <- paste("sd_block__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(shannon_treatment_year_int, h, class = NULL)
+```
+
+Inter-annual variance 
+
+```{r sigma gamma ICC sh}
+h <- paste("sd_year_f__Intercept^2/ ", 
+           "(sd_block:treatment__Intercept^2 + ",
+           "sd_block__Intercept^2 + ",
+           "sd_year_f__Intercept^2 + sigma) = 0")
+
+hypothesis(shannon_treatment_year_int, h, class = NULL)
+```
 
 
