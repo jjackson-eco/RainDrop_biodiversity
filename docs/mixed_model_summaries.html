@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-17
+<strong>Last updated:</strong> 2021-06-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -485,16 +485,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreea40a62974770f89e1552b9c0f42ffb1a643aaadctargetblanka40a629a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/a40a62974770f89e1552b9c0f42ffb1a643aaadc" target="_blank">a40a629</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree41af54cb96870e87917e10648c22490cfb1caaedtargetblank41af54ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/41af54cb96870e87917e10648c22490cfb1caaed" target="_blank">41af54c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreea40a62974770f89e1552b9c0f42ffb1a643aaadctargetblanka40a629a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree41af54cb96870e87917e10648c22490cfb1caaedtargetblank41af54ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/a40a62974770f89e1552b9c0f42ffb1a643aaadc" target="_blank">a40a629</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/41af54cb96870e87917e10648c22490cfb1caaed" target="_blank">41af54c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -503,6 +503,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/site_libs/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -544,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/41af54cb96870e87917e10648c22490cfb1caaed/analysis/mixed_model_summaries.Rmd" target="_blank">41af54c</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-18
+</td>
+<td>
+Adding richness + some update to model code
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/dc0db7d18a144e73355b6f67f21bac53c13c9acd/docs/mixed_model_summaries.html" target="_blank">dc0db7d</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -777,6 +812,7 @@ total\,biomass_{ijt} &amp;\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma &amp;\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 \]</span></p>
 <p>Where <span class="math inline">\(\epsilon_{ij}\)</span> and <span class="math inline">\(\gamma_t\)</span> are intercept-only random effects for the cluster of treatment within block and year, respectively.</p>
@@ -799,7 +835,7 @@ round(x = mod_comp_totbiomass, 2) %&gt;%
                 `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
                 `elpd error difference` = se_diff, `LOO information criterion` = looic) %&gt;% 
   flextable(cwidth = 1.5)</code></pre>
-<template id="ac3602ac-a171-4fa3-a236-6526f34b666b"><style>
+<template id="478fe062-7d22-461b-beca-7b18a26c0e67"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -833,11 +869,11 @@ round(x = mod_comp_totbiomass, 2) %&gt;%
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-12741514{border-collapse:collapse;}.cl-126b87a0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-126b87a1{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-126b87a2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-126bd5ca{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-126bd5cb{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-126bd5cc{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-126bd5cd{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-126bd5ce{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-126bd5cf{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-12741514'><thead><tr style="overflow-wrap:break-word;"><td class="cl-126bd5cf"><p class="cl-126b87a1"><span class="cl-126b87a0">R object</span></p></td><td class="cl-126bd5cf"><p class="cl-126b87a1"><span class="cl-126b87a0">Model terms</span></p></td><td class="cl-126bd5ce"><p class="cl-126b87a2"><span class="cl-126b87a0">LOO elpd</span></p></td><td class="cl-126bd5ce"><p class="cl-126b87a2"><span class="cl-126b87a0">LOO elpd error</span></p></td><td class="cl-126bd5ce"><p class="cl-126b87a2"><span class="cl-126b87a0">elpd difference</span></p></td><td class="cl-126bd5ce"><p class="cl-126b87a2"><span class="cl-126b87a0">elpd error difference</span></p></td><td class="cl-126bd5ce"><p class="cl-126b87a2"><span class="cl-126b87a0">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_treatment</span></p></td><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">treatment</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-182.75</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">12.90</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">0.00</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">0.00</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">365.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_year_linear</span></p></td><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">treatment + year_s</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-182.93</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">12.89</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-0.18</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">0.33</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">365.86</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_year_harvest</span></p></td><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">treatment + year_s + harvest:year_s</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-183.21</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">12.80</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-0.46</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">0.81</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">366.42</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_year_treat</span></p></td><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">treatment + year_s + treatment:year_s</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-183.33</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">12.61</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-0.58</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">1.96</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">366.66</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_base</span></p></td><td class="cl-126bd5ca"><p class="cl-126b87a1"><span class="cl-126b87a0">base model</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-187.21</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">14.37</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">-4.46</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">3.91</span></p></td><td class="cl-126bd5cb"><p class="cl-126b87a2"><span class="cl-126b87a0">374.41</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-126bd5cd"><p class="cl-126b87a1"><span class="cl-126b87a0">totbiomass_year_auto</span></p></td><td class="cl-126bd5cd"><p class="cl-126b87a1"><span class="cl-126b87a0">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-126bd5cc"><p class="cl-126b87a2"><span class="cl-126b87a0">-188.17</span></p></td><td class="cl-126bd5cc"><p class="cl-126b87a2"><span class="cl-126b87a0">11.97</span></p></td><td class="cl-126bd5cc"><p class="cl-126b87a2"><span class="cl-126b87a0">-5.42</span></p></td><td class="cl-126bd5cc"><p class="cl-126b87a2"><span class="cl-126b87a0">5.85</span></p></td><td class="cl-126bd5cc"><p class="cl-126b87a2"><span class="cl-126b87a0">376.34</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="8c6910ef-233e-432e-897c-9c397c47c2a9"></div>
+</style><div class="tabwid"><style>.cl-bcef8eaa{border-collapse:collapse;}.cl-bce7012c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bce72846{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bce72847{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bce7767a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bce7767b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bce7767c{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bce7767d{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bce7767e{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bce7767f{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bcef8eaa'><thead><tr style="overflow-wrap:break-word;"><td class="cl-bce7767f"><p class="cl-bce72846"><span class="cl-bce7012c">R object</span></p></td><td class="cl-bce7767f"><p class="cl-bce72846"><span class="cl-bce7012c">Model terms</span></p></td><td class="cl-bce7767e"><p class="cl-bce72847"><span class="cl-bce7012c">LOO elpd</span></p></td><td class="cl-bce7767e"><p class="cl-bce72847"><span class="cl-bce7012c">LOO elpd error</span></p></td><td class="cl-bce7767e"><p class="cl-bce72847"><span class="cl-bce7012c">elpd difference</span></p></td><td class="cl-bce7767e"><p class="cl-bce72847"><span class="cl-bce7012c">elpd error difference</span></p></td><td class="cl-bce7767e"><p class="cl-bce72847"><span class="cl-bce7012c">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_treatment</span></p></td><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">treatment</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-182.75</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">12.90</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">0.00</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">0.00</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">365.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_year_linear</span></p></td><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">treatment + year_s</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-182.93</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">12.89</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-0.18</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">0.33</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">365.86</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_year_harvest</span></p></td><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">treatment + year_s + harvest:year_s</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-183.21</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">12.80</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-0.46</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">0.81</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">366.42</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_year_treat</span></p></td><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">treatment + year_s + treatment:year_s</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-183.33</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">12.61</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-0.58</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">1.96</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">366.66</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_base</span></p></td><td class="cl-bce7767a"><p class="cl-bce72846"><span class="cl-bce7012c">base model</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-187.21</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">14.37</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">-4.46</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">3.91</span></p></td><td class="cl-bce7767b"><p class="cl-bce72847"><span class="cl-bce7012c">374.41</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bce7767d"><p class="cl-bce72846"><span class="cl-bce7012c">totbiomass_year_auto</span></p></td><td class="cl-bce7767d"><p class="cl-bce72846"><span class="cl-bce7012c">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-bce7767c"><p class="cl-bce72847"><span class="cl-bce7012c">-188.17</span></p></td><td class="cl-bce7767c"><p class="cl-bce72847"><span class="cl-bce7012c">11.97</span></p></td><td class="cl-bce7767c"><p class="cl-bce72847"><span class="cl-bce7012c">-5.42</span></p></td><td class="cl-bce7767c"><p class="cl-bce72847"><span class="cl-bce7012c">5.85</span></p></td><td class="cl-bce7767c"><p class="cl-bce72847"><span class="cl-bce7012c">376.34</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="d93adf65-d557-4af6-8de3-c8da10f8f459"></div>
 <script>
-var dest = document.getElementById("8c6910ef-233e-432e-897c-9c397c47c2a9");
-var template = document.getElementById("ac3602ac-a171-4fa3-a236-6526f34b666b");
+var dest = document.getElementById("d93adf65-d557-4af6-8de3-c8da10f8f459");
+var template = document.getElementById("478fe062-7d22-461b-beca-7b18a26c0e67");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -1007,6 +1043,7 @@ biomass_{ijt} &amp;\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma &amp;\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 \]</span></p>
 <div id="model-selection-results-1" class="section level2">
@@ -1029,7 +1066,7 @@ round(x = mod_comp_biomass, 2) %&gt;%
                 `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
                 `elpd error difference` = se_diff, `LOO information criterion` = looic) %&gt;% 
   flextable(cwidth = 1.5)</code></pre>
-<template id="d4f5cfc0-e901-4be3-90c0-11d4a985f76c"><style>
+<template id="999051e1-0002-4816-9dca-1794040929ba"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -1063,11 +1100,11 @@ round(x = mod_comp_biomass, 2) %&gt;%
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-17c612a6{border-collapse:collapse;}.cl-17bdac4c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-17bdac4d{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-17bdac4e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-17bdfa76{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-17bdfa77{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-17bdfa78{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-17bdfa79{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-17bdfa7a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-17bdfa7b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-17c612a6'><thead><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa7b"><p class="cl-17bdac4d"><span class="cl-17bdac4c">R object</span></p></td><td class="cl-17bdfa7b"><p class="cl-17bdac4d"><span class="cl-17bdac4c">Model terms</span></p></td><td class="cl-17bdfa7a"><p class="cl-17bdac4e"><span class="cl-17bdac4c">LOO elpd</span></p></td><td class="cl-17bdfa7a"><p class="cl-17bdac4e"><span class="cl-17bdac4c">LOO elpd error</span></p></td><td class="cl-17bdfa7a"><p class="cl-17bdac4e"><span class="cl-17bdac4c">elpd difference</span></p></td><td class="cl-17bdfa7a"><p class="cl-17bdac4e"><span class="cl-17bdac4c">elpd error difference</span></p></td><td class="cl-17bdfa7a"><p class="cl-17bdac4e"><span class="cl-17bdac4c">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_treatment_group_int</span></p></td><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">treatment + group + treatment:group</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-601.56</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">17.84</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">0.00</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">0.00</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,203.11</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_treatment_group_year</span></p></td><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">treatment + group + year_s + treatment:group + treatment:year_s + group:year_s + treatment:group:year_s</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-604.60</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">17.09</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-3.05</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">3.84</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,209.20</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_treatment_group</span></p></td><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">treatment + group</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-629.03</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">19.01</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-27.48</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">7.75</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,258.07</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_group</span></p></td><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">group</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-629.24</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">18.85</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-27.69</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">8.07</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,258.49</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_treatment</span></p></td><td class="cl-17bdfa76"><p class="cl-17bdac4d"><span class="cl-17bdac4c">treatment</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-801.47</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">15.50</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-199.91</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">14.86</span></p></td><td class="cl-17bdfa77"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,602.94</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-17bdfa79"><p class="cl-17bdac4d"><span class="cl-17bdac4c">biomass_base</span></p></td><td class="cl-17bdfa79"><p class="cl-17bdac4d"><span class="cl-17bdac4c">base model</span></p></td><td class="cl-17bdfa78"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-802.89</span></p></td><td class="cl-17bdfa78"><p class="cl-17bdac4e"><span class="cl-17bdac4c">15.24</span></p></td><td class="cl-17bdfa78"><p class="cl-17bdac4e"><span class="cl-17bdac4c">-201.33</span></p></td><td class="cl-17bdfa78"><p class="cl-17bdac4e"><span class="cl-17bdac4c">15.21</span></p></td><td class="cl-17bdfa78"><p class="cl-17bdac4e"><span class="cl-17bdac4c">1,605.78</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="8eb8a56c-5c32-40ca-9fb2-d28b72e3515a"></div>
+</style><div class="tabwid"><style>.cl-c2228e54{border-collapse:collapse;}.cl-c21a762e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c21a9d3e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c21a9d3f{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c21ac44e{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c21ac44f{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c21ac450{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c21ac451{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c21ac452{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c21ac453{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-c2228e54'><thead><tr style="overflow-wrap:break-word;"><td class="cl-c21ac453"><p class="cl-c21a9d3e"><span class="cl-c21a762e">R object</span></p></td><td class="cl-c21ac453"><p class="cl-c21a9d3e"><span class="cl-c21a762e">Model terms</span></p></td><td class="cl-c21ac452"><p class="cl-c21a9d3f"><span class="cl-c21a762e">LOO elpd</span></p></td><td class="cl-c21ac452"><p class="cl-c21a9d3f"><span class="cl-c21a762e">LOO elpd error</span></p></td><td class="cl-c21ac452"><p class="cl-c21a9d3f"><span class="cl-c21a762e">elpd difference</span></p></td><td class="cl-c21ac452"><p class="cl-c21a9d3f"><span class="cl-c21a762e">elpd error difference</span></p></td><td class="cl-c21ac452"><p class="cl-c21a9d3f"><span class="cl-c21a762e">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_treatment_group_int</span></p></td><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">treatment + group + treatment:group</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-601.56</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">17.84</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">0.00</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">0.00</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,203.11</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_treatment_group_year</span></p></td><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">treatment + group + year_s + treatment:group + treatment:year_s + group:year_s + treatment:group:year_s</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-604.60</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">17.09</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-3.05</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">3.84</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,209.20</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_treatment_group</span></p></td><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">treatment + group</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-629.03</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">19.01</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-27.48</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">7.75</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,258.07</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_group</span></p></td><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">group</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-629.24</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">18.85</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-27.69</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">8.07</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,258.49</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_treatment</span></p></td><td class="cl-c21ac44e"><p class="cl-c21a9d3e"><span class="cl-c21a762e">treatment</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-801.47</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">15.50</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-199.91</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">14.86</span></p></td><td class="cl-c21ac44f"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,602.94</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c21ac451"><p class="cl-c21a9d3e"><span class="cl-c21a762e">biomass_base</span></p></td><td class="cl-c21ac451"><p class="cl-c21a9d3e"><span class="cl-c21a762e">base model</span></p></td><td class="cl-c21ac450"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-802.89</span></p></td><td class="cl-c21ac450"><p class="cl-c21a9d3f"><span class="cl-c21a762e">15.24</span></p></td><td class="cl-c21ac450"><p class="cl-c21a9d3f"><span class="cl-c21a762e">-201.33</span></p></td><td class="cl-c21ac450"><p class="cl-c21a9d3f"><span class="cl-c21a762e">15.21</span></p></td><td class="cl-c21ac450"><p class="cl-c21a9d3f"><span class="cl-c21a762e">1,605.78</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="e2ca0afe-7412-4a64-b734-224136b761cf"></div>
 <script>
-var dest = document.getElementById("8eb8a56c-5c32-40ca-9fb2-d28b72e3515a");
-var template = document.getElementById("d4f5cfc0-e901-4be3-90c0-11d4a985f76c");
+var dest = document.getElementById("e2ca0afe-7412-4a64-b734-224136b761cf");
+var template = document.getElementById("999051e1-0002-4816-9dca-1794040929ba");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -1213,6 +1250,7 @@ shannon_{ijt} &amp;\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &amp;\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma &amp;\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 \]</span></p>
 <div id="model-selection-results-2" class="section level2">
@@ -1234,7 +1272,7 @@ round(x = mod_comp_shannon, 2) %&gt;%
                 `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
                 `elpd error difference` = se_diff, `LOO information criterion` = looic) %&gt;% 
   flextable(cwidth = 1.5)</code></pre>
-<template id="ecc17c10-0fe8-4328-a063-52491c6e3a02"><style>
+<template id="e0f71df2-efc9-4ba8-babd-20002c8302f8"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -1268,11 +1306,11 @@ round(x = mod_comp_shannon, 2) %&gt;%
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-1ae22b5a{border-collapse:collapse;}.cl-1ad8d2bc{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1ad8d2bd{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1ad8d2be{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1ada0c18{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1ada0c19{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1ada0c1a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1ada0c1b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1ada0c1c{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1ada0c1d{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-1ae22b5a'><thead><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c1d"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">R object</span></p></td><td class="cl-1ada0c1d"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">Model terms</span></p></td><td class="cl-1ada0c1c"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">LOO elpd</span></p></td><td class="cl-1ada0c1c"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">LOO elpd error</span></p></td><td class="cl-1ada0c1c"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">elpd difference</span></p></td><td class="cl-1ada0c1c"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">elpd error difference</span></p></td><td class="cl-1ada0c1c"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">shannon_treatment_year_int</span></p></td><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">treatment + year_s + treatment:year_s</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-160.76</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">8.59</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">0.00</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">0.00</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">321.52</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">shannon_base</span></p></td><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">base model</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-165.94</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">9.33</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-5.18</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">3.52</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">331.88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">shannon_year_linear</span></p></td><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">treatment + year_s</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-166.34</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">9.03</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-5.58</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">3.16</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">332.68</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">shannon_treatment</span></p></td><td class="cl-1ada0c19"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">treatment</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-166.64</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">9.18</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-5.88</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">3.49</span></p></td><td class="cl-1ada0c18"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">333.28</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1ada0c1b"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">shannon_treatment_year_auto</span></p></td><td class="cl-1ada0c1b"><p class="cl-1ad8d2bd"><span class="cl-1ad8d2bc">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-1ada0c1a"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-167.58</span></p></td><td class="cl-1ada0c1a"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">9.26</span></p></td><td class="cl-1ada0c1a"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">-6.82</span></p></td><td class="cl-1ada0c1a"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">3.78</span></p></td><td class="cl-1ada0c1a"><p class="cl-1ad8d2be"><span class="cl-1ad8d2bc">335.15</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="85cfa4fc-12d6-449d-b035-23ea54f0d7cc"></div>
+</style><div class="tabwid"><style>.cl-c5256eb4{border-collapse:collapse;}.cl-c51e5642{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c51e5643{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c51e5644{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c51ea476{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c51ea477{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c51ea478{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c51ea479{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c51ea47a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c51ea47b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-c5256eb4'><thead><tr style="overflow-wrap:break-word;"><td class="cl-c51ea47b"><p class="cl-c51e5643"><span class="cl-c51e5642">R object</span></p></td><td class="cl-c51ea47b"><p class="cl-c51e5643"><span class="cl-c51e5642">Model terms</span></p></td><td class="cl-c51ea47a"><p class="cl-c51e5644"><span class="cl-c51e5642">LOO elpd</span></p></td><td class="cl-c51ea47a"><p class="cl-c51e5644"><span class="cl-c51e5642">LOO elpd error</span></p></td><td class="cl-c51ea47a"><p class="cl-c51e5644"><span class="cl-c51e5642">elpd difference</span></p></td><td class="cl-c51ea47a"><p class="cl-c51e5644"><span class="cl-c51e5642">elpd error difference</span></p></td><td class="cl-c51ea47a"><p class="cl-c51e5644"><span class="cl-c51e5642">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">shannon_treatment_year_int</span></p></td><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">treatment + year_s + treatment:year_s</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-160.76</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">8.59</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">0.00</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">0.00</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">321.52</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">shannon_base</span></p></td><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">base model</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-165.94</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">9.33</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-5.18</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">3.52</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">331.88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">shannon_year_linear</span></p></td><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">treatment + year_s</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-166.34</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">9.03</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-5.58</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">3.16</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">332.68</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">shannon_treatment</span></p></td><td class="cl-c51ea477"><p class="cl-c51e5643"><span class="cl-c51e5642">treatment</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-166.64</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">9.18</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">-5.88</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">3.49</span></p></td><td class="cl-c51ea476"><p class="cl-c51e5644"><span class="cl-c51e5642">333.28</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c51ea479"><p class="cl-c51e5643"><span class="cl-c51e5642">shannon_treatment_year_auto</span></p></td><td class="cl-c51ea479"><p class="cl-c51e5643"><span class="cl-c51e5642">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-c51ea478"><p class="cl-c51e5644"><span class="cl-c51e5642">-167.58</span></p></td><td class="cl-c51ea478"><p class="cl-c51e5644"><span class="cl-c51e5642">9.26</span></p></td><td class="cl-c51ea478"><p class="cl-c51e5644"><span class="cl-c51e5642">-6.82</span></p></td><td class="cl-c51ea478"><p class="cl-c51e5644"><span class="cl-c51e5642">3.78</span></p></td><td class="cl-c51ea478"><p class="cl-c51e5644"><span class="cl-c51e5642">335.15</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="1a09adbc-d001-4d4a-a452-b299b7359168"></div>
 <script>
-var dest = document.getElementById("85cfa4fc-12d6-449d-b035-23ea54f0d7cc");
-var template = document.getElementById("ecc17c10-0fe8-4328-a063-52491c6e3a02");
+var dest = document.getElementById("1a09adbc-d001-4d4a-a452-b299b7359168");
+var template = document.getElementById("e0f71df2-efc9-4ba8-babd-20002c8302f8");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -1401,6 +1439,177 @@ hypothesis(shannon_treatment_year_int, h, class = NULL)</code></pre>
 &#39;*&#39;: For one-sided hypotheses, the posterior probability exceeds 95%;
 for two-sided hypotheses, the value tested against lies outside the 95%-CI.
 Posterior probabilities of point hypotheses assume equal prior probabilities.</code></pre>
+<hr />
+</div>
+</div>
+</div>
+<div id="species-richness" class="section level1">
+<h1>4. Species richness</h1>
+<p>As well as the Shannon-Weiner diversity index, we also wanted to explore patterns in species richness. This variable is count data (no. species) and thus we used a Poisson model with a <span class="math inline">\(\log\)</span> link</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Full model} \\
+richness_{ijt} &amp;\sim \operatorname{Poisson}(\lambda_{ijt}) \\
+\log(\lambda_{ijt}) &amp;= \alpha_{i} + \beta_{month[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{month[ijt]} &amp;\sim \operatorname{Normal}(0, 1) \\
+\alpha_i &amp;\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &amp;\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &amp;\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &amp;\sim\operatorname{Normal}(1, 1)\\
+\sigma_{\alpha} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &amp;\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &amp;\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+\]</span></p>
+<div id="model-selection-results-3" class="section level2">
+<h2>Model selection results</h2>
+<p>The model selection took a similar form to previous model selections.</p>
+<pre class="r"><code>load(&quot;data/richness_models.RData&quot;, verbose = TRUE)</code></pre>
+<pre><code>Loading objects:
+  richness_year_linear
+  mod_comp_richness</code></pre>
+<pre class="r"><code>## model selection table
+round(x = mod_comp_richness, 2) %&gt;% 
+  rownames_to_column(&quot;R object&quot;) %&gt;% 
+  mutate(`Model terms` = c(&quot;treatment + year_s&quot;,
+                           &quot;treatment&quot;,
+                           &quot;base model&quot;,
+                           &quot;treatment + ar(year_s, p = 1)&quot;,
+                           &quot;treatment + year_s + treatment:year_s&quot;)) %&gt;% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %&gt;% 
+  flextable(cwidth = 1.5)</code></pre>
+<template id="767da6f6-d2da-44d0-8073-9b3b6979f43d"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-cc672cda{border-collapse:collapse;}.cl-cc602656{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cc602657{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cc602658{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cc60748a{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc60748b{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc60748c{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc60748d{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc60748e{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cc60748f{width:108pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-cc672cda'><thead><tr style="overflow-wrap:break-word;"><td class="cl-cc60748f"><p class="cl-cc602657"><span class="cl-cc602656">R object</span></p></td><td class="cl-cc60748f"><p class="cl-cc602657"><span class="cl-cc602656">Model terms</span></p></td><td class="cl-cc60748e"><p class="cl-cc602658"><span class="cl-cc602656">LOO elpd</span></p></td><td class="cl-cc60748e"><p class="cl-cc602658"><span class="cl-cc602656">LOO elpd error</span></p></td><td class="cl-cc60748e"><p class="cl-cc602658"><span class="cl-cc602656">elpd difference</span></p></td><td class="cl-cc60748e"><p class="cl-cc602658"><span class="cl-cc602656">elpd error difference</span></p></td><td class="cl-cc60748e"><p class="cl-cc602658"><span class="cl-cc602656">LOO information criterion</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">richness_year_linear</span></p></td><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">treatment + year_s</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-344.46</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">5.37</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">0.00</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">0.00</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">688.92</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">richness_treatment</span></p></td><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">treatment</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-345.44</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">5.20</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-0.98</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">0.92</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">690.88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">richness_base</span></p></td><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">base model</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-345.48</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">5.19</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-1.02</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">1.87</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">690.96</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">richness_treatment_year_auto</span></p></td><td class="cl-cc60748b"><p class="cl-cc602657"><span class="cl-cc602656">treatment + ar(year_s, p = 1)</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-346.22</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">5.14</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">-1.76</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">0.93</span></p></td><td class="cl-cc60748a"><p class="cl-cc602658"><span class="cl-cc602656">692.43</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cc60748d"><p class="cl-cc602657"><span class="cl-cc602656">richness_treatment_year_int</span></p></td><td class="cl-cc60748d"><p class="cl-cc602657"><span class="cl-cc602656">treatment + year_s + treatment:year_s</span></p></td><td class="cl-cc60748c"><p class="cl-cc602658"><span class="cl-cc602656">-346.52</span></p></td><td class="cl-cc60748c"><p class="cl-cc602658"><span class="cl-cc602656">5.59</span></p></td><td class="cl-cc60748c"><p class="cl-cc602658"><span class="cl-cc602656">-2.06</span></p></td><td class="cl-cc60748c"><p class="cl-cc602658"><span class="cl-cc602656">0.83</span></p></td><td class="cl-cc60748c"><p class="cl-cc602658"><span class="cl-cc602656">693.04</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="dacc3ae8-9de4-42c2-943b-26de05f5dfda"></div>
+<script>
+var dest = document.getElementById("dacc3ae8-9de4-42c2-943b-26de05f5dfda");
+var template = document.getElementById("767da6f6-d2da-44d0-8073-9b3b6979f43d");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+<p>Here we see the strongest statistical support for the model with year and treatment as univariate effects i.e. excluding interactions. However, this result is less convincing, without a substantial change compared to the base model (difference = 1.02). We conclude that there isn’t a strong impact of treatment on richness, or strong changes through time. However, it is still worth exploring these effects.</p>
+</div>
+<div id="posterior-plots-and-predictions-3" class="section level2">
+<h2>Posterior plots and predictions</h2>
+<p>First again for the base model terms</p>
+<pre class="r"><code>richness_year_linear %&gt;%
+  gather_draws(`b_monthSept|sd.*|sigma`, regex = TRUE) %&gt;% #tidybayes
+  ungroup() %&gt;% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = &quot;paleturquoise4&quot;) +
+  scale_y_discrete(labels = c(expression(paste(&quot;September effect &quot;, beta[harvest])),
+                              expression(paste(&quot;Treatment within block variance &quot;, sigma[epsilon])),
+                              expression(paste(&quot;Block variance &quot;, sigma[alpha])),
+                              expression(paste(&quot;Year variance &quot;, sigma[gamma])))) +
+  labs(x = &quot;Posterior estimate&quot;, y = NULL) +
+  theme_bw(base_size = 20)</code></pre>
+<p><img src="figure/mixed_model_summaries.Rmd/posterior%20richness-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Here we don’t see strong variance effects for any of the random terms. There is a slight negative effect of the late season on richness, but this isn’t that strong.</p>
+<p>Now for the treatment and year effects.</p>
+<pre class="r"><code># Treatment
+p1 &lt;- as.data.frame(brms::posterior_predict(richness_year_linear)) %&gt;% 
+  mutate(sim = 1:8000) %&gt;% 
+  pivot_longer(-sim) %&gt;% 
+  bind_cols(., slice(diversity, rep(1:120, 8000))) %&gt;%
+  ggplot(aes(x = treatment, y = value, fill = treatment)) +
+  stat_halfeye(width = 0.4, alpha = 0.7) +
+  geom_half_point(data = diversity, 
+                  aes(y = richness, x = treatment, 
+                      colour = treatment, group = NULL),
+                  side = &quot;l&quot;, range_scale = 0.4, 
+                  alpha = 0.7, size = 2) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F, aesthetics = c(&quot;fill&quot;, &quot;colour&quot;)) +
+  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Species Richness&quot;) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+# Year effect
+preddat_richness &lt;- expand_grid(year_s = seq(-1.15,1.6, length.out = 40),
+                               treatment = unique(diversity$treatment),
+                               month = &quot;June&quot;,
+                               block = unique(diversity$block),
+                               year_f = unique(diversity$year_f),
+                               value = NA) 
+
+richness_pred &lt;-  brms::posterior_predict(richness_year_linear,
+                                         newdata = preddat_richness) 
+
+# summary data for each year value
+predatsum &lt;- preddat_richness %&gt;% 
+  group_by(year_s) %&gt;% 
+  summarise(value = NA, upr = NA, lwr = NA) %&gt;% 
+  ungroup() %&gt;% as.data.frame()
+  
+for(i in 1:nrow(predatsum)){
+  cpos = which(preddat_richness$year_s == predatsum[i,]$year_s)
+  
+  post_mean = mean(richness_pred[,cpos])
+  cQuant = quantile(richness_pred[,cpos], c(0.1, 0.90)) # 80% levels
+  
+  predatsum[i,]$value &lt;- post_mean
+  predatsum[i,]$upr &lt;- cQuant[2]
+  predatsum[i,]$lwr &lt;- cQuant[1]
+  
+}
+
+p2 &lt;- ggplot(predatsum, aes(x = year_s, y = value)) +
+  geom_jitter(data = diversity, aes(y = richness), width = 0.06, size = 2, alpha = 0.85) +
+  geom_smooth(stat = &quot;identity&quot;, aes(ymax = upr, ymin = lwr), alpha = 0.1,
+              colour = &quot;lightsteelblue4&quot;, fill = &quot;lightsteelblue4&quot;) +
+  labs(x = &quot;Observation year (scaled)&quot;, y = &quot;Species richness&quot;) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank())
+
+p1 + p2</code></pre>
+<p><img src="figure/mixed_model_summaries.Rmd/richness%20predictions-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>There does look like there was an increase in richness over the study period, although <span class="math inline">\(\beta_{year} = 0.1 [0.04,0.17]\)</span> and this was not a strong effect (particularly in light of predictive performance in the model selection). However, it does look like on average ~10 more species were observed on the site from 2016-2020. There doesn’t seem to be any strong effect of the treatment groups.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1478,7 +1687,6 @@ loaded via a namespace (and not attached):
 [127] coda_0.19-4          minqa_1.2.4          rmarkdown_2.7       
 [130] git2r_0.28.0         shiny_1.6.0          lubridate_1.7.10    
 [133] base64enc_0.1-3      dygraphs_1.1.1.6    </code></pre>
-</div>
 </div>
 </div>
 </div>
