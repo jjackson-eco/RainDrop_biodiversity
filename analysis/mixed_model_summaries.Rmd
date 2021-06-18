@@ -127,6 +127,7 @@ total\,biomass_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\sigma &\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 $$
 
@@ -290,6 +291,7 @@ biomass_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\sigma &\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 $$
 
@@ -428,6 +430,7 @@ shannon_{ijt} &\sim \operatorname{Normal}(\mu_{ijt}, \sigma) \\
 \sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
 \sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\sigma &\sim \operatorname{Student T}(3,0,2.5) \\
 \end{aligned}
 $$
 
@@ -559,4 +562,134 @@ h <- paste("sd_year_f__Intercept^2/ ",
 hypothesis(shannon_treatment_year_int, h, class = NULL)
 ```
 
+---
+
+# 4. Species richness
+
+As well as the Shannon-Weiner diversity index, we also wanted to explore patterns in species richness. This variable is count data (no. species) and thus we used a Poisson model with a $\log$ link
+
+$$
+\begin{aligned}
+\operatorname{Full model} \\
+richness_{ijt} &\sim \operatorname{Poisson}(\lambda_{ijt}) \\
+\log(\lambda_{ijt}) &= \alpha_{i} + \beta_{month[ijt]} + \epsilon_{ij} + \gamma_t  \\
+\operatorname{Priors} \\
+\beta_{month[ijt]} &\sim \operatorname{Normal}(0, 1) \\
+\alpha_i &\sim \operatorname{Normal}(\bar{\alpha},\sigma_{\alpha}) \\
+\epsilon_{ij} &\sim \operatorname{Normal}(0,\sigma_{\epsilon})\\
+\gamma_t &\sim \operatorname{Normal}(0,\sigma_{\gamma})\\
+\bar{\alpha} &\sim\operatorname{Normal}(1, 1)\\
+\sigma_{\alpha} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\epsilon} &\sim \operatorname{Exponential}(3) \\
+\sigma_{\gamma} &\sim \operatorname{Exponential}(3) \\
+\end{aligned}
+$$
+
+## Model selection results
+
+The model selection took a similar form to previous model selections.
+
+```{r richness mod comp}
+load("data/richness_models.RData", verbose = TRUE)
+
+## model selection table
+round(x = mod_comp_richness, 2) %>% 
+  rownames_to_column("R object") %>% 
+  mutate(`Model terms` = c("treatment + year_s",
+                           "treatment",
+                           "base model",
+                           "treatment + ar(year_s, p = 1)",
+                           "treatment + year_s + treatment:year_s")) %>% 
+  dplyr::select(`R object`, `Model terms`, `LOO elpd` = elpd_loo, 
+                `LOO elpd error` = se_elpd_loo, `elpd difference` = elpd_diff,
+                `elpd error difference` = se_diff, `LOO information criterion` = looic) %>% 
+  flextable(cwidth = 1.5)
+```
+
+Here we see the strongest statistical support for the model with year and treatment as univariate effects i.e. excluding interactions. However, this result is less convincing, without a substantial change compared to the base model (difference = 1.02). We conclude that there isn't a strong impact of treatment on richness, or strong changes through time. However, it is still worth exploring these effects.
+
+## Posterior plots and predictions
+
+First again for the base model terms
+
+```{r posterior richness, fig.width= 8, fig.height = 9}
+richness_year_linear %>%
+  gather_draws(`b_monthSept|sd.*|sigma`, regex = TRUE) %>% #tidybayes
+  ungroup() %>% 
+  ggplot(aes(y = .variable, x = .value)) + 
+  stat_halfeye(show.legend = FALSE, fill = "paleturquoise4") +
+  scale_y_discrete(labels = c(expression(paste("September effect ", beta[harvest])),
+                              expression(paste("Treatment within block variance ", sigma[epsilon])),
+                              expression(paste("Block variance ", sigma[alpha])),
+                              expression(paste("Year variance ", sigma[gamma])))) +
+  labs(x = "Posterior estimate", y = NULL) +
+  theme_bw(base_size = 20)
+```
+
+Here we don't see strong variance effects for any of the random terms. There is a slight negative effect of the late season on richness, but this isn't that strong. 
+
+Now for the treatment and year effects.
+
+```{r richness predictions, fig.width= 10, fig.height = 8}
+# Treatment
+p1 <- as.data.frame(brms::posterior_predict(richness_year_linear)) %>% 
+  mutate(sim = 1:8000) %>% 
+  pivot_longer(-sim) %>% 
+  bind_cols(., slice(diversity, rep(1:120, 8000))) %>%
+  ggplot(aes(x = treatment, y = value, fill = treatment)) +
+  stat_halfeye(width = 0.4, alpha = 0.7) +
+  geom_half_point(data = diversity, 
+                  aes(y = richness, x = treatment, 
+                      colour = treatment, group = NULL),
+                  side = "l", range_scale = 0.4, 
+                  alpha = 0.7, size = 2) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F, aesthetics = c("fill", "colour")) +
+  labs(x = "Rainfall treatment", y = "Species Richness") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+# Year effect
+preddat_richness <- expand_grid(year_s = seq(-1.15,1.6, length.out = 40),
+                               treatment = unique(diversity$treatment),
+                               month = "June",
+                               block = unique(diversity$block),
+                               year_f = unique(diversity$year_f),
+                               value = NA) 
+
+richness_pred <-  brms::posterior_predict(richness_year_linear,
+                                         newdata = preddat_richness) 
+
+# summary data for each year value
+predatsum <- preddat_richness %>% 
+  group_by(year_s) %>% 
+  summarise(value = NA, upr = NA, lwr = NA) %>% 
+  ungroup() %>% as.data.frame()
+  
+for(i in 1:nrow(predatsum)){
+  cpos = which(preddat_richness$year_s == predatsum[i,]$year_s)
+  
+  post_mean = mean(richness_pred[,cpos])
+  cQuant = quantile(richness_pred[,cpos], c(0.1, 0.90)) # 80% levels
+  
+  predatsum[i,]$value <- post_mean
+  predatsum[i,]$upr <- cQuant[2]
+  predatsum[i,]$lwr <- cQuant[1]
+  
+}
+
+p2 <- ggplot(predatsum, aes(x = year_s, y = value)) +
+  geom_jitter(data = diversity, aes(y = richness), width = 0.06, size = 2, alpha = 0.85) +
+  geom_smooth(stat = "identity", aes(ymax = upr, ymin = lwr), alpha = 0.1,
+              colour = "lightsteelblue4", fill = "lightsteelblue4") +
+  labs(x = "Observation year (scaled)", y = "Species richness") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank())
+
+p1 + p2
+
+```
+
+There does look like there was an increase in richness over the study period, although $\beta_{year} = 0.1 [0.04,0.17]$ and this was not a strong effect (particularly in light of predictive performance in the model selection). However, it does look like on average ~10 more species were observed on the site from 2016-2020. There doesn't seem to be any strong effect of the treatment groups.
 

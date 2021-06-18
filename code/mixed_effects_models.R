@@ -405,7 +405,7 @@ richness_base <- brm(
     prior(exponential(6), class = sd, group = "block"),
     prior(exponential(8), class = sd, group = "block:treatment"),
     prior(exponential(8), class = sd, group = "year_f")),
-  control = list(adapt_delta = 0.97),
+  control = list(adapt_delta = 0.98),
   chains = 4, cores = 4, iter = 4000, warmup = 2000
 )
 
@@ -420,7 +420,7 @@ richness_treatment <- brm(
     prior(exponential(6), class = sd, group = "block"),
     prior(exponential(8), class = sd, group = "block:treatment"),
     prior(exponential(8), class = sd, group = "year_f")),
-  control = list(adapt_delta = 0.97),
+  control = list(adapt_delta = 0.98),
   chains = 4, cores = 4, iter = 4000, warmup = 2000
 )
 
@@ -435,7 +435,7 @@ richness_year_linear <- brm(
     prior(exponential(6), class = sd, group = "block"),
     prior(exponential(8), class = sd, group = "block:treatment"),
     prior(exponential(8), class = sd, group = "year_f")),
-  control = list(adapt_delta = 0.97),
+  control = list(adapt_delta = 0.98),
   chains = 4, cores = 4, iter = 4000, warmup = 2000
 )
 
