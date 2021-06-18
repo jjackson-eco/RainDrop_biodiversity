@@ -479,7 +479,7 @@ shannon_treatment_year_int %>%
 In terms of species diversity, we see some large differences compared to biomass. First, the treatment within block variance was much larger in this measure, suggesting that communities on the site are more localised. There also seems to be less of a variance component for year. Further, There isn't a clear change in species diversity depending on the observation month.
 
 
-```{r shannon predictions, fig.width= 8, fig.height = 4}
+```{r shannon predictions, fig.width= 8, fig.height = 7}
 preddat_shannon <- expand_grid(year_s = seq(-1.15,1.6, length.out = 40),
                                treatment = unique(diversity$treatment),
                                month = "June",
@@ -612,7 +612,7 @@ Here we see the strongest statistical support for the model with year and treatm
 
 First again for the base model terms
 
-```{r posterior richness, fig.width= 8, fig.height = 9}
+```{r posterior richness, fig.width= 8, fig.height = 8}
 richness_year_linear %>%
   gather_draws(`b_monthSept|sd.*|sigma`, regex = TRUE) %>% #tidybayes
   ungroup() %>% 
@@ -630,7 +630,7 @@ Here we don't see strong variance effects for any of the random terms. There is 
 
 Now for the treatment and year effects.
 
-```{r richness predictions, fig.width= 10, fig.height = 8}
+```{r richness predictions, fig.width= 10, fig.height = 5}
 # Treatment
 p1 <- as.data.frame(brms::posterior_predict(richness_year_linear)) %>% 
   mutate(sim = 1:8000) %>% 
