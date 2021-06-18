@@ -479,7 +479,7 @@ shannon_treatment_year_int %>%
 In terms of species diversity, we see some large differences compared to biomass. First, the treatment within block variance was much larger in this measure, suggesting that communities on the site are more localised. There also seems to be less of a variance component for year. Further, There isn't a clear change in species diversity depending on the observation month.
 
 
-```{r shannon predictions, fig.width= 8, fig.height = 6}
+```{r shannon predictions, fig.width= 8, fig.height = 4}
 preddat_shannon <- expand_grid(year_s = seq(-1.15,1.6, length.out = 40),
                                treatment = unique(diversity$treatment),
                                month = "June",
