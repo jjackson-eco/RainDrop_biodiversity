@@ -557,7 +557,7 @@ rd_scores %>%
 
 And now we will look at large plots exploring the trajectories of the three community structure components for each quadrat.
 
-```{r temporal effects trajectories, fig.width= 15, fig.height = 10}
+```{r temporal effects trajectories, fig.width= 8, fig.height = 4}
 rd_scores %>% 
   mutate(block_treatment = paste0(block, "_", treatment)) %>% 
   ggplot(aes(x = year, y = MDS1,  colour = treatment, 
