@@ -23,7 +23,7 @@ library(patchwork)
 library(vegan)
 
 # load data
-load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData", 
+load("../../RainDropRobotics/Data/raindrop_biodiversity_2016_2021.RData", 
      verbose = TRUE)
 
 # colours
@@ -51,26 +51,27 @@ Here a summary of the data:
 glimpse(biomass)
 ```
 
-* $**year**      - year of measurement (integer 2016-2020)
+* $**year**      - year of measurement (integer 2016-2021)
 * $**harvest**   - point of the growing season when harvest occur (category "Mid" and "End")
 * $**block**     - block of experiment (category A-E)
 * $**treatment** - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
 * $**group**     - functional group of measurement (category "Bryophytes", "Dead", "Forbs", "Graminoids", "Legumes" and "Woody")
-* $**biomass_g** - above-ground dry mass in grams (continuous)
+* $**biomass_g** - above-ground dry mass in grams (continuous) per 0.2 meter squared
 
 ***
 
 ## Biomass variable
 
-Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass (**Need to know if 0 observations are true zeros or procedural**). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
+Let us first have a look at the response variable `biomass_g`. We'll remove any **zero observations** of biomass (**Need to know if 0 observations are true zeros or procedural**) and convert to a standarised format (grams per meter squared). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).
 
 ```{r biomass raw hist, fig.width= 5, fig.height= 3}
 biomass <- biomass %>% 
-  filter(biomass_g > 0)
+  filter(biomass_g > 0) %>% 
+  mutate(biomass_g = biomass_g * 4)
 
 ggplot(biomass, aes(x = biomass_g)) +
   geom_histogram(bins = 20) +
-  labs(x = "Above-ground biomass (g)", y = "Frequency") +
+  labs(x = expression(paste("Above-ground biomass (g/", m^2, ")")), y = "Frequency") +
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())
 ```
@@ -116,7 +117,7 @@ tb_1 <- totbiomass %>%
   geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = "Rainfall treatment", y = "Total above-ground biomass (g)") +
+  labs(x = "Rainfall treatment", y = expression(paste("Above-ground biomass (g/", m^2, ")"))) +
   theme_bw(base_size = 20) +
   theme(panel.grid = element_blank())
 
@@ -209,6 +210,7 @@ Now we can go a little further and look at whether we observe any differences in
 
 ```{r functional group biomass, fig.width= 6, fig.height= 5}
 biomass %>% 
+  filter(is.na(group) == FALSE) %>% 
   ggplot(aes(x = group, y = biomass_log, 
              fill = group)) +
   geom_violin() +
@@ -229,6 +231,7 @@ Now lets look at the rainfall treatments by functional group.
 
 ```{r functional group treatment, fig.width= 12, fig.height= 12}
 biomass %>% 
+  filter(is.na(group) == FALSE) %>% 
   ggplot(aes(x = treatment, y = biomass_log, 
              fill = treatment)) +
   geom_violin() +
@@ -239,7 +242,7 @@ biomass %>%
                     guide = F) +
   labs(x = "Rainfall treatment", 
        y = expression(paste(ln, " Above-ground biomass"))) +
-  facet_wrap(~ group, ncol = 2) +
+  facet_wrap(~ group, ncol = 2, scales ="free") +
   theme_bw(base_size = 22) +
   theme(panel.grid = element_blank(),
         strip.background = element_blank())
@@ -253,6 +256,7 @@ Finally we can look at whether there are differences in the temporal patterns be
 
 # adding temporal information
 biomass <- biomass %>% 
+  filter(is.na(group) == FALSE) %>% 
   mutate(month = if_else(harvest == "End", 9, 6),
          date = as.Date(paste0(year,"-",month,"-15")),
          harvest = factor(harvest, levels = c("Mid", "End")))
@@ -289,13 +293,13 @@ Here a summary of the data:
 glimpse(percent_cover)
 ```
 
-* $**year**          - year of measurement (integer 2016-2020)
+* $**year**          - year of measurement (integer 2016-2021)
 * $**month**         - month of measurement (category "June" and "Sept")
 * $**block**         - block of experiment (category A-E)
 * $**treatment**     - experimental treatment for Drought-Net (category "Ambient", "Control", "Drought" and "Irrigated")
 * $**species_level** - Was the measurement made at the level of species? (category "Yes", "No")
 * $**species**       - Binomial name of species recorded in the measurement (category, 138 unique records)
-* $**plant_type**    - Functional group/plant type of the species recorded (category "Forb", "Grass", "Woody", "Legume")
+* $**group**    - Functional group/plant type of the species recorded (category "Forb", "Grass", "Woody", "Legume")
 * $**percent_cover** - percentage cover of the species in a 1m x 1m quadrat
 
 For the purpose of analysis here, we are interested in species diversity, and so we only want to include observations for which we have species-level data. Also, we want to clean any NA observations.
@@ -312,7 +316,7 @@ Our first key question regarding the percentage cover is how the rainfall treatm
 
 #### Species richness $R = \text{number of types (i.e. species)}$
 
-#### Simpsons index $\lambda = \sum_{i = 1}^{R} p_i^2$
+#### Simpson's index $\lambda = \sum_{i = 1}^{R} p_i^2$
 
 #### Shannon-Wiener index $H' = - \sum_{i = 1}^{R}p_i\ln p_i$
 
@@ -399,7 +403,65 @@ diversity %>%
         strip.background = element_blank())
 ```
 
-## Community structure
+## Functional group biodiversity
+
+While there doesn't seem to be a clear biodiversity signal overall, it is possible that something is occuring at the level of functional groups.
+
+```{r functional group biodiversity, fig.width= 13, fig.height= 7}
+diversity_gr <- percent_cover %>% 
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %>% 
+  filter(group %in% c("Grass", "Forb", "Legume")) %>% 
+  group_by(year, month, block, treatment, group) %>% 
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %>% 
+  ungroup() %>% 
+  pivot_longer(cols = c(richness, simpsons, shannon),
+               names_to = "index") %>% 
+  mutate(index_lab = case_when(
+    index == "richness" ~ "Species richness",
+    index == "simpsons" ~ "Simpson's index",
+    index == "shannon" ~ "Shannon-Wiener index"
+  ))
+
+diversity_gr %>% 
+  filter(index_lab == "Species richness") %>% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 6, shape = 21, fill = "white") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", y = "Species richness") +
+  facet_wrap(~ group, ncol = 3, scales = "free") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+diversity_gr %>% 
+  filter(index_lab == "Shannon-Wiener index") %>% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = "point", 
+               size = 6, shape = 21, fill = "white") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = "Rainfall treatment", y = "Shannon-Wiener index") +
+  facet_wrap(~ group, ncol = 3, scales = "free") +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+Here, it does look like there may be some weak effects. Specifically, it looks like there may be more forb species in the Drought treatment.
+
+# 3. Community structure
 
 While there may not be overall patterns in species diversity, what is interesting whether there are shifts to community structure. So, here we can perform a simple **non-metric multidimensional scaling** (NMDS) analysis, to look at changes to community structure with our treatments, general plant types, and also whether there are key species.
 
@@ -415,17 +477,17 @@ species_community_df <- percent_cover %>%
               values_fill = 0)
 
 # convert to a matrix
-species_community_mat <- as.matrix(species_community_df[,2:123])
+species_community_mat <- as.matrix(species_community_df[,2:125])
 rownames(species_community_mat) <- species_community_df$sample
 
 # have a look
 glimpse(species_community_mat)
 
 # the NMDS
-raindrop_NMDS <- metaMDS(species_community_mat, k = 2, trymax = 500)
+raindrop_NMDS <- metaMDS(species_community_mat, k = 3, trymax = 1000) # Seems to be 3 dimensions with the new data
 ```
 
-And now we can pull out the NMDS scores (2 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure.
+And now we can pull out the NMDS scores (3 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure. Focusing on the first 2 dimensions for initial plotting.
 
 ```{r NMDS data abd treatment plot}
 
@@ -444,7 +506,7 @@ rd_scores <- rd_scores %>%
 # and for species
 species_types <- percent_cover %>% 
   group_by(species) %>% 
-  summarise(plant_type = plant_type[1])
+  summarise(group = group[1])
 
 rd_species <- rd_species %>%
   mutate(species = rownames(.)) %>% 
@@ -475,8 +537,71 @@ rd_scores %>%
   theme(panel.grid = element_blank())
 ```
 
-It does look like there are interesting temporal patterns in community structure here.
+It does look like there are interesting temporal patterns in community structure here. Lets look at treatment by year all connected together.
 
+## Exploring quadrat-level trajectories
+
+To dig a little deeper into these temporal effects, we can now explore the community trajectories through time for each observation quadrat. The overall data looks like this:
+
+```{r temporal effects plus treatment}
+rd_scores %>% 
+  mutate(block_treatment = paste0(block, "_", treatment)) %>% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = year, shape = treatment, 
+             group = block_treatment)) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  labs(x = "NMDS1", y = "NMDS2", colour = "Year") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())
+```
+
+And now we will look at large plots exploring the trajectories of the three community structure components for each quadrat.
+
+```{r temporal effects trajectories, fig.width= 15, fig.height = 10}
+rd_scores %>% 
+  mutate(block_treatment = paste0(block, "_", treatment)) %>% 
+  ggplot(aes(x = year, y = MDS1,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = "none") +
+  labs(x = "Year", y = "NMDS1", colour = "Treatment") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+rd_scores %>% 
+  mutate(block_treatment = paste0(block, "_", treatment)) %>% 
+  ggplot(aes(x = year, y = MDS2,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = "none") +
+  labs(x = "Year", y = "NMDS2", colour = "Treatment") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+
+rd_scores %>% 
+  mutate(block_treatment = paste0(block, "_", treatment)) %>% 
+  ggplot(aes(x = year, y = MDS3,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = "none") +
+  labs(x = "Year", y = "NMDS3", colour = "Treatment") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
+```
+
+## Species importance
 And we can now see whether there are important groups of species or groups of species that may be driving community structure differences. This is essentially the 'loading' of each species to the two NMDS axes.
 
 ```{r species nmds}
@@ -492,7 +617,7 @@ rd_species_extreme <- rd_species %>%
                                    "yes", "no"))
 
 ggplot(rd_species_extreme,
-       aes(x = MDS1, y = MDS2, colour = plant_type)) +
+       aes(x = MDS1, y = MDS2, colour = group)) +
   geom_point(alpha = 0.8, size = 4) +
   stat_ellipse(level = 0.8, size = 1, show.legend = F) +
   geom_text(data = filter(rd_species_extreme, 
@@ -502,6 +627,87 @@ ggplot(rd_species_extreme,
   lims(x = c(-1.2,1.7)) +
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())
+
+```
+
+## Functional group community structure
+
+Now, rather than focusing on the whole community, we will dig down in to each functional group itself and look at the specific structure of that functional group.
+
+```{r funct group nmds, warning=FALSE, message=FALSE, results='hide'}
+
+# data frame of the community matrices
+graminoid_community_df <- percent_cover %>% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = "_")) %>% 
+  filter(species_level == "Yes" & group == "Grass") %>% 
+  dplyr::select(sample, species, percent_cover) %>% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+forb_community_df <- percent_cover %>% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = "_")) %>% 
+  filter(species_level == "Yes" & group == "Forb") %>% 
+  dplyr::select(sample, species, percent_cover) %>% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+legume_community_df <- percent_cover %>% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = "_")) %>% 
+  filter(species_level == "Yes" & group == "Legume") %>% 
+  dplyr::select(sample, species, percent_cover) %>% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+# convert to matrices
+graminoid_community_mat <- as.matrix(graminoid_community_df[,2:ncol(graminoid_community_df)])
+rownames(graminoid_community_mat) <- graminoid_community_df$sample
+
+forb_community_mat <- as.matrix(forb_community_df[,2:ncol(forb_community_df)])
+rownames(forb_community_mat) <- forb_community_df$sample
+
+legume_community_mat <- as.matrix(legume_community_df[,2:ncol(legume_community_df)])
+rownames(legume_community_mat) <- legume_community_df$sample
+
+# the NMDS analyses
+graminoid_NMDS <- metaMDS(graminoid_community_mat, k = 3, trymax = 500)
+forb_NMDS <- metaMDS(forb_community_mat, k = 3, trymax = 500)
+legume_NMDS <- metaMDS(legume_community_mat, k = 3, trymax = 500)
+
+# scores as a nice data frame
+graminoid_scores <- as.data.frame(graminoid_NMDS$points) %>%
+  mutate(plot = rownames(.)) %>% 
+  mutate(month = as.character(map(strsplit(plot, "_"), 1)),
+         year = as.numeric(map(strsplit(plot, "_"), 2)),
+         block = as.character(map(strsplit(plot, "_"), 3)),
+         treatment = as.character(map(strsplit(plot, "_"), 4)),
+         group = "Graminoid")
+
+forb_scores <- as.data.frame(forb_NMDS$points) %>%
+  mutate(plot = rownames(.)) %>% 
+  mutate(month = as.character(map(strsplit(plot, "_"), 1)),
+         year = as.numeric(map(strsplit(plot, "_"), 2)),
+         block = as.character(map(strsplit(plot, "_"), 3)),
+         treatment = as.character(map(strsplit(plot, "_"), 4)),
+         group = "Forb")
+
+legume_scores <- as.data.frame(legume_NMDS$points) %>%
+  mutate(plot = rownames(.)) %>% 
+  mutate(month = as.character(map(strsplit(plot, "_"), 1)),
+         year = as.numeric(map(strsplit(plot, "_"), 2)),
+         block = as.character(map(strsplit(plot, "_"), 3)),
+         treatment = as.character(map(strsplit(plot, "_"), 4)),
+         group = "Legume")
+
+bind_rows(graminoid_scores, forb_scores, legume_scores) %>% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = treatment)) + 
+  geom_point() +
+  facet_wrap(~ group) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = "NMDS1", y = "NMDS2", colour = "Rainfall\ntreatment") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())
 
 ```
 
