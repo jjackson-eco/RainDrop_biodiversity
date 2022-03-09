@@ -13,7 +13,7 @@
 
 <title>Exploratory analysis</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -311,12 +311,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -346,8 +346,8 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jjackson-eco/RainDrop_biodiversity">
-    <span class="fas fa-github"></span>
-
+    <span class="fa fa-github"></span>
+     
     Source code
   </a>
 </li>
@@ -393,7 +393,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-15
+<strong>Last updated:</strong> 2022-03-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -484,16 +484,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree81990d598b9427dd1de7efc4737445bf164da5d7targetblank81990d5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/81990d598b9427dd1de7efc4737445bf164da5d7" target="_blank">81990d5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytreecbc95ff42e18f450e6a786d0c11c6b6fc90a6482targetblankcbc95ffa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjacksonecoRainDropbiodiversitytree81990d598b9427dd1de7efc4737445bf164da5d7targetblank81990d5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/cbc95ff42e18f450e6a786d0c11c6b6fc90a6482" target="_blank">cbc95ff</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jjackson-eco/RainDrop_biodiversity/tree/81990d598b9427dd1de7efc4737445bf164da5d7" target="_blank">81990d5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -504,8 +504,13 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/site_libs/
 
+Untracked files:
+    Untracked:  output/biomass_group_figure.png
+
 Unstaged changes:
     Deleted:    analysis/about.Rmd
+    Deleted:    code/data_cleaning_aquisition_apr21.R
+    Deleted:    code/mixed_effects_models.R
 
 </code></pre>
 <p>
@@ -544,6 +549,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jjackson-eco/RainDrop_biodiversity/blob/81990d598b9427dd1de7efc4737445bf164da5d7/analysis/exploratory_analysis.Rmd" target="_blank">81990d5</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2022-03-09
+</td>
+<td>
+wflow_publish(files = c(“analysis/exploratory_analysis.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/4bdd4a2d668eb5b09366329927588f54064539db/docs/exploratory_analysis.html" target="_blank">4bdd4a2</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+wflow_publish(files = c(“docs/index.html”, “docs/exploratory_analysis.html”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jjackson-eco/RainDrop_biodiversity/5b44884e9553338e4f61ac7651b37240a9ed7cce/docs/exploratory_analysis.html" target="_blank">5b44884</a>
+</td>
+<td>
+jjackson-eco
+</td>
+<td>
+2021-06-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -780,16 +836,16 @@ library(patchwork)
 library(vegan)
 
 # load data
-load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2020.RData&quot;,
+load(&quot;../../RainDropRobotics/Data/raindrop_biodiversity_2016_2021.RData&quot;, 
      verbose = TRUE)</code></pre>
 <pre><code>Loading objects:
   biomass
   percent_cover</code></pre>
 <pre class="r"><code># colours
-raindrop_colours &lt;-
+raindrop_colours &lt;- 
   tibble(treatment = c(&quot;Ambient&quot;, &quot;Control&quot;, &quot;Drought&quot;, &quot;Irrigated&quot;),
          num = rep(100,4),
-         colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;))
+         colour = c(&quot;#61D94E&quot;, &quot;#BFBFBF&quot;, &quot;#EB8344&quot;, &quot;#6ECCFF&quot;)) 
 
 ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
   geom_col() +
@@ -804,7 +860,7 @@ ggplot(raindrop_colours, aes(x = treatment, y = num, fill = treatment)) +
 <p>Here, cuttings of 1m x 0.25m strips (from ~1cm above the ground) from each treatment and block are sorted by functional group and after drying at 70<span class="math inline">\(^\circ\)</span>C for over 48 hours their dry mass is weighed in grams. Measurements occur twice per year- one harvest in June in the middle of the growing season and one and in September at the end of the growing season.</p>
 <p>Here a summary of the data:</p>
 <pre class="r"><code>glimpse(biomass)</code></pre>
-<pre><code>Rows: 1,199
+<pre><code>Rows: 1,273
 Columns: 6
 $ year      &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, ~
 $ harvest   &lt;chr&gt; &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid&quot;, &quot;Mid~
@@ -813,29 +869,30 @@ $ treatment &lt;chr&gt; &quot;Ambient&quot;, &quot;Ambient&quot;, &quot;Ambient&
 $ group     &lt;chr&gt; &quot;Bryophytes&quot;, &quot;Dead&quot;, &quot;Forbs&quot;, &quot;Graminoids&quot;, &quot;Legumes&quot;, &quot;Woo~
 $ biomass_g &lt;dbl&gt; 0.7, 4.5, 16.5, 49.7, 7.7, 0.0, 0.3, 2.4, 20.0, 46.7, 3.6, 1~</code></pre>
 <ul>
-<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
+<li>$<strong>year</strong> - year of measurement (integer 2016-2021)</li>
 <li>$<strong>harvest</strong> - point of the growing season when harvest occur (category “Mid” and “End”)</li>
 <li>$<strong>block</strong> - block of experiment (category A-E)</li>
 <li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
 <li>$<strong>group</strong> - functional group of measurement (category “Bryophytes”, “Dead”, “Forbs”, “Graminoids”, “Legumes” and “Woody”)</li>
-<li>$<strong>biomass_g</strong> - above-ground dry mass in grams (continuous)</li>
+<li>$<strong>biomass_g</strong> - above-ground dry mass in grams (continuous) per 0.2 meter squared</li>
 </ul>
 <hr />
 </div>
 <div id="biomass-variable" class="section level2">
 <h2>Biomass variable</h2>
-<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass (<strong>Need to know if 0 observations are true zeros or procedural</strong>). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
-<pre class="r"><code>biomass &lt;- biomass %&gt;%
-  filter(biomass_g &gt; 0)
+<p>Let us first have a look at the response variable <code>biomass_g</code>. We’ll remove any <strong>zero observations</strong> of biomass (<strong>Need to know if 0 observations are true zeros or procedural</strong>) and convert to a standarised format (grams per meter squared). If we plot out the frequency histogram of the raw data, we can see there is some strong positive skew in this variable, because of the differences in biomass scale between our functional groups (i.e. grasses very over-represented).</p>
+<pre class="r"><code>biomass &lt;- biomass %&gt;% 
+  filter(biomass_g &gt; 0) %&gt;% 
+  mutate(biomass_g = biomass_g * 4)
 
 ggplot(biomass, aes(x = biomass_g)) +
   geom_histogram(bins = 20) +
-  labs(x = &quot;Above-ground biomass (g)&quot;, y = &quot;Frequency&quot;) +
+  labs(x = expression(paste(&quot;Above-ground biomass (g/&quot;, m^2, &quot;)&quot;)), y = &quot;Frequency&quot;) +
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/biomass%20raw%20hist-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>So, instead, for statistical analysis and visualisation, we take the natural logarithm <span class="math inline">\(\ln\)</span> of the raw biomass value.</p>
-<pre class="r"><code>biomass &lt;- biomass %&gt;%
+<pre class="r"><code>biomass &lt;- biomass %&gt;% 
   mutate(biomass_log = log(biomass_g))
 
 ggplot(biomass, aes(x = biomass_log)) +
@@ -850,35 +907,35 @@ ggplot(biomass, aes(x = biomass_log)) +
 <div id="total-biomass" class="section level2">
 <h2>Total biomass</h2>
 <p>The first interesting question to explore is how biomass overall, which indicates primary productivity, is affected by the rainfall treatments. Here we need to sum up the biomass across functional groups. We again look at the <span class="math inline">\(\ln\)</span> total biomass too. We present here the density plots (violins) with median (total biomass) and mean (<span class="math inline">\(\ln\)</span> total biomass) points (large holes) as well as underlying raw data (small points).</p>
-<pre class="r"><code>totbiomass &lt;- biomass %&gt;%
-  group_by(year, harvest, block, treatment) %&gt;%
+<pre class="r"><code>totbiomass &lt;- biomass %&gt;% 
+  group_by(year, harvest, block, treatment) %&gt;% 
   summarise(tot_biomass = sum(biomass_g),
             log_tot_biomass = log(tot_biomass + 1)) %&gt;%  # avoiding 0 biomasses
   ungroup()</code></pre>
 <p>And now we can look at how this is affected by the rainfall treatments.</p>
-<pre class="r"><code>tb_1 &lt;- totbiomass %&gt;%
-  ggplot(aes(x = treatment, y = tot_biomass,
+<pre class="r"><code>tb_1 &lt;- totbiomass %&gt;% 
+  ggplot(aes(x = treatment, y = tot_biomass, 
              fill = treatment)) +
   geom_violin() +
-  stat_summary(fun = median, geom = &quot;point&quot;,
+  stat_summary(fun = median, geom = &quot;point&quot;, 
                size = 6, shape = 21, fill = &quot;white&quot;) +
   geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Total above-ground biomass (g)&quot;) +
+  labs(x = &quot;Rainfall treatment&quot;, y = expression(paste(&quot;Above-ground biomass (g/&quot;, m^2, &quot;)&quot;))) +
   theme_bw(base_size = 20) +
   theme(panel.grid = element_blank())
 
-tb_2 &lt;- totbiomass %&gt;%
-  ggplot(aes(x = treatment, y = log_tot_biomass,
+tb_2 &lt;- totbiomass %&gt;% 
+  ggplot(aes(x = treatment, y = log_tot_biomass, 
              fill = treatment)) +
   geom_violin() +
-  stat_summary(fun = mean, geom = &quot;point&quot;,
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
                size = 6, shape = 21, fill = &quot;white&quot;) +
   geom_jitter(width = 0.1, alpha = 0.4, size = 1)+
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = &quot;Rainfall treatment&quot;,
+  labs(x = &quot;Rainfall treatment&quot;, 
        y = expression(paste(ln, &quot; Total above-ground biomass&quot;))) +
   theme_bw(base_size = 20) +
   theme(panel.grid = element_blank())
@@ -888,14 +945,14 @@ tb_1 + tb_2</code></pre>
 <p>Across all functional groups, years and blocks, it looks like there is a reduction in total biomass associated with the drought treatment.</p>
 <p>Now we’ll look at potential temporal effects i.e. whether there is a change in total biomass over time. We first have to add in temporal information to the year and harvest columns, and then we can plot out the total biomass.</p>
 <pre class="r"><code># adding temporal information
-totbiomass &lt;- totbiomass %&gt;%
+totbiomass &lt;- totbiomass %&gt;% 
   mutate(month = if_else(harvest == &quot;End&quot;, 9, 6),
          date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;)),
          harvest = factor(harvest, levels = c(&quot;Mid&quot;, &quot;End&quot;)))
 
 # plots
-totbiomass %&gt;%
-  ggplot(aes(x = date, y = log_tot_biomass, colour = treatment,
+totbiomass %&gt;% 
+  ggplot(aes(x = date, y = log_tot_biomass, colour = treatment, 
              group = treatment, shape = harvest)) +
   stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
   stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
@@ -906,8 +963,8 @@ totbiomass %&gt;%
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/tot%20biomass%20temporal-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>And also splitting out the harvests, as the end of the growing season has lower biomass</p>
-<pre class="r"><code>totbiomass %&gt;%
-  ggplot(aes(x = year, y = log_tot_biomass, colour = treatment,
+<pre class="r"><code>totbiomass %&gt;% 
+  ggplot(aes(x = year, y = log_tot_biomass, colour = treatment, 
              group = treatment)) +
   stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
   stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
@@ -921,14 +978,14 @@ totbiomass %&gt;%
 <p><img src="figure/exploratory_analysis.Rmd/tot%20biomass%20temporal%202-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>It looks like there may have been declines in total biomass over the years (perhaps reflecting wider climatic patterns?), but this also seems to be more prominent in the drought treatment.</p>
 <p>Finally for total biomass, we want to look if we have any evidence for block effects at the experimental site. Here we will repeat the first treatment violin plot, but splitting by block. Here each violin is a different block (A-E from left to right) with the 50% quantile.</p>
-<pre class="r"><code>totbiomass %&gt;%
-  ggplot(aes(x = treatment, y = log_tot_biomass,
-             fill = treatment,
+<pre class="r"><code>totbiomass %&gt;% 
+  ggplot(aes(x = treatment, y = log_tot_biomass, 
+             fill = treatment, 
              group = interaction(treatment, block))) +
   geom_violin(draw_quantiles = 0.5) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = &quot;Rainfall treatment&quot;,
+  labs(x = &quot;Rainfall treatment&quot;, 
        y = expression(paste(ln, &quot; Total above-ground biomass&quot;))) +
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())</code></pre>
@@ -939,33 +996,35 @@ totbiomass %&gt;%
 <div id="group-level-biomass" class="section level2">
 <h2>Group-level biomass</h2>
 <p>Now we can go a little further and look at whether we observe any differences in biomass between different functional groups, which occur at different proportions. First, lets look at the overall differences in biomass, or relative biomass, between functional groups.</p>
-<pre class="r"><code>biomass %&gt;%
-  ggplot(aes(x = group, y = biomass_log,
+<pre class="r"><code>biomass %&gt;% 
+  filter(is.na(group) == FALSE) %&gt;% 
+  ggplot(aes(x = group, y = biomass_log, 
              fill = group)) +
   geom_violin() +
-  stat_summary(fun = mean, geom = &quot;point&quot;,
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
                size = 5, shape = 21, fill = &quot;white&quot;) +
   geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
   scale_fill_brewer(palette = &quot;Set2&quot;, guide = F) +
-  labs(x = &quot;Functional group&quot;,
+  labs(x = &quot;Functional group&quot;, 
        y = expression(paste(ln, &quot; Above-ground biomass&quot;))) +
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/functional%20group%20biomass-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>We can see that there is a large representation (as expected) of Graminoids, and lower representation of Woody species and Bryophytes.</p>
 <p>Now lets look at the rainfall treatments by functional group.</p>
-<pre class="r"><code>biomass %&gt;%
-  ggplot(aes(x = treatment, y = biomass_log,
+<pre class="r"><code>biomass %&gt;% 
+  filter(is.na(group) == FALSE) %&gt;% 
+  ggplot(aes(x = treatment, y = biomass_log, 
              fill = treatment)) +
   geom_violin() +
-  stat_summary(fun = mean, geom = &quot;point&quot;,
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
                size = 5, shape = 21, fill = &quot;white&quot;) +
   geom_jitter(width = 0.15, alpha = 0.2, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = &quot;Rainfall treatment&quot;,
+  labs(x = &quot;Rainfall treatment&quot;, 
        y = expression(paste(ln, &quot; Above-ground biomass&quot;))) +
-  facet_wrap(~ group, ncol = 2) +
+  facet_wrap(~ group, ncol = 2, scales =&quot;free&quot;) +
   theme_bw(base_size = 22) +
   theme(panel.grid = element_blank(),
         strip.background = element_blank())</code></pre>
@@ -973,14 +1032,15 @@ totbiomass %&gt;%
 <p>It isn’t as clear hear as total biomass. However, for the group with the most representation, the Graminoids, this reduction in the drought treatment looks to be maintained.</p>
 <p>Finally we can look at whether there are differences in the temporal patterns between the functional groups.</p>
 <pre class="r"><code># adding temporal information
-biomass &lt;- biomass %&gt;%
+biomass &lt;- biomass %&gt;% 
+  filter(is.na(group) == FALSE) %&gt;% 
   mutate(month = if_else(harvest == &quot;End&quot;, 9, 6),
          date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;)),
          harvest = factor(harvest, levels = c(&quot;Mid&quot;, &quot;End&quot;)))
 
 # plot
-biomass %&gt;%
-  ggplot(aes(x = date, y = biomass_log, colour = treatment,
+biomass %&gt;% 
+  ggplot(aes(x = date, y = biomass_log, colour = treatment, 
              group = treatment, shape = harvest)) +
   stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
   stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
@@ -1003,7 +1063,7 @@ biomass %&gt;%
 <p>The species diversity data is in in the form of percentage cover of individually id’ species in a 1m x 1m quadrant in the center of each experimental plot. These percentage cover measurements were generally made at the peak of the growing season (June), but in 2016 there were recordings in both June and September.</p>
 <p>Here a summary of the data:</p>
 <pre class="r"><code>glimpse(percent_cover)</code></pre>
-<pre><code>Rows: 2,956
+<pre><code>Rows: 3,531
 Columns: 8
 $ year          &lt;dbl&gt; 2018, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 20~
 $ month         &lt;chr&gt; &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, &quot;June&quot;, ~
@@ -1011,21 +1071,21 @@ $ block         &lt;chr&gt; &quot;C&quot;, &quot;B&quot;, &quot;B&quot;, &quot;C
 $ treatment     &lt;chr&gt; &quot;Control&quot;, &quot;Ambient&quot;, &quot;Control&quot;, &quot;Irrigated&quot;, &quot;Control&quot;,~
 $ species_level &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;~
 $ species       &lt;chr&gt; &quot;Acer_sp&quot;, &quot;Agrimonia_eupatoria&quot;, &quot;Agrimonia_eupatoria&quot;,~
-$ plant_type    &lt;chr&gt; NA, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;For~
+$ group         &lt;chr&gt; NA, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;Forb&quot;, &quot;For~
 $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 15.0,~</code></pre>
 <ul>
-<li>$<strong>year</strong> - year of measurement (integer 2016-2020)</li>
+<li>$<strong>year</strong> - year of measurement (integer 2016-2021)</li>
 <li>$<strong>month</strong> - month of measurement (category “June” and “Sept”)</li>
 <li>$<strong>block</strong> - block of experiment (category A-E)</li>
 <li>$<strong>treatment</strong> - experimental treatment for Drought-Net (category “Ambient”, “Control”, “Drought” and “Irrigated”)</li>
 <li>$<strong>species_level</strong> - Was the measurement made at the level of species? (category “Yes”, “No”)</li>
 <li>$<strong>species</strong> - Binomial name of species recorded in the measurement (category, 138 unique records)</li>
-<li>$<strong>plant_type</strong> - Functional group/plant type of the species recorded (category “Forb”, “Grass”, “Woody”, “Legume”)</li>
+<li>$<strong>group</strong> - Functional group/plant type of the species recorded (category “Forb”, “Grass”, “Woody”, “Legume”)</li>
 <li>$<strong>percent_cover</strong> - percentage cover of the species in a 1m x 1m quadrat</li>
 </ul>
 <p>For the purpose of analysis here, we are interested in species diversity, and so we only want to include observations for which we have species-level data. Also, we want to clean any NA observations.</p>
-<pre class="r"><code>percent_cover &lt;- percent_cover %&gt;%
-  drop_na(percent_cover) %&gt;%
+<pre class="r"><code>percent_cover &lt;- percent_cover %&gt;% 
+  drop_na(percent_cover) %&gt;% 
   filter(species_level == &quot;Yes&quot;)</code></pre>
 </div>
 <div id="diversity-indices" class="section level2">
@@ -1035,23 +1095,23 @@ $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 1
 <h4>Species richness <span class="math inline">\(R = \text{number of types (i.e. species)}\)</span></h4>
 </div>
 <div id="simpsons-index-lambda-sum_i-1r-p_i2" class="section level4">
-<h4>Simpsons index <span class="math inline">\(\lambda = \sum_{i = 1}^{R} p_i^2\)</span></h4>
+<h4>Simpson’s index <span class="math inline">\(\lambda = \sum_{i = 1}^{R} p_i^2\)</span></h4>
 </div>
 <div id="shannon-wiener-index-h---sum_i-1rp_iln-p_i" class="section level4">
 <h4>Shannon-Wiener index <span class="math inline">\(H&#39; = - \sum_{i = 1}^{R}p_i\ln p_i\)</span></h4>
 <p>where <span class="math inline">\(p_i\)</span> is the relative proportion of type (here species) <span class="math inline">\(i\)</span>.</p>
 <p>Here we calculate these diversity indices for each plot (i.e. each year, month, block, treatment combination)</p>
-<pre class="r"><code>diversity &lt;- percent_cover %&gt;%
+<pre class="r"><code>diversity &lt;- percent_cover %&gt;% 
   # first convert percentages to a proportion
-  mutate(proportion = percent_cover/100) %&gt;%
-  group_by(year, month, block, treatment) %&gt;%
+  mutate(proportion = percent_cover/100) %&gt;% 
+  group_by(year, month, block, treatment) %&gt;% 
   # diversity indices for each group
   summarise(richness = n(),
             simpsons = sum(proportion^2),
-            shannon = -sum(proportion * log(proportion))) %&gt;%
-  ungroup() %&gt;%
+            shannon = -sum(proportion * log(proportion))) %&gt;% 
+  ungroup() %&gt;% 
   pivot_longer(cols = c(richness, simpsons, shannon),
-               names_to = &quot;index&quot;) %&gt;%
+               names_to = &quot;index&quot;) %&gt;% 
   mutate(index_lab = case_when(
     index == &quot;richness&quot; ~ &quot;Species richness&quot;,
     index == &quot;simpsons&quot; ~ &quot;Simpson&#39;s index&quot;,
@@ -1063,11 +1123,11 @@ $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 1
 <h2>Diversity indices exploratory plots</h2>
 <p>Now we can explore how the diversity indices for each plot are related to the experimental treatments, temporal patterns, and any block effects.</p>
 <p>First the treatment effects</p>
-<pre class="r"><code>diversity %&gt;%
-  ggplot(aes(x = treatment, y = value,
+<pre class="r"><code>diversity %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
              fill = treatment)) +
   geom_violin() +
-  stat_summary(fun = mean, geom = &quot;point&quot;,
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
                size = 6, shape = 21, fill = &quot;white&quot;) +
   geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
   scale_fill_manual(values = raindrop_colours$colour,
@@ -1080,9 +1140,9 @@ $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 1
 <p><img src="figure/exploratory_analysis.Rmd/diversity%20treatment-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>There isn’t a clear pattern here. But interestingly, it actually looks like for Shannon-Wiener, diversity is greatest in the drought treatment.</p>
 <p>And now for potential temporal patterns</p>
-<pre class="r"><code>diversity %&gt;%
+<pre class="r"><code>diversity %&gt;% 
   mutate(month = if_else(month == &quot;June&quot;, 6, 9),
-         date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;))) %&gt;%
+         date = as.Date(paste0(year,&quot;-&quot;,month,&quot;-15&quot;))) %&gt;% 
   ggplot(aes(x = date, y = value, colour = treatment)) +
   stat_summary(geom = &quot;line&quot;, fun = mean, size = 0.9) +
   stat_summary(geom = &quot;point&quot;, fun = mean, size = 3) +
@@ -1094,14 +1154,14 @@ $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 1
         strip.background = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/diversity%20temporal-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Again clear patterns are not sticking out with general indices. And finally we explore any potential block effects</p>
-<pre class="r"><code>diversity %&gt;%
-  ggplot(aes(x = treatment, y = value,
-             fill = treatment,
+<pre class="r"><code>diversity %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment, 
              group = interaction(treatment, block))) +
   geom_violin(draw_quantiles = 0.5) +
   scale_fill_manual(values = raindrop_colours$colour,
                     guide = F) +
-  labs(x = &quot;Rainfall treatment&quot;,
+  labs(x = &quot;Rainfall treatment&quot;, 
        y = &quot;Species diversity index&quot;) +
   facet_wrap(~ index_lab, scales = &quot;free&quot;, ncol = 1) +
   theme_bw(base_size = 20) +
@@ -1109,51 +1169,107 @@ $ percent_cover &lt;dbl&gt; 1.0, 1.0, 2.0, 4.0, 4.0, 5.0, 5.0, 7.0, 8.0, 10.0, 1
         strip.background = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/diversity%20block-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
-<div id="community-structure" class="section level2">
-<h2>Community structure</h2>
+<div id="functional-group-biodiversity" class="section level2">
+<h2>Functional group biodiversity</h2>
+<p>While there doesn’t seem to be a clear biodiversity signal overall, it is possible that something is occuring at the level of functional groups.</p>
+<pre class="r"><code>diversity_gr &lt;- percent_cover %&gt;% 
+  # first convert percentages to a proportion
+  mutate(proportion = percent_cover/100) %&gt;% 
+  filter(group %in% c(&quot;Grass&quot;, &quot;Forb&quot;, &quot;Legume&quot;)) %&gt;% 
+  group_by(year, month, block, treatment, group) %&gt;% 
+  # diversity indices for each group
+  summarise(richness = n(),
+            simpsons = sum(proportion^2),
+            shannon = -sum(proportion * log(proportion))) %&gt;% 
+  ungroup() %&gt;% 
+  pivot_longer(cols = c(richness, simpsons, shannon),
+               names_to = &quot;index&quot;) %&gt;% 
+  mutate(index_lab = case_when(
+    index == &quot;richness&quot; ~ &quot;Species richness&quot;,
+    index == &quot;simpsons&quot; ~ &quot;Simpson&#39;s index&quot;,
+    index == &quot;shannon&quot; ~ &quot;Shannon-Wiener index&quot;
+  ))
+
+diversity_gr %&gt;% 
+  filter(index_lab == &quot;Species richness&quot;) %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
+               size = 6, shape = 21, fill = &quot;white&quot;) +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Species richness&quot;) +
+  facet_wrap(~ group, ncol = 3, scales = &quot;free&quot;) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/functional%20group%20biodiversity-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>diversity_gr %&gt;% 
+  filter(index_lab == &quot;Shannon-Wiener index&quot;) %&gt;% 
+  ggplot(aes(x = treatment, y = value, 
+             fill = treatment)) +
+  geom_violin() +
+  stat_summary(fun = mean, geom = &quot;point&quot;, 
+               size = 6, shape = 21, fill = &quot;white&quot;) +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  scale_fill_manual(values = raindrop_colours$colour,
+                    guide = F) +
+  labs(x = &quot;Rainfall treatment&quot;, y = &quot;Shannon-Wiener index&quot;) +
+  facet_wrap(~ group, ncol = 3, scales = &quot;free&quot;) +
+  theme_bw(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/functional%20group%20biodiversity-2.png" width="1248" style="display: block; margin: auto;" /></p>
+<p>Here, it does look like there may be some weak effects. Specifically, it looks like there may be more forb species in the Drought treatment.</p>
+</div>
+</div>
+<div id="community-structure" class="section level1">
+<h1>3. Community structure</h1>
 <p>While there may not be overall patterns in species diversity, what is interesting whether there are shifts to community structure. So, here we can perform a simple <strong>non-metric multidimensional scaling</strong> (NMDS) analysis, to look at changes to community structure with our treatments, general plant types, and also whether there are key species.</p>
 <p>Here we perform the NMDS analysis using the <code>vegan</code> package, with two dimensions for 122 species in total and using the default bray distances. Firstly some cleaning though, to convert the percent cover data to a species by sample (our plots) matrix.</p>
 <pre class="r"><code># data frame of the community matrix
-species_community_df &lt;- percent_cover %&gt;%
-  mutate(sample = paste(month, year, block, treatment, sep = &quot;_&quot;)) %&gt;%
-  filter(species_level == &quot;Yes&quot;) %&gt;%
-  dplyr::select(sample, species, percent_cover) %&gt;%
+species_community_df &lt;- percent_cover %&gt;% 
+  mutate(sample = paste(month, year, block, treatment, sep = &quot;_&quot;)) %&gt;% 
+  filter(species_level == &quot;Yes&quot;) %&gt;% 
+  dplyr::select(sample, species, percent_cover) %&gt;% 
   pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
               values_fill = 0)
 
 # convert to a matrix
-species_community_mat &lt;- as.matrix(species_community_df[,2:123])
+species_community_mat &lt;- as.matrix(species_community_df[,2:125])
 rownames(species_community_mat) &lt;- species_community_df$sample
 
 # have a look
 glimpse(species_community_mat)
 
 # the NMDS
-raindrop_NMDS &lt;- metaMDS(species_community_mat, k = 2, trymax = 500)</code></pre>
-<p>And now we can pull out the NMDS scores (2 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure.</p>
+raindrop_NMDS &lt;- metaMDS(species_community_mat, k = 3, trymax = 1000) # Seems to be 3 dimensions with the new data</code></pre>
+<p>And now we can pull out the NMDS scores (3 dimensions), and explore their patterns in relation to the RainDrop study. First we look at the rainfall treatments in relation to community structure. Focusing on the first 2 dimensions for initial plotting.</p>
 <pre class="r"><code># scores and species points
-rd_scores &lt;- as.data.frame(raindrop_NMDS$points)
-rd_species &lt;- as.data.frame(raindrop_NMDS$species)
+rd_scores &lt;- as.data.frame(raindrop_NMDS$points) 
+rd_species &lt;- as.data.frame(raindrop_NMDS$species) 
 
 # converting to a nice data frame
 rd_scores &lt;- rd_scores %&gt;%
-  mutate(plot = rownames(.)) %&gt;%
+  mutate(plot = rownames(.)) %&gt;% 
   mutate(month = as.character(map(strsplit(plot, &quot;_&quot;), 1)),
          year = as.numeric(map(strsplit(plot, &quot;_&quot;), 2)),
          block = as.character(map(strsplit(plot, &quot;_&quot;), 3)),
          treatment = as.character(map(strsplit(plot, &quot;_&quot;), 4)))
 
 # and for species
-species_types &lt;- percent_cover %&gt;%
-  group_by(species) %&gt;%
-  summarise(plant_type = plant_type[1])
+species_types &lt;- percent_cover %&gt;% 
+  group_by(species) %&gt;% 
+  summarise(group = group[1])
 
 rd_species &lt;- rd_species %&gt;%
-  mutate(species = rownames(.)) %&gt;%
+  mutate(species = rownames(.)) %&gt;% 
   left_join(x = ., y = species_types, by = &quot;species&quot;)
 
 # treatment plot
-rd_scores %&gt;%
+rd_scores %&gt;% 
   ggplot(aes(x = MDS1, y = MDS2, colour = treatment)) +
   geom_point(alpha = 0.8, size = 4) +
   stat_ellipse(level = 0.8, size = 1, show.legend = F) +
@@ -1163,7 +1279,7 @@ rd_scores %&gt;%
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/NMDS%20data%20abd%20treatment%20plot-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>And now whether there are any interesting temporal effects</p>
-<pre class="r"><code>rd_scores %&gt;%
+<pre class="r"><code>rd_scores %&gt;% 
   ggplot(aes(x = MDS1, y = MDS2, colour = as.factor(year))) +
   geom_point(alpha = 0.8, size = 4) +
   stat_ellipse(level = 0.8, size = 1, show.legend = F) +
@@ -1172,23 +1288,82 @@ rd_scores %&gt;%
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/temporal%20effects-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>It does look like there are interesting temporal patterns in community structure here.</p>
+<p>It does look like there are interesting temporal patterns in community structure here. Lets look at treatment by year all connected together.</p>
+<div id="exploring-quadrat-level-trajectories" class="section level2">
+<h2>Exploring quadrat-level trajectories</h2>
+<p>To dig a little deeper into these temporal effects, we can now explore the community trajectories through time for each observation quadrat. The overall data looks like this:</p>
+<pre class="r"><code>rd_scores %&gt;% 
+  mutate(block_treatment = paste0(block, &quot;_&quot;, treatment)) %&gt;% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = year, shape = treatment, 
+             group = block_treatment)) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Year&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/temporal%20effects%20plus%20treatment-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And now we will look at large plots exploring the trajectories of the three community structure components for each quadrat.</p>
+<pre class="r"><code>rd_scores %&gt;% 
+  mutate(block_treatment = paste0(block, &quot;_&quot;, treatment)) %&gt;% 
+  ggplot(aes(x = year, y = MDS1,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = &quot;none&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;NMDS1&quot;, colour = &quot;Treatment&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/temporal%20effects%20trajectories-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>rd_scores %&gt;% 
+  mutate(block_treatment = paste0(block, &quot;_&quot;, treatment)) %&gt;% 
+  ggplot(aes(x = year, y = MDS2,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = &quot;none&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;NMDS2&quot;, colour = &quot;Treatment&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/temporal%20effects%20trajectories-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>rd_scores %&gt;% 
+  mutate(block_treatment = paste0(block, &quot;_&quot;, treatment)) %&gt;% 
+  ggplot(aes(x = year, y = MDS3,  colour = treatment, 
+             group = block_treatment)) +
+  geom_hline(yintercept = 0, size = 0.5) +
+  geom_line(size = 1) +
+  geom_point(size = 4) +
+  facet_wrap(~ treatment, ncol = 4) +
+  scale_colour_manual(values = raindrop_colours$colour, guide = &quot;none&quot;) +
+  labs(x = &quot;Year&quot;, y = &quot;NMDS3&quot;, colour = &quot;Treatment&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/temporal%20effects%20trajectories-3.png" width="1440" style="display: block; margin: auto;" /></p>
+</div>
+<div id="species-importance" class="section level2">
+<h2>Species importance</h2>
 <p>And we can now see whether there are important groups of species or groups of species that may be driving community structure differences. This is essentially the ‘loading’ of each species to the two NMDS axes.</p>
 <pre class="r"><code># pulling the 95% quantiles to identify most extreme data
 q1 &lt;- quantile(rd_species$MDS1, c(0.025, 0.975))
 q2 &lt;- quantile(rd_species$MDS2, c(0.025, 0.975))
 
-rd_species_extreme &lt;- rd_species %&gt;%
+rd_species_extreme &lt;- rd_species %&gt;% 
   mutate(species_lab = gsub(&quot;_&quot;, &quot; &quot;, species),
          extreme_species = if_else(MDS1 &gt; q1[2] | MDS1 &lt; q1[1] |
                                      MDS2 &gt; q2[2] | MDS2 &lt; q2[1],
                                    &quot;yes&quot;, &quot;no&quot;))
 
 ggplot(rd_species_extreme,
-       aes(x = MDS1, y = MDS2, colour = plant_type)) +
+       aes(x = MDS1, y = MDS2, colour = group)) +
   geom_point(alpha = 0.8, size = 4) +
   stat_ellipse(level = 0.8, size = 1, show.legend = F) +
-  geom_text(data = filter(rd_species_extreme,
+  geom_text(data = filter(rd_species_extreme, 
                           extreme_species == &quot;yes&quot;),
             aes(label = species_lab), nudge_y = -0.1, show.legend = F) +
   labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Plant\ntype&quot;) +
@@ -1196,6 +1371,83 @@ ggplot(rd_species_extreme,
   theme_bw(base_size = 14) +
   theme(panel.grid = element_blank())</code></pre>
 <p><img src="figure/exploratory_analysis.Rmd/species%20nmds-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="functional-group-community-structure" class="section level2">
+<h2>Functional group community structure</h2>
+<p>Now, rather than focusing on the whole community, we will dig down in to each functional group itself and look at the specific structure of that functional group.</p>
+<pre class="r"><code># data frame of the community matrices
+graminoid_community_df &lt;- percent_cover %&gt;% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = &quot;_&quot;)) %&gt;% 
+  filter(species_level == &quot;Yes&quot; &amp; group == &quot;Grass&quot;) %&gt;% 
+  dplyr::select(sample, species, percent_cover) %&gt;% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+forb_community_df &lt;- percent_cover %&gt;% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = &quot;_&quot;)) %&gt;% 
+  filter(species_level == &quot;Yes&quot; &amp; group == &quot;Forb&quot;) %&gt;% 
+  dplyr::select(sample, species, percent_cover) %&gt;% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+legume_community_df &lt;- percent_cover %&gt;% 
+  mutate(sample = paste(month, year, block, treatment, group, sep = &quot;_&quot;)) %&gt;% 
+  filter(species_level == &quot;Yes&quot; &amp; group == &quot;Legume&quot;) %&gt;% 
+  dplyr::select(sample, species, percent_cover) %&gt;% 
+  pivot_wider(id_cols = sample, names_from = species, values_from = percent_cover,
+              values_fill = 0)
+
+# convert to matrices
+graminoid_community_mat &lt;- as.matrix(graminoid_community_df[,2:ncol(graminoid_community_df)])
+rownames(graminoid_community_mat) &lt;- graminoid_community_df$sample
+
+forb_community_mat &lt;- as.matrix(forb_community_df[,2:ncol(forb_community_df)])
+rownames(forb_community_mat) &lt;- forb_community_df$sample
+
+legume_community_mat &lt;- as.matrix(legume_community_df[,2:ncol(legume_community_df)])
+rownames(legume_community_mat) &lt;- legume_community_df$sample
+
+# the NMDS analyses
+graminoid_NMDS &lt;- metaMDS(graminoid_community_mat, k = 3, trymax = 500)
+forb_NMDS &lt;- metaMDS(forb_community_mat, k = 3, trymax = 500)
+legume_NMDS &lt;- metaMDS(legume_community_mat, k = 3, trymax = 500)
+
+# scores as a nice data frame
+graminoid_scores &lt;- as.data.frame(graminoid_NMDS$points) %&gt;%
+  mutate(plot = rownames(.)) %&gt;% 
+  mutate(month = as.character(map(strsplit(plot, &quot;_&quot;), 1)),
+         year = as.numeric(map(strsplit(plot, &quot;_&quot;), 2)),
+         block = as.character(map(strsplit(plot, &quot;_&quot;), 3)),
+         treatment = as.character(map(strsplit(plot, &quot;_&quot;), 4)),
+         group = &quot;Graminoid&quot;)
+
+forb_scores &lt;- as.data.frame(forb_NMDS$points) %&gt;%
+  mutate(plot = rownames(.)) %&gt;% 
+  mutate(month = as.character(map(strsplit(plot, &quot;_&quot;), 1)),
+         year = as.numeric(map(strsplit(plot, &quot;_&quot;), 2)),
+         block = as.character(map(strsplit(plot, &quot;_&quot;), 3)),
+         treatment = as.character(map(strsplit(plot, &quot;_&quot;), 4)),
+         group = &quot;Forb&quot;)
+
+legume_scores &lt;- as.data.frame(legume_NMDS$points) %&gt;%
+  mutate(plot = rownames(.)) %&gt;% 
+  mutate(month = as.character(map(strsplit(plot, &quot;_&quot;), 1)),
+         year = as.numeric(map(strsplit(plot, &quot;_&quot;), 2)),
+         block = as.character(map(strsplit(plot, &quot;_&quot;), 3)),
+         treatment = as.character(map(strsplit(plot, &quot;_&quot;), 4)),
+         group = &quot;Legume&quot;)
+
+bind_rows(graminoid_scores, forb_scores, legume_scores) %&gt;% 
+  ggplot(aes(x = MDS1, y = MDS2, colour = treatment)) + 
+  geom_point() +
+  facet_wrap(~ group) +
+  stat_ellipse(level = 0.8, size = 1, show.legend = F) +
+  scale_colour_manual(values = raindrop_colours$colour) +
+  labs(x = &quot;NMDS1&quot;, y = &quot;NMDS2&quot;, colour = &quot;Rainfall\ntreatment&quot;) +
+  theme_bw(base_size = 14) +
+  theme(panel.grid = element_blank(),
+        strip.background = element_blank())</code></pre>
+<p><img src="figure/exploratory_analysis.Rmd/funct%20group%20nmds-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 <br>
 <p>
@@ -1212,41 +1464,40 @@ Running under: Windows 10 x64 (build 19042)
 Matrix products: default
 
 locale:
-[1] LC_COLLATE=English_United Kingdom.1252
-[2] LC_CTYPE=English_United Kingdom.1252
+[1] LC_COLLATE=English_United Kingdom.1252 
+[2] LC_CTYPE=English_United Kingdom.1252   
 [3] LC_MONETARY=English_United Kingdom.1252
-[4] LC_NUMERIC=C
-[5] LC_TIME=English_United Kingdom.1252
+[4] LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.1252    
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
  [1] vegan_2.5-7     lattice_0.20-41 permute_0.9-5   patchwork_1.1.1
- [5] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4
- [9] readr_1.4.0     tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.3
-[13] tidyverse_1.3.0
+ [5] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.5     purrr_0.3.4    
+ [9] readr_1.4.0     tidyr_1.1.3     tibble_3.1.0    ggplot2_3.3.5  
+[13] tidyverse_1.3.1 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2         sass_0.3.1         viridisLite_0.3.0  jsonlite_1.7.2
- [5] splines_4.0.5      modelr_0.1.8       bslib_0.2.4        assertthat_0.2.1
- [9] highr_0.8          cellranger_1.1.0   yaml_2.2.1         pillar_1.5.1
+ [1] httr_1.4.2         sass_0.4.0         jsonlite_1.7.2     viridisLite_0.3.0 
+ [5] splines_4.0.5      modelr_0.1.8       bslib_0.2.5.1      assertthat_0.2.1  
+ [9] highr_0.9          cellranger_1.1.0   yaml_2.2.1         pillar_1.6.2      
 [13] backports_1.2.1    glue_1.4.2         digest_0.6.27      RColorBrewer_1.1-2
-[17] promises_1.2.0.1   rvest_1.0.0        colorspace_2.0-0   htmltools_0.5.1.1
-[21] httpuv_1.5.5       Matrix_1.3-2       pkgconfig_2.0.3    broom_0.7.5
-[25] haven_2.3.1        scales_1.1.1       whisker_0.4        later_1.1.0.1
-[29] git2r_0.28.0       mgcv_1.8-34        generics_0.1.0     farver_2.1.0
-[33] ellipsis_0.3.1     withr_2.4.1        cli_2.3.1          magrittr_2.0.1
-[37] crayon_1.4.1       readxl_1.3.1       evaluate_0.14      ps_1.6.0
-[41] fs_1.5.0           fansi_0.4.2        nlme_3.1-152       MASS_7.3-53.1
-[45] xml2_1.3.2         tools_4.0.5        hms_1.0.0          lifecycle_1.0.0
-[49] munsell_0.5.0      reprex_2.0.0       cluster_2.1.1      compiler_4.0.5
-[53] jquerylib_0.1.3    rlang_0.4.10       grid_4.0.5         rstudioapi_0.13
-[57] labeling_0.4.2     rmarkdown_2.7      gtable_0.3.0       DBI_1.1.1
-[61] R6_2.5.0           lubridate_1.7.10   knitr_1.31         utf8_1.2.1
-[65] workflowr_1.6.2    rprojroot_2.0.2    stringi_1.5.3      parallel_4.0.5
-[69] Rcpp_1.0.6         vctrs_0.3.7        dbplyr_2.1.0       tidyselect_1.1.0
-[73] xfun_0.22         </code></pre>
+[17] promises_1.2.0.1   rvest_1.0.1        colorspace_2.0-0   htmltools_0.5.1.1 
+[21] httpuv_1.6.1       Matrix_1.3-2       pkgconfig_2.0.3    broom_0.7.9       
+[25] haven_2.3.1        scales_1.1.1       whisker_0.4        later_1.2.0       
+[29] git2r_0.28.0       mgcv_1.8-34        generics_0.1.0     farver_2.1.0      
+[33] ellipsis_0.3.2     withr_2.4.2        cli_3.0.1          magrittr_2.0.1    
+[37] crayon_1.4.1       readxl_1.3.1       evaluate_0.14      fs_1.5.0          
+[41] fansi_0.4.2        nlme_3.1-152       MASS_7.3-53.1      xml2_1.3.2        
+[45] tools_4.0.5        hms_1.1.0          lifecycle_1.0.0    munsell_0.5.0     
+[49] reprex_2.0.1       cluster_2.1.1      compiler_4.0.5     jquerylib_0.1.4   
+[53] rlang_0.4.11       grid_4.0.5         rstudioapi_0.13    labeling_0.4.2    
+[57] rmarkdown_2.10     gtable_0.3.0       DBI_1.1.1          R6_2.5.0          
+[61] lubridate_1.7.10   knitr_1.33         utf8_1.2.1         rprojroot_2.0.2   
+[65] stringi_1.5.3      parallel_4.0.5     Rcpp_1.0.7         vctrs_0.3.8       
+[69] dbplyr_2.1.1       tidyselect_1.1.1   xfun_0.29         </code></pre>
 </div>
 </div>
 </div>
@@ -1308,6 +1559,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
